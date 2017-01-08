@@ -12,3 +12,4 @@ From the assignment page:
 
 anyaL -- 2017-12-31 23:59
 Added Foundation files
+Created template file and gitignore
