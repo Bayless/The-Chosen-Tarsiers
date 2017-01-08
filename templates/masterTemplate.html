@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!-- first line in child of this template should be  extends "masterTemplate.html" in { with % -->
+    <html>
+
+        <head>
+            <link rel="stylesheet" href="css/foundation.css">
+            <link rel="shortcut icon" href="http://www.iconj.com/ico/e/1/e1ywe73fzl.ico" type="image/x-icon" />
+            <title> {% block title_block %} masterTemplate {% endblock %} </title> <!--page title-->
+        </head>
+
+        <body>
+
+            {% block body %}
+            This is the body
+            {% endblock  %}
+
+        </body>
+
+        <script type="text/javascript" src="js/vendor/jquery.js"></script>
+        <!-- this will include every plugin and utility required by Foundation -->
+        <script type="text/javascript" src="js/vendor/foundation.min.js"></script>
+        <script>
+$(document).foundation();
+        </script></script></script></script>
+
+    </html>
