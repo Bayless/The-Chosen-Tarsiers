@@ -1,27 +1,55 @@
 <!DOCTYPE html>
+<!-- first line in child of this template should be  extends "masterTemplate.html" in { with % -->
+
 <html lang="en">
-    <!-- first line in child of this template should be  extends "masterTemplate.html" in { with % -->
-    <html>
+    <head>
+        <title>
+            Magic Music Matcher
+            {% block title %}
+            {% endblock %}
+        </title>
+        <link rel="stylesheet" href="static/css/foundation.css">
 
-        <head>
-            <link rel="stylesheet" href="css/foundation.css">
-            <link rel="shortcut icon" href="http://www.iconj.com/ico/e/1/e1ywe73fzl.ico" type="image/x-icon" />
-            <title> {% block title_block %} masterTemplate {% endblock %} </title> <!--page title-->
-        </head>
+        <style>
+        {% block inline_css %}
+        {% endblock %}
+        </style>
 
-        <body>
+    </head>
 
-            {% block body %}
-            This is the body
-            {% endblock  %}
+    <body>
+        <div class="top-bar">
+            <div class="top-bar-left">
+                <ul class="menu">
+                    <a href = "/"> <li class="menu-text">Magic Music Matcher</li> </a>
+                    {% block top_bar_left %}
+                    {% endblock %}
+                </ul>
+            </div>
+            <div class="top-bar-right">
+                <ul class="menu">
+                    {% block top_bar_right %}
+                    {% endblock %}
+                </ul>
+           </div>
+        </div>
 
-        </body>
+            <section id="potato" data-magellan-target="potato">
 
-        <script type="text/javascript" src="js/vendor/jquery.js"></script>
+                <div class="row">
+                    <div class="columns small-12">
+                        {% block body %}
+                        This is the body
+                        {% endblock  %}
+                    </div>
+                </div>
+            </section>
+
+        <script type="text/javascript" src="static/js/vendor/jquery.js"></script>
         <!-- this will include every plugin and utility required by Foundation -->
-        <script type="text/javascript" src="js/vendor/foundation.min.js"></script>
+        <script type="text/javascript" src="static/js/vendor/foundation.min.js"></script>
         <script>
 $(document).foundation();
-        </script></script></script></script>
-
-    </html>
+        </script>
+    </body>
+</html>

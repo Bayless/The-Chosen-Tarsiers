@@ -1,0 +1,54 @@
+{% extends "masterTemplate.html" %}
+
+{% block title %}
+
+{% endblock %}
+
+
+
+{% block top_bar_right %}
+
+<ul class="menu">
+    <label> Have an account? <a data-open="loginModal1" class="button">Log in Here!</a> </label>
+
+    <div class="reveal" id="loginModal1" data-reveal>
+        <div class="row">
+            <h3 class="text-center"> User Login </h3>
+            <form data-abide novalidate>
+
+                <!-- <div data-abide-error class="alert callout" style="display: none;">
+                    <p><i class="fi-alert"></i> Please check form for errors.</p>
+                </div> -->
+
+                <div class="row">
+                    <div class="small-12 columns">
+                        <label> Email
+                            <input type="text" placeholder="potato@spuds.corn" pattern="email" required>
+                            <span class="form-error">
+                                required
+                            </span>
+                        </label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="small-12 columns">
+                        <label>Enter Password
+                            <input type="password" id="password" placeholder="T@rsi3rs" required>
+                            <span class="form-error">
+                                required
+                            </span>
+                        </label>
+                    </div>
+                </div>
+                <button class="button expanded" type="submit" value="login">Log In</button>
+            </form>
+        </div>
+        <button class="close-button" data-close aria-label="Close reveal" type="button">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <!-- <li><input type="search" placeholder="Search"></li>
+        <li><button type="button" class="button">Search</button></li> -->
+</ul>
+{% endblock %}

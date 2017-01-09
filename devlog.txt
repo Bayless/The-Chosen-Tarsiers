@@ -13,3 +13,10 @@ From the assignment page:
 anyaL -- 2017-12-31 23:59
 Added Foundation files
 Created template file and gitignore
+
+anyaL -- 2017-1-9 12:54:45
+Finished top-bar for general template and for users who aren't logged in
+Finished front end for login/register page including forms with Foundation's Abide
+Spent too much time trying to figure out an easy way to test different page color combinations
+Started a js file to help me with that
+
