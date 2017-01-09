@@ -24,3 +24,8 @@ jasonM -- 2016-1-9 13:14
 Started the app.py
 Added folders js, data, static
 
+roddaJ -- 2016-1-9 14:05
+Started work on the API
+Got a basic search query working, need to get it working with header authorizations
+Need to add error handling
+Need to add key instructions
