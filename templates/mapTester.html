@@ -1,9 +1,19 @@
 {% extends "loggedInTemplate.html" %}
 
+{% block head %}
+<link rel="stylesheet" href="static/css/jquery-jvectormap-2.0.1.css" type="text/css" media="screen"/>
+  <script src="static/js/jquery-3.1.1.min.js"></script>
+  <script src="static/js/jquery-jvectormap-2.0.1.min.js"></script>
+  <script src="static/jquery-jvectormap-world-mill.js"></script>
+{% endblock %}
 
 {% block body %}
 whoop
 
-<iframe src="https://www.makeaclickablemap.com/map.php?43e5c626bd574be04f218ab6938e0e9da005d0fa" frameborder="0" scrolling="no" height="720" width="960"></iframe>
-
+<div id="world-map" style="width: 600px; height: 400px"></div>
+  <script>
+    $(function(){
+      $('#world-map').vectorMap({map: 'world_mill'});
+    });
+  </script>
 {% endblock %}
