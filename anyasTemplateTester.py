@@ -16,5 +16,5 @@ def mapTester():
         return render_template("mapTester.html")
 
 if __name__ == "__main__":
-    #app.debug = True
+    app.debug = True
     app.run()
