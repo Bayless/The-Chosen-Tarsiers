@@ -1,4 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash
+import utils
+from utils import accountManager
 
 app = Flask(__name__)
 
@@ -23,7 +25,7 @@ def authOrCreate():
         elif statusNum == 1:
             session["username"]=username
             loginStatus = username + " logged in"
-            return redirect( "/profile" )
+            return redirect( "/map" )
         elif statusNum == 2:
             loginStatus = "wrong password"
 
@@ -44,7 +46,7 @@ def authOrCreate():
 
         return render_template("notLoggedIn.html",status=registerStatus, message=True) #status is the login/creation messate 
     else:
-        return redirect(url_for("loginOrReg"))
+        return redirect(url_for("loginOrRegister"))
 
 #logout of user
 @app.route('/logout', methods=["POST", "GET"])
