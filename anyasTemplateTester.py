@@ -11,6 +11,10 @@ def index():
 def notLoggedIn():
         return render_template("notLoggedIn.html")
 
+@app.route("/map")
+def mapTester():
+        return render_template("mapTester.html")
+
 if __name__ == "__main__":
     #app.debug = True
     app.run()

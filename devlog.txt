@@ -29,3 +29,6 @@ Started work on the API
 Got a basic search query working, need to get it working with header authorizations
 Need to add error handling
 Need to add key instructions
+
+anyaL -- 2017-1-9 23:24:31
+Fussed around with clickable map to no avail
