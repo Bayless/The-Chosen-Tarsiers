@@ -1,19 +1,18 @@
 {% extends "loggedInTemplate.html" %}
 
 {% block head %}
-<link rel="stylesheet" href="static/css/jquery-jvectormap-2.0.1.css" type="text/css" media="screen"/>
-  <script src="static/js/jquery-3.1.1.min.js"></script>
-  <script src="static/js/jquery-jvectormap-2.0.1.min.js"></script>
-  <script src="static/jquery-jvectormap-world-mill.js"></script>
+<link rel="stylesheet" href="static/css/jquery-jvectormap-2.0.3.css" type="text/css" media="screen"/>
+<script src="static/js/jquery-jvectormap-2.0.3.min.js"></script>
+<script src="static/jquery-jvectormap-world-mill.js"></script>
 {% endblock %}
 
 {% block body %}
 whoop
 
 <div id="world-map" style="width: 600px; height: 400px"></div>
-  <script>
-    $(function(){
-      $('#world-map').vectorMap({map: 'world_mill'});
-    });
-  </script>
+<script>
+$(function(){
+    $('#world-map').vectorMap({map: 'world_mill'});
+});
+</script>
 {% endblock %}
