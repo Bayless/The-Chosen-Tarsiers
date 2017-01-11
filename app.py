@@ -3,6 +3,9 @@ import utils
 from utils import accountManager
 
 app = Flask(__name__)
+f = open( "utils/key", 'r' )
+app.secret_key = f.read();
+f.close
 
 @app.route("/")
 def loginOrRegister():
