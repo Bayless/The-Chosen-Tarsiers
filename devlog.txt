@@ -39,3 +39,7 @@ I must work on getting this saved the db, for the refresh purpose
 
 anyaL -- 2017-1-10 9:41:41
 Finally got new javascript-based map to load on page thanks with the help of Danny Qiu (stuy class of 2015) who pointed out something silly
+
+anyaL -- 2017-1-11 18:33:04
+Got map zooming to work
+Fixed navbar for logged in users

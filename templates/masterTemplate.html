@@ -11,22 +11,28 @@
         <link rel="stylesheet" href="static/css/foundation.css">
 
         <style>
-        {% block inline_css %}
-        {% endblock %}
+{% block inline_css %}
+{% endblock %}
         </style>
-	
+
         <script type="text/javascript" src="static/js/vendor/jquery.js"></script>
 
-	{% block head %}
-	{% endblock %}
+        {% block head %}
+        {% endblock %}
     </head>
 
     <body>
         <div class="top-bar">
             <div class="top-bar-left">
                 <ul class="menu">
-                    <a href = "/"> <li class="menu-text">Magic Music Matcher</li> </a>
+                    <li class="menu-text">  <a href = "/"> Magic Music Matcher </a> </li>
                     {% block top_bar_left %}
+                    {% endblock %}
+                </ul>
+            </div>
+            <div class="top-bar-center">
+                <ul class="menu">
+                    {% block top_bar_center %}
                     {% endblock %}
                 </ul>
             </div>
@@ -35,19 +41,19 @@
                     {% block top_bar_right %}
                     {% endblock %}
                 </ul>
-           </div>
+            </div>
         </div>
 
-            <section id="potato" data-magellan-target="potato">
+        <section id="potato" data-magellan-target="potato">
 
-                <div class="row">
-                    <div class="columns small-12">
-                        {% block body %}
-                        This is the body
-                        {% endblock  %}
-                    </div>
+            <div class="row">
+                <div class="columns small-12">
+                    {% block body %}
+                    This is the body
+                    {% endblock  %}
                 </div>
-            </section>
+            </div>
+        </section>
 
         <!-- this will include every plugin and utility required by Foundation -->
         <script type="text/javascript" src="static/js/vendor/foundation.min.js"></script>

@@ -1,9 +1,15 @@
 {% extends "masterTemplate.html" %}
 
 {% block top_bar_left %}
-<li><a href="#">Two</a></li>
-<li><a href="#">Three</a></li>
+<li><a href="#">Suggest a Song</a></li>
+<li><a href="#">My Songs</a></li>
 <li><input type="search" placeholder="Search"></li>
 <li><button type="button" class="button">Search</button></li>
+{% endblock %}
 
+
+{% block top_bar_right %}
+<li class="menu-text">
+    <a href="#"> Logout </a>
+</li>
 {% endblock %}
