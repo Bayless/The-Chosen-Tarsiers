@@ -58,7 +58,7 @@ text-align: center;
     <div class="large-6 columns">
         <div class="profile-card">
         <p><h3 class="text-center">Create an Account</h3></p>
-        <form data-abide novalidate>
+        <form data-abide novalidate method="POST" action="{{ url_for('authOrCreate') }}">
             <div data-abide-error class="alert callout" style="display: none;">
                 <p><i class="fi-alert"></i> Please check form for errors.</p>
             </div>
@@ -66,20 +66,20 @@ text-align: center;
             <div class="row">
                 <div class="small-12 columns">
                     <label> Email
-                        <input type="text" placeholder="potato@spuds.corn" pattern="email" required>
+                        <input type="text" name="username" placeholder="potato@spuds.corn" pattern="email" required>
                     </label>
                 </div>
             </div>
             <div class="row">
                 <div class="small-12 columns">
                     <label>Enter Password
-                        <input type="password" id="password" placeholder="T@rsi3rs" aria-describedby="passwordHelpText" required>
+                        <input type="password" name="password" placeholder="T@rsi3rs" aria-describedby="passwordHelpText" required>
                     </label>
                     <p class="help-text" id="passwordHelpText">Password must be at least eight chracters in length and must include at least one number, upppercase letter, lower case letter, and special chracter.</p>
                 </div>
                 <div class="small-12 columns">
                     <label>Re-enter Password
-                        <input type="password" placeholder="T@rsi3rs" data-equalto="password" required>
+                        <input type="password" name="pwd" placeholder="T@rsi3rs" data-equalto="password" required>
                         <span class="form-error">
                             Passwords are supposed match
                         </span>
