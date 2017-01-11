@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>The Music Matcher</title>
+    
+    <meta charset="utf-8" />
+    <meta name="robots" content="index,follow" />
+    
+    <link type="text/css" rel="stylesheet" href="css/theme.css" />
+    <link rel="shortcut icon" href="images/favicon.ico" />
+    
+    <!-- Add pretty fonts before body to reduce font pop -->
+    <script type="text/javascript" src="http://use.typekit.com/ikd3lyx.js"></script>
+    <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+    
+    
+    <!-- Load jquery, swfobject and our service -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="javascript/swfobject/swfobject.js"></script> 
+    <script src="javascript/moretracks.js" type="text/javascript"></script>
+
+</head>
+<body>
+    <!-- Wrapper. Start -->
+    <div id="wrapper">
+    
+    <!-- Header -->
+    <header id="mainHeader">
+        <h1>The Music Matcher</h1>
+        
+        <section id="intro" class="font_prater_sans round">
+            <p><strong>Get more</strong> <em>Spotify</em> <strong>music recommendations</strong>, based on <strong>your favourite tracks</strong>.</p>
+            <p>Results are drawn from the listening habits of 40 million active <em>last.fm</em> subscribers.</p> 
+        </section>
+        
+            <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=amason"></script>
+        <!-- AddThis Button END -->
+        </div>
+
+    </header>
+    
+    <!-- Search -->
+    <section class="round tapeBox">
+        <header class="tapeTitle font_prater">Side A. Insert track or Spotify link</header>
+        <form id="searchForm" class="font_prater_sans">
+            <div class="round">
+                <p>
+                    <label for="track">Track Name</label>
+                    <input type="text" name="track" id="track" class="font_prater_sans" value="Re: Your Brains" />
+                </p>
+                
+                <p>
+                    <label for="artist">Artist Name</label>
+                    <input type="text" name="artist" id="artist" class="font_prater_sans" value="Jonathan Coulton" />
+                </p>
+            </div>
+             
+           
+            
+             <div class="round">
+                <p>
+                    <label for="lookup">Spotify link</label>
+                    <input type="text" name="lookup" id="lookup" class="font_prater_sans" placeholder="Hate typing?  Just drag a spotify track here." />
+                </p>
+            </div>
+            
+            <p id="searchField">
+                <input type="image" id="search" value="Search" class="font_prater_sans" title="Run DMC" src="images/search_button.png" />
+            </p>
+           
+        </form>
+        
+    </section>
+    
+    <div id="messages" class="round"></div>
+    
+    <!-- Results -->
+    <div id="results" class="round">
+         <header class="tapeTitle font_prater">Side B. Track list</header>
+        <ul id="resultsList">
+          
+        </ul>
+        
+       
+        
+    </div>
+    
+    
+     <div id="buildingMsg" class="round"></div>
+    
+    <div id="complete" class="round">
+             <div id="dragpic">
+                <div id="dragger" title="Drag into Spotify">
+                    bananas
+                </div>
+            </div>
+            <p>Or copy and paste &amp; links below into Spotify</p>
+            <textarea id="results-textarea">
+            </textarea>
+            
+             <div id="clippy"></div>      
+    
+            <style>
+            #results {
+                display:none;
+            }
+            
+            #dragpic {
+                background:url(images/drag_button.png);
+                width: 166px;
+                height: 185px;
+                cursor: pointer;
+            }
+            #dragger {
+                width: 200px;
+                height: 105px;
+                cursor: pointer;
+                overflow: hidden;
+                opacity: 0;
+                font-size:39px;
+            }
+            </style>
+            
+            
+            
+            
+            
+        </div>
+    
+    <footer>
+    </footer>
+    
+    <!-- Wrapper. End -->
+    </div>
+    
+    <div id="tapeEnd"></div>
+    
+    
+</body>
+</html>

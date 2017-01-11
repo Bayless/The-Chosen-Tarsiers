@@ -4,17 +4,14 @@ import requests
 import urllib, urllib2
 import base64
 import json
+import spotify_db_manager
+import time
 
-# search_field should be a string of the search field
-# type should be either album, artist, playlist, or track
-def search(search_field = '', type='artist'):
-    query_request = {'q' : search_field, 'type' : type}
-    encoded = urllib.urlencode(query_request)
-    
+def get_access_token():
     url = 'https://accounts.spotify.com/api/token'
 
-    CLIENT_ID = open('spotify_key').read().split('\n')[0]
-    CLIENT_SECRET = open('spotify_key').read().split('\n')[1]
+    CLIENT_ID = open('utils/spotify_key').read().split('\n')[0]
+    CLIENT_SECRET = open('utils/spotify_key').read().split('\n')[1]
 
     base64encoded = base64.b64encode("{}:{}".format(CLIENT_ID, CLIENT_SECRET))
     headers = {"Authorization": "Basic {}".format(base64encoded)}
@@ -30,8 +27,35 @@ def search(search_field = '', type='artist'):
     response = urllib2.urlopen(r, timeout = 30).read()
     response_data = json.loads(response)
     
+    return response_data
+
+def authenticate():
+    response = spotify_db_manager.get_current_access_token()
+
+    if not response:
+        token = get_access_token()
+        spotify_db_manager.new_access_token(token['access_token'], time.time() + int(token['expires_in']))
+
+    return spotify_db_manager.get_current_access_token()
+
+# search_field should be a string of the search field
+# type should be either album, artist, playlist, or track
+def search(search_field = '', type='artist'):
+    query_request = {'q' : search_field, 'type' : type}
+    encoded = urllib.urlencode(query_request)
+
+    url = 'https://api.spotify.com/v1/search?' + encoded
+
+    headers = {"Authorization": "Bearer " + authenticate()}
+    
+    r = urllib2.Request(url, headers = headers)
+
+    response = urllib2.urlopen(r, timeout = 30).read()
+    response_data = json.loads(response)
+    
     print response_data
 
 
-search('hi')
+#search('hi')
+print search('hi')
     

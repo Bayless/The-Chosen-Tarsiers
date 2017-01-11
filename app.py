@@ -3,13 +3,16 @@ import utils
 from utils import accountManager
 
 app = Flask(__name__)
+f = open( "utils/key", 'r' )
+app.secret_key = f.read();
+f.close
 
 @app.route("/")
 def loginOrRegister():
     if 'username' in session:
         return redirect("/map")
     else:
-        return render_template("notLoggedIn.html", username=True, message=False)
+        return render_template("notLoggedIn.html")
 
 
 @app.route("/authOrCreate", methods=["POST"])
@@ -25,13 +28,12 @@ def authOrCreate():
         elif statusNum == 1:
             session["username"]=username
             loginStatus = username + " logged in"
-            return redirect( "/map" )
+            return redirect( url_for("mapTester") )
         elif statusNum == 2:
             loginStatus = "wrong password"
 
-        return render_template("notLoggedIn.html",status=loginStatus, message=True)
-
-    elif formDict["logOrReg"] == "register":  #registering
+        return render_template("notLoggedIn.html")
+    elif formDict["logOrReg"] == "register":
         username = formDict["username"]
         password = formDict["password"]
         pwd = formDict["pwd"]  #confirm password
@@ -44,9 +46,10 @@ def authOrCreate():
         elif statusNum == 2:
             registerStatus = username +" account created"
 
-        return render_template("notLoggedIn.html",status=registerStatus, message=True) #status is the login/creation messate 
+        return render_template("notLoggedIn.html") #status is the login/creation messate
     else:
-        return redirect(url_for("loginOrRegister"))
+        return redirect(url_for("loginOrRegister"))  
+
 
 #logout of user
 @app.route('/logout', methods=["POST", "GET"])
@@ -61,5 +64,5 @@ def mapTester():
         return render_template("mapTester.html")
 
 if __name__ == "__main__":
-    #app.debug = True                                                                                                        
+    app.debug = True                                                                                                        
     app.run()

@@ -1,2 +1,4 @@
 *.swp
-utils/spotify_key
+*key
+*.db
+*~
