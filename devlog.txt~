@@ -22,5 +22,20 @@ Started a js file to help me with that
 
 jasonM -- 2016-1-9 13:14
 Started the app.py
-Added folders templates, js,  data, static
+Added folders js, data, static
 
+roddaJ -- 2016-1-9 14:05
+Started work on the API
+Got a basic search query working, need to get it working with header authorizations
+Need to add error handling
+Need to add key instructions
+
+anyaL -- 2017-1-9 23:24:31
+Fussed around with clickable map to no avail
+
+roddaJ -- 2016-1-10 14:05
+Got Spotify authentication working -- in the search_field method
+I must work on getting this saved the db, for the refresh purpose
+
+anyaL -- 2017-1-10 9:41:41
+Finally got new javascript-based map to load on page thanks with the help of Danny Qiu (stuy class of 2015) who pointed out something silly
