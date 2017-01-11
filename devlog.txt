@@ -51,6 +51,11 @@ Finally got new javascript-based map to load on page thanks with the help of Dan
 bayleS -- 2017-1-10 23:00
 connected login and register with the template
 
-================2017-1-10================
+================2017-1-11================
 
-
+roddaJ -- 2017-1-11 14:03
+Got Spotify authentication working
+It saves the access token in the database
+Every time a spotify request is issued, it checks the access token
+If no valid access token, it issues a specially formatted POST request to get the access_token
+Search is now 100% working, complete with authentication
