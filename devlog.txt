@@ -63,3 +63,9 @@ Search is now 100% working, complete with authentication
 anyaL -- 2017-1-11 18:33:04
 Got map zooming to work
 Fixed navbar for logged in users
+
+================2017-1-12================
+
+anyaL -- 2017-1-12 18:33:34
+Countries are now selectable on the map
+Figured out how to link country click to redirect

@@ -13,7 +13,11 @@ def notLoggedIn():
 
 @app.route("/map")
 def mapTester():
-        return render_template("mapTester.html")
+        return render_template("findSong.html")
+
+@app.route("/auto")
+def autoTester():
+        return render_template("autocompleteTester.html")
 
 if __name__ == "__main__":
     app.debug = True
