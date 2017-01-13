@@ -74,3 +74,9 @@ Created testing page to deal with simplest case of similar songs
 anyaL -- 2017-1-12 18:33:34
 Countries are now selectable on the map
 Figured out how to link country click to redirect
+
+================2017-1-13================
+
+roddaJ -- 2017-1-13 13:59:12
+More spotify routes added
+last.fm is now also working
