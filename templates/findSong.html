@@ -6,23 +6,70 @@
 <script src="static/maps/jquery-jvectormap-world-mill.js"></script>
 
 <style>
+@import url(//fonts.googleapis.com/css?family=Roboto:400,500,300,100,700,900);
 
+.card {
+    font-family: 'Roboto', sans-serif;
+    overflow: hidden;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+    color: #272727;
+    border-radius: 2px; }
+.card .title {
+    line-height: 3rem;
+    font-size: 1.5rem;
+    font-weight: 300; }
+.card .content {
+    padding: 1.3rem;
+    font-weight: 300;
+    border-radius: 0 0 2px 2px; }
+.card p {
+    margin: 0; }
+.card .action {
+    border-top: 1px solid rgba(160, 160, 160, 0.2);
+    padding: 1.3rem; }
+.card a {
+    color: #ffab40;
+    margin-right: 1.3rem;
+    transition: color 0.3s ease;
+    text-transform: uppercase;
+    text-decoration: none; }
+.card .image {
+    position: relative; }
+.card .image .title {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    padding: 1.3rem;
+    color: #fff; }
+.card .image img {
+    border-radius: 2px 2px 0 0; }
 
 </style>
 {% endblock %}
 
 {% block body %}
 <center>
-    <div class="row large-12 columns">
-        <div class="columns">
-        <br>
-        <h3> Select a country or search for a song to get started!</h3>
-
-        <div id="world-map" style="width: 600px; height: 400px"></div>
+    <br>
+    <div class="row">
+        <div class="medium-6 columns">
+            <div class="card">
+                <div class="content">
+                    <span class=title"> Select a country or search for a song to get started!</span>
+                </div>
+                <div class="action">
+                    <div id="world-map" style="width: 520px; height: 350px"></div>
+                </div>
+            </div>
         </div>
-
-
-        <div class="medium-5 columns">
+        <div class="medium-6 columns">
+            <div class="card">
+                <div class="content">
+                    <span class=title"> Generated Country </span>
+                </div>
+                <div class="action">
+                    <div id="world-map2" style="width: 520px; height: 350px"></div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -48,6 +95,27 @@ $(function(){
             console.log(map.getSelectedRegions());
         },
 
+        //set selectd region styling
+        regionStyle: {
+            selected: {
+                fill: 'blue'
+            }
+        }
+    });
+
+});
+
+//map2
+$(function(){
+    var map2;
+    map2 = new jvm.Map({
+        map: 'world_mill', //set the map file
+        container: $('#world-map2'), //how to tag the map div
+
+        //if a region is clicked
+        onRegionClick: function(e, code){
+            console.log("region: " + code); //log it for debugging
+        },
         //set selectd region styling
         regionStyle: {
             selected: {
