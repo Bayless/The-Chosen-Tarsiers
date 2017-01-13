@@ -53,9 +53,18 @@ def search(search_field = '', type='artist'):
     response = urllib2.urlopen(r, timeout = 30).read()
     response_data = json.loads(response)
     
-    print response_data
+    return response_data
 
+def audio_features(id = ''):
+    url = 'https://api.spotify.com/v1/audio-features/'
+    url = 'https://api.spotify.com/v1/audio-features/' + id
+    print url
 
-#search('hi')
-print search('hi')
+    headers = {"Authorization": "Bearer " + authenticate()}
     
+    r = urllib2.Request(url, headers = headers)
+
+    response = urllib2.urlopen(r, timeout = 30).read()
+    response_data = json.loads(response)
+    
+    return response_data
