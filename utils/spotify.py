@@ -7,6 +7,8 @@ import json
 import spotify_db_manager
 import time
 
+last_fm_root = 'http://ws.audioscrobbler.com/2.0/'
+
 def get_access_token():
     url = 'https://accounts.spotify.com/api/token'
 
@@ -56,7 +58,6 @@ def search(search_field = '', type='artist'):
     return response_data
 
 def audio_features(id = ''):
-    url = 'https://api.spotify.com/v1/audio-features/'
     url = 'https://api.spotify.com/v1/audio-features/' + id
     print url
 
@@ -68,3 +69,44 @@ def audio_features(id = ''):
     response_data = json.loads(response)
     
     return response_data
+
+def get_top_artists(country = ''):
+    url = last_fm_root
+
+    api_key = open('utils/last_fm_key').read().split('\n')[1]
+
+    query_request = {'method' : 'geo.gettopartists', 'country' : country, 'api_key' : api_key, 'format' : 'json'}
+    encoded = urllib.urlencode(query_request)
+
+    url += '?' + encoded
+
+    print url
+    
+    r = urllib2.Request(url)
+
+    response = urllib2.urlopen(r, timeout = 30).read()
+    response_data = json.loads(response)
+    
+    return response_data
+
+def get_similar(artist = '', track = ''):
+    url = last_fm_root
+
+    api_key = open('utils/last_fm_key').read().split('\n')[1]
+
+    query_request = {'method' : 'track.getsimilar', 'artist' : artist, 'track': track,'api_key' : api_key, 'format' : 'json'}
+    encoded = urllib.urlencode(query_request)
+
+    url += '?' + encoded
+
+    print url
+    
+    r = urllib2.Request(url)
+
+    response = urllib2.urlopen(r, timeout = 30).read()
+    response_data = json.loads(response)
+    
+    return response_data
+
+
+print get_similar('cher', 'believe')

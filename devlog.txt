@@ -64,6 +64,11 @@ anyaL -- 2017-1-11 18:33:04
 Got map zooming to work
 Fixed navbar for logged in users
 
+jasonM -- 2017-1-11 22:00:00
+Starting integrating Spotify API into the algorithm
+Began testing with Last.fm API
+Created testing page to deal with simplest case of similar songs
+
 ================2017-1-12================
 
 anyaL -- 2017-1-12 18:33:34
