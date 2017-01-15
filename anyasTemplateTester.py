@@ -15,6 +15,12 @@ def index():
 def notLoggedIn():
     return render_template("notLoggedIn.html")
 
+@app.route("/mySongs")
+def mySongs():
+    #fake song list for testing
+    songs = [{"index":"0","title":"Ma Cherie Amour","artist":"Stevie Wonder","country":"United States"},{"index":"1","title":"Golden Boy","artist":"Nadav Guedj","country":"Israel"}]
+    return render_template("mySongs.html", songList = songs)
+
 @app.route("/map")
 def mapTester():
     return render_template("findSong.html")

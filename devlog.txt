@@ -86,3 +86,6 @@ When you click a country, the panel it's on get's updated with the country name!
 I got AJAX to work!!!
 Now, when you click a country on one map, the country is sent to my flask file which generates another random country (the actual implementation would get the country from the generated song), and sends it back to ajax, which calls javascript functions to move the other map to the random country and select it
 
+anyaK -- 2017-1-14 21:42:35
+Wrote my songs page
+Added jinja stuff so it can take in a list of dictionaries and display song info

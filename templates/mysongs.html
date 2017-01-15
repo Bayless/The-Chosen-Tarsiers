@@ -1,0 +1,101 @@
+{% extends "loggedInTemplate.html" %}
+
+{% block title %}
+My Songs
+{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="static/css/card.css" type="text/css">
+
+
+<style>
+/* code taken from Zurb building block */
+.profile-card {
+    padding: 1rem;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+    margin: 2rem 0;
+    background-color: #fff; }
+.profile-card img {
+    width: 8rem;
+    display: block;
+    margin: 2rem auto;
+    text-align: center;
+    border-radius: 50%;
+    box-shadow: 2px 2px 5px #888888; }
+.profile-card .profile-info {
+    padding: 1rem; }
+.profile-card .profile-info h4 {
+    margin-top: 0;
+    text-align: center;
+    text-transform: uppercase; }
+.profile-card .profile-info p {
+    text-align: center; }
+.profile-card .profile-info .inline-list {
+    text-align: center;
+    margin-bottom: 1rem; }
+.profile-card .profile-info .inline-list li {
+    float: none;
+    display: inline-block; }
+
+</style>
+{% endblock %}
+
+{% block body %}
+<center>
+    <br>
+    <!--
+        <br>
+        <div class="row">
+        <div class="medium-12 columns">
+        <div class="card">
+        <div class="content">
+        <span class=title">
+        My Songs
+        </span>
+        </div>
+        <div class="action">
+        adsf
+        </div>
+        </div>
+        </div>
+        </div>
+    -->
+    <div class="profile-card">
+        <h3>  My Songs </h3>
+
+        <div class="row collapse">
+            <div class="medium-3 columns">
+                <ul class="tabs vertical" id="example-vert-tabs" data-tabs>
+                    <li class="tabs-title is-active"><a href="#panel1v" aria-selected="true"><b>About this Page</b></a></li>
+                    <!--loop through song titles-->
+                    {% if songList %}
+                    {% for song in songList %}
+                    <li class="tabs-title"><a href="#{{ song["index"] }}">{{ song["title"]  }}</a></li>
+                    {% endfor %}
+                    {% endif %}
+                </ul>
+            </div>
+            <div class="medium-9 columns">
+                <div class="tabs-content vertical" data-tabs-content="example-vert-tabs">
+                    <div class="tabs-panel is-active" id="panel1v">
+                    <p> You can revisit your favorite songs and learn about them!</p>
+                    </div>
+
+                    {% if songList %}
+                    {% for song in songList %}
+                    <div class="tabs-panel" id="{{ song["index"] }}">
+                        <p>
+                        <h4> {{ song["title"] }} </h4>
+                        <b>Country: </b> {{ song["country"] }}
+                        <br>
+                        <b>Artist: </b> {{ song["artist"] }}
+                        </p>
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</center>
+{% endblock %}
