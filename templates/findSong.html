@@ -2,48 +2,21 @@
 
 {% block head %}
 <link rel="stylesheet" href="static/css/jquery-jvectormap-2.0.3.css" type="text/css" media="screen"/>
+<link rel="stylesheet" href="static/css/card.css" type="text/css">
 <script src="static/js/jquery-jvectormap-2.0.3.min.js"></script>
 <script src="static/maps/jquery-jvectormap-world-mill.js"></script>
+<script src="static/js/funMapStuff.js"></script>
+
 
 <style>
-@import url(//fonts.googleapis.com/css?family=Roboto:400,500,300,100,700,900);
+div.unclickable
+{
+    pointer-events: none;
 
-.card {
-    font-family: 'Roboto', sans-serif;
-    overflow: hidden;
-    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
-    color: #272727;
-    border-radius: 2px; }
-.card .title {
-    line-height: 3rem;
-    font-size: 1.5rem;
-    font-weight: 300; }
-.card .content {
-    padding: 1.3rem;
-    font-weight: 300;
-    border-radius: 0 0 2px 2px; }
-.card p {
-    margin: 0; }
-.card .action {
-    border-top: 1px solid rgba(160, 160, 160, 0.2);
-    padding: 1.3rem; }
-.card a {
-    color: #ffab40;
-    margin-right: 1.3rem;
-    transition: color 0.3s ease;
-    text-transform: uppercase;
-    text-decoration: none; }
-.card .image {
-    position: relative; }
-.card .image .title {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    padding: 1.3rem;
-    color: #fff; }
-.card .image img {
-    border-radius: 2px 2px 0 0; }
-
+    /* for "disabled" effect */
+    opacity: 0.8;
+    background: #CCC;
+}
 </style>
 {% endblock %}
 
@@ -54,30 +27,107 @@
         <div class="medium-6 columns">
             <div class="card">
                 <div class="content">
-                    <span class=title"> Select a country or search for a song to get started!</span>
+                    <span class=title">
+                        Selected Country
+                        <b><div id="chosenCountryName">Select a country or search for a song to get started!</div> </b>
+                    </span>
                 </div>
                 <div class="action">
                     <div id="world-map" style="width: 520px; height: 350px"></div>
+                    <br>
+                    <div id="chosenSongTitle"></div>
+                    <div id="chosenSongArtist"></div>
                 </div>
             </div>
         </div>
         <div class="medium-6 columns">
             <div class="card">
                 <div class="content">
-                    <span class=title"> Generated Country </span>
+                    <span class=title">
+                        Generated Country
+                        <b><div id="generatedCountryName">Select a country on the left or search for a song to get started!</div> </b>
+                    </span>
+
                 </div>
                 <div class="action">
-                    <div id="world-map2" style="width: 520px; height: 350px"></div>
+                    <div class="unclickable" id="world-map2" style="width: 520px; height: 350px"></div>
+                    <br>
+                    <div id="generatedSongTitle"></div>
+                    <div id="generatedSongArtist"></div>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
+
+
+
 // This function sets up the map and all of the responces to clicking
 // #veryProud
 $(function(){
+
+    // This function is for testing map interation
+    var modifyOther = function( e, code, otherMap ){
+        otherMap.setFocus({region: code, animate: true}); //go to that region
+        otherMap.clearSelectedRegions();
+        otherMap.setSelectedRegions(code);
+    };
+
+    //the IDs for stuff about the songs
+    var chosenSongIds = {
+        'country' : "chosenCountryName",
+        'title' : 'chosenSongTitle',
+        'artist' : 'chosenSongArtist'
+    };
+
+    var generatedSongIds = {
+        'country' : "generatedCountryName",
+        'title' : 'generatedSongTitle',
+        'artist' : 'generatedSongArtist'
+    };
+    // This function takes a country code and a dictionary of ids
+    // and gets song info using ajax
+    // and then puts that info on the page
+    var post = function( e, code, country) {
+        var chosenSongCountry = document.getElementById(chosenSongIds["country"]);
+        var generatedSongCountry = document.getElementById(generatedSongIds["country"]);
+        var chosenSongTitle = document.getElementById(chosenSongIds["title"]);
+        var generatedSongTitle = document.getElementById(generatedSongIds["title"]);
+        var chosenSongArtist = document.getElementById(chosenSongIds["artist"]);
+        var generatedSongArtist = document.getElementById(generatedSongIds["artist"]);
+
+
+
+        var input = { 'country' : country };
+
+        // currently recieves: dictionary with one entry --> the uppercase of country name lol
+        // should recieve: dictionary
+        $.ajax({
+            url: '/getSongAndInfo',
+            type: 'GET',
+            data: input,
+            success: function( d ) {
+                d = JSON.parse(d);
+                modifyOther(e, d["generatedSongInfo"]["countryCode"], map2);
+
+                chosenSongCountry.innerHTML = d["chosenSongInfo"]['countryName'];
+                generatedSongCountry.innerHTML = d["generatedSongInfo"]['countryName'];
+                chosenSongTitle.innerHTML = "Song Title: " + d["chosenSongInfo"]['title'];
+                generatedSongTitle.innerHTML = "Song Title: " +  d["generatedSongInfo"]['title'];
+                chosenSongArtist.innerHTML = "Artist: " + d["chosenSongInfo"]['artist'];
+                generatedSongArtist.innerHTML = "Artist: " + d["generatedSongInfo"]['artist'];
+            }
+        });
+        //console.log("did the ajax thing");
+    };
+
+    // interactive map
     var map;
+    var map2;
+
+
+    // interactive map
     map = new jvm.Map({
         map: 'world_mill', //set the map file
         container: $('#world-map'), //how to tag the map div
@@ -88,11 +138,13 @@ $(function(){
         onRegionClick: function(e, code){
             map.setFocus({region: code, animate: true}); //go to that region
             //console.log("region: " + code); //log it for debugging
+            //get song info and put on page
+            post(e,code,map.regions[code]["config"]["name"]);
         },
 
         //which region is selected for debugging
         onRegionSelected: function(){
-            console.log(map.getSelectedRegions());
+            //console.log(map.getSelectedRegions());
         },
 
         //set selectd region styling
@@ -103,23 +155,28 @@ $(function(){
         }
     });
 
-});
+    //oooh so this is how you get the country name...
+    /*
+    var regionDictionary = "{"; //really just a string
+       for (key in map.regions){
+       console.log(key);
+       console.log(map.regions[key]["config"]["name"]);
+       regionDictionary += '"' + map.regions[key]["config"]["name"] + '":"' + key + '",';
+       };
+       console.log(regionDictionary);
+       */
 
-//map2
-$(function(){
-    var map2;
+    // map2
     map2 = new jvm.Map({
         map: 'world_mill', //set the map file
         container: $('#world-map2'), //how to tag the map div
+        regionsSelectable: true, // but only I can haha
+        regionsSelectableOne: true, // and only one of course
 
-        //if a region is clicked
-        onRegionClick: function(e, code){
-            console.log("region: " + code); //log it for debugging
-        },
         //set selectd region styling
         regionStyle: {
             selected: {
-                fill: 'blue'
+                fill: 'red'
             }
         }
     });

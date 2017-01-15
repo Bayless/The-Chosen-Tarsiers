@@ -80,3 +80,9 @@ Figured out how to link country click to redirect
 roddaJ -- 2017-1-13 13:59:12
 More spotify routes added
 last.fm is now also working
+
+anyaK -- 2017-1-14 19:50:08
+When you click a country, the panel it's on get's updated with the country name!
+I got AJAX to work!!!
+Now, when you click a country on one map, the country is sent to my flask file which generates another random country (the actual implementation would get the country from the generated song), and sends it back to ajax, which calls javascript functions to move the other map to the random country and select it
+
