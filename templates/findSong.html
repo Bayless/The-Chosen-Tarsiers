@@ -35,6 +35,7 @@ div.unclickable
                 <div class="action">
                     <div id="world-map" style="width: 520px; height: 350px"></div>
                     <br>
+                    <div id="saveChosenSong"></div>
                     <div id="chosenSongTitle"></div>
                     <div id="chosenSongArtist"></div>
                 </div>
@@ -52,6 +53,7 @@ div.unclickable
                 <div class="action">
                     <div class="unclickable" id="world-map2" style="width: 520px; height: 350px"></div>
                     <br>
+                    <div id="saveGeneratedSong"></div>
                     <div id="generatedSongTitle"></div>
                     <div id="generatedSongArtist"></div>
                 </div>
@@ -90,6 +92,10 @@ $(function(){
     // and gets song info using ajax
     // and then puts that info on the page
     var post = function( e, code, country) {
+
+        var saveChosenSong = document.getElementById("saveChosenSong");
+        var saveGeneratedSong = document.getElementById("saveGeneratedSong");
+
         var chosenSongCountry = document.getElementById(chosenSongIds["country"]);
         var generatedSongCountry = document.getElementById(generatedSongIds["country"]);
         var chosenSongTitle = document.getElementById(chosenSongIds["title"]);
@@ -111,6 +117,11 @@ $(function(){
                 d = JSON.parse(d);
                 modifyOther(e, d["generatedSongInfo"]["countryCode"], map2);
 
+                // save song buttons
+                saveChosenSong.innerHTML = '<button value="' + d['chosenSongInfo']['title'] + '"type="button" class="success button">Save This Song</button>';
+                saveGeneratedSong.innerHTML = '<button value="' + d['generatedSongInfo']['title'] + '"type="button" class="success button">Save This Song</button>';
+
+                // put in song info
                 chosenSongCountry.innerHTML = d["chosenSongInfo"]['countryName'];
                 generatedSongCountry.innerHTML = d["generatedSongInfo"]['countryName'];
                 chosenSongTitle.innerHTML = "Song Title: " + d["chosenSongInfo"]['title'];
