@@ -83,3 +83,5 @@ def register(user,password,pwd):    #user-username, password-password, pwd-retyp
     db.commit() #save changes
     db.close()  #close database
     return messageNumber
+
+register("bayle","T@rsi3rs","T@rsi3rs")
