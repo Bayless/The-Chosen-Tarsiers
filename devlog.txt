@@ -92,3 +92,12 @@ Added jinja stuff so it can take in a list of dictionaries and display song info
 
 anyaL -- 2017-1-16 16:21:36
 Made "Save This Song" button appear upon country selection
+
+================2017-1-16================
+
+jasonM -- 2017-1-16 23:59:59
+Tested out the matching algorithm with last.fm algo
+Tested out the matching algorithm with spotify algo
+Finished merging the two last.fm / spotify novel algo
+Extrapolated relevant code from moretrack.js
+Began geo-location test

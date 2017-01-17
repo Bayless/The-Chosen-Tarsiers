@@ -12,8 +12,13 @@ last_fm_root = 'http://ws.audioscrobbler.com/2.0/'
 def get_access_token():
     url = 'https://accounts.spotify.com/api/token'
 
+   
     CLIENT_ID = open('utils/spotify_key').read().split('\n')[0]
     CLIENT_SECRET = open('utils/spotify_key').read().split('\n')[1]
+
+
+  #CLIENT_ID = open('utils/spotify_key').read().split('\n')[0]
+  #CLIENT_SECRET = open('utils/spotify_key').read().split('\n')[1]
 
     base64encoded = base64.b64encode("{}:{}".format(CLIENT_ID, CLIENT_SECRET))
     headers = {"Authorization": "Basic {}".format(base64encoded)}
@@ -109,4 +114,6 @@ def get_similar(artist = '', track = ''):
     return response_data
 
 
-print get_similar('cher', 'believe')
+#print get_access_token()
+#print get_similar('cher', 'believe')
+
