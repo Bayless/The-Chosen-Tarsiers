@@ -32,7 +32,7 @@ def authOrCreate():
         elif statusNum == 2:
             loginStatus = "wrong password"
 
-        return render_template("notLoggedIn.html")
+        return render_template("notLoggedIn.html",status=loginStatus)
     elif formDict["logOrReg"] == "register":
         username = formDict["username"]
         password = formDict["password"]
@@ -46,7 +46,7 @@ def authOrCreate():
         elif statusNum == 2:
             registerStatus = username +" account created"
 
-        return render_template("notLoggedIn.html") #status is the login/creation messate
+        return render_template("notLoggedIn.html",status = registerStatus) #status is the login/creation messate
     else:
         return redirect(url_for("loginOrRegister"))  
 
