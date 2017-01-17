@@ -101,3 +101,9 @@ Tested out the matching algorithm with spotify algo
 Finished merging the two last.fm / spotify novel algo
 Extrapolated relevant code from moretrack.js
 Began geo-location test
+
+================2017-1-17================
+
+roddaJ -- 2017-1-17 13:58:39
+Added more spotify endpoints for Jason
+Need to comment

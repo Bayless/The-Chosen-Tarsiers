@@ -113,6 +113,20 @@ def get_similar(artist = '', track = ''):
     
     return response_data
 
+def get_recommendations(limit = 1, seed_artists = '', seed_genres = '', seed_tracks = ''):
+    query_request = {'limit' : limit, 'seed_artists' : seed_artists, 'seed_genres' : seed_genres, 'seed_tracks': seed_tracks}
+    encoded = urllib.urlencode(query_request)
+
+    url = 'https://api.spotify.com/v1/recommendations?' + encoded
+
+    headers = {"Authorization": "Bearer " + authenticate()}
+    
+    r = urllib2.Request(url, headers = headers)
+
+    response = urllib2.urlopen(r, timeout = 30).read()
+    response_data = json.loads(response)
+    
+    return response_data
 
 #print get_access_token()
 #print get_similar('cher', 'believe')
