@@ -40,22 +40,7 @@ text-align: center;
 
 
 {% block body %}
-
-<div class="row">
-
-    <!-- Little Description  -->
-    <div class="large-6 columns">
-        <div class="words">
-
-            <p><h3 class="text-center">Welcome to the Magic Music Matcher!</h3></p>
-            <p><h5 class="text-center">Please create an account to enter site.</h5></p>
-            <p> The Magic Music Matcher allows you to find similar popular songs from around the world. You will be able to diversify your playlist by getting unique songs from different areas of the world. Our unique algorithm takes into consideration aspects of songs, such as timbre, tempo, and pitch to suggest musically similar, but geographically different songs for you to listen to. You will have the ability to choose from many countries and browse through their popular songs. On top of having access to modern popular songs, you can search for your personal favorite tunes and look for similar songs using the same matching algorithms. Music is a major key to success, and The Music Thing will find you all the keys. </p>
-        </div>
-    </div>
-
-
-    <!-- Create an Account  --->
-    {% if status %}
+ {% if status %}
     {% if status == "user does not exist" %}
     <div class="callout alert">
         <strong>User does not exsist :(</strong> Try retyping your username and logging in again.
@@ -86,6 +71,22 @@ text-align: center;
     </div>
     {% endif %}
     {% endif %}
+    <br>
+
+<div class="row">
+
+    <!-- Little Description  -->
+    <div class="large-6 columns">
+        <div class="words">
+
+            <p><h3 class="text-center">Welcome to the Magic Music Matcher!</h3></p>
+            <p><h5 class="text-center">Please create an account to enter site.</h5></p>
+            <p> The Magic Music Matcher allows you to find similar popular songs from around the world. You will be able to diversify your playlist by getting unique songs from different areas of the world. Our unique algorithm takes into consideration aspects of songs, such as timbre, tempo, and pitch to suggest musically similar, but geographically different songs for you to listen to. You will have the ability to choose from many countries and browse through their popular songs. On top of having access to modern popular songs, you can search for your personal favorite tunes and look for similar songs using the same matching algorithms. Music is a major key to success, and The Music Thing will find you all the keys. </p>
+        </div>
+    </div>
+
+
+    <!-- Create an Account  ---> 
     <div class="large-6 columns">
         <div class="profile-card">
             <p><h3 class="text-center">Create an Account</h3></p> 
