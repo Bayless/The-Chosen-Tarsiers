@@ -93,18 +93,6 @@ $(function(){
     // and then puts that info on the page
     var post = function( e, code, country) {
 
-        var saveChosenSong = document.getElementById("saveChosenSong");
-        var saveGeneratedSong = document.getElementById("saveGeneratedSong");
-
-        var chosenSongCountry = document.getElementById(chosenSongIds["country"]);
-        var generatedSongCountry = document.getElementById(generatedSongIds["country"]);
-        var chosenSongTitle = document.getElementById(chosenSongIds["title"]);
-        var generatedSongTitle = document.getElementById(generatedSongIds["title"]);
-        var chosenSongArtist = document.getElementById(chosenSongIds["artist"]);
-        var generatedSongArtist = document.getElementById(generatedSongIds["artist"]);
-
-
-
         var input = { 'country' : country };
 
         // currently recieves: dictionary with one entry --> the uppercase of country name lol
@@ -117,17 +105,19 @@ $(function(){
                 d = JSON.parse(d);
                 modifyOther(e, d["generatedSongInfo"]["countryCode"], map2);
 
+
+                // Creds to Rodda for helping me jQuerey-ifying things
                 // save song buttons
-                saveChosenSong.innerHTML = '<button value="' + d['chosenSongInfo']['title'] + '"type="button" class="success button">Save This Song</button>';
-                saveGeneratedSong.innerHTML = '<button value="' + d['generatedSongInfo']['title'] + '"type="button" class="success button">Save This Song</button>';
+                $('#saveChosenSong').html('<button value="' + d['chosenSongInfo']['title'] + '"type="button" class="success button">Save This Song</button>');
+                $('#saveGeneratedSong').html('<button value="' + d['generatedSongInfo']['title'] + '"type="button" class="success button">Save This Song</button>');
 
                 // put in song info
-                chosenSongCountry.innerHTML = d["chosenSongInfo"]['countryName'];
-                generatedSongCountry.innerHTML = d["generatedSongInfo"]['countryName'];
-                chosenSongTitle.innerHTML = "Song Title: " + d["chosenSongInfo"]['title'];
-                generatedSongTitle.innerHTML = "Song Title: " +  d["generatedSongInfo"]['title'];
-                chosenSongArtist.innerHTML = "Artist: " + d["chosenSongInfo"]['artist'];
-                generatedSongArtist.innerHTML = "Artist: " + d["generatedSongInfo"]['artist'];
+                $('#' + chosenSongIds['country']).html(d["chosenSongInfo"]['countryName']);
+                $('#' + generatedSongIds['country']).html(d["generatedSongInfo"]['countryName']);
+                $('#' + chosenSongIds['title']).html("Song Title: " + d["chosenSongInfo"]['title']);
+                $('#' + generatedSongIds['title']).html("Song Title: " +  d["generatedSongInfo"]['title']);
+                $('#' + chosenSongIds['artist']).html("Artist: " + d["chosenSongInfo"]['artist']);
+                $('#' + generatedSongIds['artist']).html("Artist: " + d["generatedSongInfo"]['artist']);
             }
         });
         //console.log("did the ajax thing");
