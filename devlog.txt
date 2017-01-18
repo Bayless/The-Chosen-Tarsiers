@@ -107,3 +107,10 @@ Began geo-location test
 roddaJ -- 2017-1-17 13:58:39
 Added more spotify endpoints for Jason
 Need to comment
+
+================2017-1-18================
+
+jasonM -- 2017-1-18 11:05:30
+Started the user databases
+Started integrating Spotify Endpoints
+Need to update Anya's templates
