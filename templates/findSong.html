@@ -88,6 +88,11 @@ $(function(){
         'title' : 'generatedSongTitle',
         'artist' : 'generatedSongArtist'
     };
+
+    //var title = chosenSongIds['title'];
+    //var artist = chosenSongIds['artist'];
+
+
     // This function takes a country code and a dictionary of ids
     // and gets song info using ajax
     // and then puts that info on the page
@@ -99,8 +104,11 @@ $(function(){
         // should recieve: dictionary
         $.ajax({
             url: '/getSongAndInfo',
+            //'/saveSong'
             type: 'GET',
+            //'POST'
             data: input,
+            //title,artist
             success: function( d ) {
                 d = JSON.parse(d);
                 modifyOther(e, d["generatedSongInfo"]["countryCode"], map2);
@@ -158,14 +166,14 @@ $(function(){
 
     //oooh so this is how you get the country name...
     /*
-    var regionDictionary = "{"; //really just a string
+       var regionDictionary = "{"; //really just a string
        for (key in map.regions){
        console.log(key);
        console.log(map.regions[key]["config"]["name"]);
        regionDictionary += '"' + map.regions[key]["config"]["name"] + '":"' + key + '",';
        };
        console.log(regionDictionary);
-       */
+     */
 
     // map2
     map2 = new jvm.Map({

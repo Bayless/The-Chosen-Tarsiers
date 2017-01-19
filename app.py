@@ -66,10 +66,10 @@ def logout():
 
 @app.route("/saveSong", methods=["POST"])
 def saveSong():
-    formDict = request.form
-    song = formDict["title"]#poop. I dont know what to put here
-    accounts_db_manager.new_access_token('username','songToken')
-    return render_template("mysongs.html")
+    track = request.args.get("track")#to get stuff from ajax button
+    artist = request.args.get("artist")#to get stuff from ajax button
+    accounts_db_manager.new_access_token('username',track,artist)
+    return render_template("mysongs.html",theListOfSongsThatRoddaWillGenerateFromTheDatabase)
 
 #hard-coded for now
 @app.route("/mySongs")
