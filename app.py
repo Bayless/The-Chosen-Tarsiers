@@ -68,7 +68,7 @@ def logout():
 def saveSong():
     formDict = request.form
     song = formDict["title"]#poop. I dont know what to put here
-    accounts_db_manager.new_access_token(song,'username')
+    accounts_db_manager.new_access_token('username','songToken')
     return render_template("mysongs.html")
 
 #hard-coded for now
