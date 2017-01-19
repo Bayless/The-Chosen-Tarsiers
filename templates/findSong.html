@@ -35,11 +35,9 @@ div.unclickable
                 <div class="action">
                   <div id="world-map" style="width: 520px; height: 350px"></div>
                   <br>
-		  <form method = "POST" action = "{{url_for('saveSong')}}">
                     <div id="saveChosenSong"></div>
                     <div id="chosenSongTitle"></div>
                     <div id="chosenSongArtist"></div>
-		  </form>
                 </div>
             </div>
         </div>
@@ -90,6 +88,11 @@ $(function(){
         'title' : 'generatedSongTitle',
         'artist' : 'generatedSongArtist'
     };
+
+//var title = chosenSongIds['title'];
+//var artist = chosenSongIds['artist'];
+
+
     // This function takes a country code and a dictionary of ids
     // and gets song info using ajax
     // and then puts that info on the page
@@ -101,8 +104,11 @@ $(function(){
         // should recieve: dictionary
         $.ajax({
             url: '/getSongAndInfo',
+//'/saveSong'
             type: 'GET',
+//'POST'
             data: input,
+//title,artist
             success: function( d ) {
                 d = JSON.parse(d);
                 modifyOther(e, d["generatedSongInfo"]["countryCode"], map2);
