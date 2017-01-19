@@ -13,6 +13,7 @@ Do some things to run this properly:
 secure your own keys and store them:
 
 Run:
+`$ python utils/initialize.py`
 `$ python app.py`
 
 Make some magic!
