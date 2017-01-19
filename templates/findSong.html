@@ -27,26 +27,24 @@ div.unclickable
         <div class="medium-6 columns">
             <div class="card">
                 <div class="content">
-                    <span class="title">
+                    <span class=title">
                         Selected Country
                         <b><div id="chosenCountryName">Select a country or search for a song to get started!</div> </b>
                     </span>
                 </div>
                 <div class="action">
-                  <div id="world-map" style="width: 520px; height: 350px"></div>
-                  <br>
-		  <form method = "POST" action = "{{url_for('saveSong')}}">
+                    <div id="world-map" style="width: 520px; height: 350px"></div>
+                    <br>
                     <div id="saveChosenSong"></div>
                     <div id="chosenSongTitle"></div>
                     <div id="chosenSongArtist"></div>
-		  </form>
                 </div>
             </div>
         </div>
         <div class="medium-6 columns">
             <div class="card">
                 <div class="content">
-                    <span class="title">
+                    <span class=title">
                         Generated Country
                         <b><div id="generatedCountryName">Select a country on the left or search for a song to get started!</div> </b>
                     </span>
@@ -110,11 +108,11 @@ $(function(){
 
                 // Creds to Rodda for helping me jQuerey-ifying things
                 // save song buttons
-                $('#saveChosenSong').html(' <button value="' + d['chosenSongInfo']['title'] + '" type="submit" class="success button">Save This Song</button>');
-                $('#saveGeneratedSong').html('<button value="' + d['generatedSongInfo']['title'] + '"type="submit" class="success button">Save This Song</button>');
+                $('#saveChosenSong').html('<button value="' + d['chosenSongInfo']['title'] + '"type="button" class="success button">Save This Song</button>');
+                $('#saveGeneratedSong').html('<button value="' + d['generatedSongInfo']['title'] + '"type="button" class="success button">Save This Song</button>');
 
                 // put in song info
-                $('#' + chosenSongIds['country']).html(d["chosenSongInfo"]['countryName'] );
+                $('#' + chosenSongIds['country']).html(d["chosenSongInfo"]['countryName']);
                 $('#' + generatedSongIds['country']).html(d["generatedSongInfo"]['countryName']);
                 $('#' + chosenSongIds['title']).html("Song Title: " + d["chosenSongInfo"]['title']);
                 $('#' + generatedSongIds['title']).html("Song Title: " +  d["generatedSongInfo"]['title']);
@@ -168,6 +166,7 @@ $(function(){
        };
        console.log(regionDictionary);
        */
+
     // map2
     map2 = new jvm.Map({
         map: 'world_mill', //set the map file

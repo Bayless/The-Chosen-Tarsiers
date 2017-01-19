@@ -89,11 +89,51 @@ def getSongAndInfo():
     #ASDFKJLASDJFASLDKFAA LOOK HERE !!!---------!!!!!!!!!!!!!!!KL:FDKFASD:FLKSAD:FK!!!!!
     #currently just getting a random country....  Song getting algo people, I will change this once you get me a song and its info
     randomCountry = random.choice(availableCountries.keys())
-    generatedSongInfo = {"countryCode":availableCountries[randomCountry],"countryName":randomCountry,"title":"","artist":""}
+#a list of dictionaries representing each of the 5 songs yeah
+#sorry the country thing is redundant
+    generatedSongs = [
+            {
+                "countryCode":availableCountries[randomCountry],
+                "countryName":randomCountry,
+                "title":"",
+                "artist":"",
+                "spotifyId":""
+                },
+            {
+                "countryCode":availableCountries[randomCountry],
+                "countryName":randomCountry,
+                "title":"",
+                "artist":"",
+                "spotifyId":""
+                },
+            {
+                "countryCode":availableCountries[randomCountry],
+                "countryName":randomCountry,
+                "title":"",
+                "artist":"",
+                "spotifyId":""
+                },
+            {
+                "countryCode":availableCountries[randomCountry],
+                "countryName":randomCountry,
+                "title":"",
+                "artist":"",
+                "spotifyId":""
+                },
+            {
+                "countryCode":availableCountries[randomCountry],
+                "countryName":randomCountry,
+                "title":"",
+                "artist":"",
+                "spotifyId":""
+                }
+            ]
+
+
 
 #put those two dictionaries together
     result = {'chosenSongInfo':chosenSongInfo,
-              'generatedSongInfo':generatedSongInfo
+              'generatedSongs':generatedSongs
     }
 
     return json.dumps(result)
