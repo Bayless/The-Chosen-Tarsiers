@@ -7,8 +7,6 @@ import json
 import spotify_db_manager
 import time
 
-last_fm_root = 'http://ws.audioscrobbler.com/2.0/'
-
 # get_access_token()
 # Retrieves an access token from Spotify
 def get_access_token():
@@ -75,49 +73,26 @@ def audio_features(id = ''):
     
     return response_data
 
-# Similar to search, it's the same, the url is different
-def get_top_artists(country = ''):
-    url = last_fm_root
-
-    api_key = open('utils/last_fm_key').read().split('\n')[1]
-
-    query_request = {'method' : 'geo.gettopartists', 'country' : country, 'api_key' : api_key, 'format' : 'json'}
-    encoded = urllib.urlencode(query_request)
-
-    url += '?' + encoded
-
-    print url
-    
-    r = urllib2.Request(url)
-
-    response = urllib2.urlopen(r, timeout = 30).read()
-    response_data = json.loads(response)
-    
-    return response_data
 
 # Similar to search, it's the same, the url is different
-def get_similar(artist = '', track = ''):
-    url = last_fm_root
+def get_recommendations(limit = 1, market = 'US',
+                        max_danceability = 1.0, min_danceability = 0.0,
+                        max_acousticness = 1.0, min acousticness = 0.0,
+                        max_energy = 1.0, min_energy = 0.0,
+                        max_instrumentalness = 1.0, min_instrumentalness = 0.0,
+                        seed_artists = '', seed_genres = '', seed_tracks = ''):
 
-    api_key = open('utils/last_fm_key').read().split('\n')[1]
+    query_request = {'limit' : limit, 
+                     'max_danceability' : max_danceability,
+                     'min_danceability' : min_danceability,
+                     'max_acousticness' : max_acousticness,
+                     'min_acousticness' : min_acousticness,
+                     'max_energy' : max_energy,
+                     'min_energy' : min_energy,
+                     'max_instrumentalness' : max_instrumentalness,
+                     'min_instrumentalness' : min_instrumentalness,
+                     'seed_artists' : seed_artists, 'seed_genres' : seed_genres, 'seed_tracks': seed_tracks}
 
-    query_request = {'method' : 'track.getsimilar', 'artist' : artist, 'track': track,'api_key' : api_key, 'format' : 'json'}
-    encoded = urllib.urlencode(query_request)
-
-    url += '?' + encoded
-
-    print url
-    
-    r = urllib2.Request(url)
-
-    response = urllib2.urlopen(r, timeout = 30).read()
-    response_data = json.loads(response)
-    
-    return response_data
-
-# Similar to search, it's the same, the url is different
-def get_recommendations(limit = 1, seed_artists = '', seed_genres = '', seed_tracks = ''):
-    query_request = {'limit' : limit, 'seed_artists' : seed_artists, 'seed_genres' : seed_genres, 'seed_tracks': seed_tracks}
     encoded = urllib.urlencode(query_request)
 
     url = 'https://api.spotify.com/v1/recommendations?' + encoded

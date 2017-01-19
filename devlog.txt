@@ -117,3 +117,12 @@ Need to update Anya's templates
 
 roddaJ -- 2017-1-19 14:00:00
 Commented code :)
+
+================2017-1-19================
+
+jasonM -- 2017-1-19 03:25:48
+Updated endpoints, split to spotify and last_fm
+Ran into issue with spotify database manager
+Started Machine Learning for Confidence Interval calculation
+Laid out framework for recommendations, requires outside insight to proceed
+
