@@ -6,7 +6,7 @@ def new_access_token(song, user):
 
     c = db.cursor()
 
-    new_access_token = 'INSERT INTO account VALUES ("%s", %d);' % (access_token, time)
+    new_access_token = 'INSERT INTO songs VALUES ("%s", %d);' % (access_token, time)
     c.execute(new_access_token)
 
     db.commit()

@@ -21,5 +21,8 @@ c.execute(q)
 q = 'CREATE TABLE spotify (access_token TEXT, time INTEGER)'
 c.execute(q)
 
+q = 'CREATE TABLE songs (access_token TEXT, time INTEGER)'
+c.execute(q)
+
 db.commit()
 db.close()
