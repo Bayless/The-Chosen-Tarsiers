@@ -42,6 +42,18 @@ def authenticate():
 
     return spotify_db_manager.get_current_access_token() # Returns the current, which is guaranteed to be valid
 
+def track(id = ''):
+    url = 'https://api.spotify.com/v1/tracks/' + id
+
+    headers = {"Authorization": "Bearer " + authenticate()} # Gets the current access token
+    
+    r = urllib2.Request(url, headers = headers)
+
+    response = urllib2.urlopen(r, timeout = 30).read()
+    response_data = json.loads(response)
+    
+    return response_data # Issues response and receives it
+
 # search_field should be a string of the search field
 # type should be either album, artist, playlist, or track
 def search(search_field = '', type='artist'):
@@ -77,7 +89,7 @@ def audio_features(id = ''):
 # Similar to search, it's the same, the url is different
 def get_recommendations(limit = 1, market = 'US',
                         max_danceability = 1.0, min_danceability = 0.0,
-                        max_acousticness = 1.0, min acousticness = 0.0,
+                        max_acousticness = 1.0, min_acousticness = 0.0,
                         max_energy = 1.0, min_energy = 0.0,
                         max_instrumentalness = 1.0, min_instrumentalness = 0.0,
                         seed_artists = '', seed_genres = '', seed_tracks = ''):
@@ -106,3 +118,4 @@ def get_recommendations(limit = 1, market = 'US',
     
     return response_data
 
+print track('5t0E9V1RiHBflzs71pfGGG')
