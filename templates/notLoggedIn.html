@@ -42,30 +42,37 @@ text-align: center;
 {% block body %}
  {% if status %}
     {% if status == "user does not exist" %}
+    <br>
     <div class="callout alert">
         <strong>User does not exsist :(</strong> Try retyping your username and logging in again.
     </div>
     {% elif status == "wrong password"%}
+    <br>
     <div class="callout alert">
         <strong>Incorrect password :( </strong> Try retyping your password and logging in again.
     </div>
     {% elif status == "username taken"%}
+    <br>
     <div class="callout alert">
         <strong>Username taken :( </strong> Try using a different username and click register.
     </div>
     {% elif status == "passwords do not match"%}
+    <br>
     <div class="callout alert">
         <strong>Passwords do not match :( </strong> Try retyping your password and click register.
     </div>
     {% elif "account created" in status %}
+    <br>
     <div class="callout success">
         <strong>Hooray! </strong> {{status}} Now you can login!
     </div>
     {% elif status == "logged out"%}
+    <br>
     <div class="callout warning">
         <strong>Success!</strong> You are logged out.
     </div>
     {% else %}
+    <br>
     <div class="callout alert">
         <strong>Oops!</strong> Something went wrong!
     </div>

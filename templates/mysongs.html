@@ -7,7 +7,6 @@ My Songs
 {% block head %}
 <link rel="stylesheet" href="static/css/card.css" type="text/css">
 
-
 <style>
 /* code taken from Zurb building block */
 .profile-card {
@@ -60,42 +59,43 @@ My Songs
         </div>
         </div>
     -->
-    <div class="profile-card">
-        <h3>  My Songs </h3>
-
-        <div class="row collapse">
-            <div class="medium-3 columns">
-                <ul class="tabs vertical" id="example-vert-tabs" data-tabs>
-                    <li class="tabs-title is-active"><a href="#panel1v" aria-selected="true"><b>About this Page</b></a></li>
-                    <!--loop through song titles-->
-                    {% if songList %}
-                    {% for song in songList %}
-                    <li class="tabs-title"><a href="#{{ song["index"] }}">{{ song["title"]  }}</a></li>
-                    {% endfor %}
-                    {% endif %}
-                </ul>
-            </div>
-            <div class="medium-9 columns">
-                <div class="tabs-content vertical" data-tabs-content="example-vert-tabs">
-                    <div class="tabs-panel is-active" id="panel1v">
-                    <p> You can revisit your favorite songs and learn about them!</p>
+    <div class="card large-6">
+        <div class="content">
+            <span class="title">  My Songs </span>
+        </div>
+        <div class="action">
+            <div class="row results">
+                <div class="large-12 columns ">
+                    <div class="search-results">
+                        {% if songList %}
+                        {% for song in songList %}
+                        <div class="row">
+                            <div class=" small-9 columns">
+                                <h4> {{ song["title"] }} </h4>
+                                <b>Country: </b> {{ song["country"] }}
+                                <br>
+                                <b>Artist: </b> {{ song["artist"] }}
+                            </div>
+                            <div class= "small-3 columns">
+                                <button name="playSong" value="{{ song["spotifyID"] }}" class="button radius" type="button">Play Song</button>
+                            </div>
+                        </div>
+                        <hr>
+                        {% endfor %}
+                        {% endif %}
                     </div>
-
-                    {% if songList %}
-                    {% for song in songList %}
-                    <div class="tabs-panel" id="{{ song["index"] }}">
-                        <p>
-                        <h4> {{ song["title"] }} </h4>
-                        <b>Country: </b> {{ song["country"] }}
-                        <br>
-                        <b>Artist: </b> {{ song["artist"] }}
-                        </p>
-                    </div>
-                    {% endfor %}
-                    {% endif %}
                 </div>
             </div>
         </div>
     </div>
 </center>
+
+<script>
+//////ASDFKJALSDFJASDLKJFASDJKFLSDKJFLASDJFASJDKFLASDJFLASJDF <----------play song code
+$(document).on('click', '[name="playSong"]', function(){
+    spotifyID = $(this).val();
+    console.log(spotifyID); //debugging
+    // SPOTIFY PLAYER DOES THINGS
+});
+</script>
 {% endblock %}
