@@ -139,3 +139,9 @@ Seriously cleaned up jquerey for song result generation
 
 anyaL -- 2017-1-19 22:57:02
 Fixed session holes in app.py routing and added 404/500 error page
+
+================2017-1-20================
+
+roddaJ -- 2017-1-20 14:06
+Added Spotify routes
+Worked on Spotify player
