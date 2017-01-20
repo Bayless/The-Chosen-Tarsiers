@@ -82,10 +82,12 @@ def mySongs():
     if 'username' not in session:
         return redirect("/")
     else:
+<<<<<<< HEAD
         #fake song list for testing
         user = session['username']
         #songs = accounts_db_manager.getMySongs(user)
-        songs = [{"spotifyID":"0","title":"Ma Cherie Amour","artist":"Stevie Wonder","country":"United States"},{"spotifyID":"1","title":"Golden Boy","artist":"Nadav Guedj","country":"Israel"}]
+        #fake song list for testing
+        songs = [{"spotifyID":"spotify:track:2TpxZ7JUBn3uw46aR7qd6V","title":"Ma Cherie Amour","artist":"Stevie Wonder","country":"United States"},{"spotifyID":"1","title":"Golden Boy","artist":"Nadav Guedj","country":"Israel"}]
         return render_template("mySongs.html", songList = songs)
 
 @app.route("/getSongAndInfo")
@@ -99,8 +101,8 @@ def getSongAndInfo():
     #ASDFKJLASDJFASLDKFAA LOOK HERE !!!---------!!!!!!!!!!!!!!!KL:FDKFASD:FLKSAD:FK!!!!!
     #currently just getting a random country....  Song getting algo people, I will change this once you get me a song and its info
     randomCountry = random.choice(availableCountries.keys())
-#a list of dictionaries representing each of the 5 songs yeah
-#sorry the country thing is redundant
+    #a list of dictionaries representing each of the 5 songs yeah
+    #sorry the country thing is redundant
     generatedSongs = [
             {
                 "countryCode":availableCountries[randomCountry],
