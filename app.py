@@ -82,7 +82,6 @@ def mySongs():
     if 'username' not in session:
         return redirect("/")
     else:
-<<<<<<< HEAD
         #fake song list for testing
         user = session['username']
         #songs = accounts_db_manager.getMySongs(user)
