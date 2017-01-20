@@ -53,9 +53,21 @@ div.unclickable
                 <div class="action">
                     <div class="unclickable" id="world-map2" style="width: 520px; height: 350px"></div>
                     <br>
-                    <div id="saveGeneratedSong"></div>
-                    <div id="generatedSongTitle"></div>
-                    <div id="generatedSongArtist"></div>
+                    <div id="saveGeneratedSong0"></div>
+                    <div id="generatedSongTitle0"></div>
+                    <div id="generatedSongArtist0"></div>
+                    <div id="saveGeneratedSong1"></div>
+                    <div id="generatedSongTitle1"></div>
+                    <div id="generatedSongArtist1"></div>
+                    <div id="saveGeneratedSong2"></div>
+                    <div id="generatedSongTitle2"></div>
+                    <div id="generatedSongArtist2"></div>
+                    <div id="saveGeneratedSong3"></div>
+                    <div id="generatedSongTitle3"></div>
+                    <div id="generatedSongArtist3"></div>
+                    <div id="saveGeneratedSong4"></div>
+                    <div id="generatedSongTitle4"></div>
+                    <div id="generatedSongArtist4"></div>  <!-- Don't let this confuse you, there are still 5 songs -->
                 </div>
             </div>
         </div>
@@ -111,25 +123,65 @@ $(function(){
             //title,artist
             success: function( d ) {
                 d = JSON.parse(d);
-                modifyOther(e, d["generatedSongInfo"]["countryCode"], map2);
+                modifyOther(e, d["generatedSongs"][0]["countryCode"], map2);
 
 
                 // Creds to Rodda for helping me jQuerey-ifying things
                 // save song buttons
-                $('#saveChosenSong').html('<button value="' + d['chosenSongInfo']['title'] + '"type="button" class="success button">Save This Song</button>');
-                $('#saveGeneratedSong').html('<button value="' + d['generatedSongInfo']['title'] + '"type="button" class="success button">Save This Song</button>');
+                $('#saveChosenSong').html('<button name="saveSong" value="' + d['chosenSongInfo']['spotifyID'] + '"type="button" class="success button">Save This Song</button>');
+                $('#saveGeneratedSong0').html('<button name="saveSong" value="' + d['generatedSongs'][0]['spotifyID'] + '"type="button" class="success button">Save This Song</button>');
+                $('#saveGeneratedSong1').html('<button name="saveSong" value="' + d['generatedSongs'][1]['spotifyID'] + '"type="button" class="success button">Save This Song</button>');
+                $('#saveGeneratedSong2').html('<button name="saveSong" value="' + d['generatedSongs'][2]['spotifyID'] + '"type="button" class="success button">Save This Song</button>');
+                $('#saveGeneratedSong3').html('<button name="saveSong" value="' + d['generatedSongs'][3]['spotifyID'] + '"type="button" class="success button">Save This Song</button>');
+                $('#saveGeneratedSong4').html('<button name="saveSong" value="' + d['generatedSongs'][4]['spotifyID'] + '"type="button" class="success button">Save This Song</button>');
 
                 // put in song info
                 $('#' + chosenSongIds['country']).html(d["chosenSongInfo"]['countryName']);
-                $('#' + generatedSongIds['country']).html(d["generatedSongInfo"]['countryName']);
+                $('#' + generatedSongIds['country']).html(d["generatedSongs"][0]['countryName']);
                 $('#' + chosenSongIds['title']).html("Song Title: " + d["chosenSongInfo"]['title']);
-                $('#' + generatedSongIds['title']).html("Song Title: " +  d["generatedSongInfo"]['title']);
+                $('#' + generatedSongIds['title'] + '0' ).html("Song Title: " +  d["generatedSongs"][0]['title']);
+                $('#' + generatedSongIds['title'] + '1' ).html("Song Title: " +  d["generatedSongs"][1]['title']);
+                $('#' + generatedSongIds['title'] + '2' ).html("Song Title: " +  d["generatedSongs"][2]['title']);
+                $('#' + generatedSongIds['title'] + '3' ).html("Song Title: " +  d["generatedSongs"][3]['title']);
+                $('#' + generatedSongIds['title'] + '4' ).html("Song Title: " +  d["generatedSongs"][4]['title']);
                 $('#' + chosenSongIds['artist']).html("Artist: " + d["chosenSongInfo"]['artist']);
-                $('#' + generatedSongIds['artist']).html("Artist: " + d["generatedSongInfo"]['artist']);
+                $('#' + generatedSongIds['artist'] + '0' ).html("Artist: " + d["generatedSongs"][0]['artist']);
+                $('#' + generatedSongIds['artist'] + '1' ).html("Artist: " + d["generatedSongs"][1]['artist']);
+                $('#' + generatedSongIds['artist'] + '2' ).html("Artist: " + d["generatedSongs"][2]['artist']);
+                $('#' + generatedSongIds['artist'] + '3' ).html("Artist: " + d["generatedSongs"][3]['artist']);
+                $('#' + generatedSongIds['artist'] + '4' ).html("Artist: " + d["generatedSongs"][4]['artist']);
             }
         });
         //console.log("did the ajax thing");
     };
+
+//this function saves songs
+   // var saveSong = function( spotifyID ) {
+
+    $(document).on('click', '[name="saveSong"]', function(){
+        spotifyID = $(this).val();
+        var input = { 'spotifyID': spotifyID};
+
+        $.ajax({
+            url: '/saveSong',
+            //'/saveSong'
+            type: 'GET',
+            //'POST'
+            data: input,
+            //title,artist
+            success: function( d ) {
+                d = JSON.parse(d);
+                console.log(spotifyID); //debugging
+                console.log("song saved"); //debugging
+                console.log(d["isSuccess"]); //debugging
+            }
+        });
+    });
+
+  //  $(document).on('click', '[name="saveSong"]', function(){
+   //     saveSong(this.value());
+   // });
+
 
     // interactive map
     var map;

@@ -54,7 +54,7 @@ def authOrCreate():
 
         return render_template("notLoggedIn.html",status = registerStatus) #status is the login/creation messate
     else:
-        return redirect(url_for("loginOrRegister"))  
+        return redirect(url_for("loginOrRegister"))
 
 
 #logout of user
@@ -64,12 +64,16 @@ def logout():
         session.pop('username')
     return redirect(url_for('loginOrRegister'))
 
-@app.route("/saveSong", methods=["POST"])
+#ajax for saving songs
+@app.route("/saveSong")
 def saveSong():
-    track = request.args.get("track")#to get stuff from ajax button
-    artist = request.args.get("artist")#to get stuff from ajax button
-    accounts_db_manager.new_access_token('username',track,artist)
-    return render_template("mysongs.html",theListOfSongsThatRoddaWillGenerateFromTheDatabase)
+    spotifyID = request.args.get("spotifyID")
+############   WHAT IS THIS
+    #accounts_db_manager.new_access_token('username',spotifyID)
+#############
+    isSuccess = True #HARD CODED FOR NOW
+    result = { "isSuccess": isSuccess}
+    return json.dumps(result)
 
 #hard-coded for now
 @app.route("/mySongs")
@@ -97,35 +101,35 @@ def getSongAndInfo():
                 "countryName":randomCountry,
                 "title":"",
                 "artist":"",
-                "spotifyId":""
+                "spotifyID":""
                 },
             {
                 "countryCode":availableCountries[randomCountry],
                 "countryName":randomCountry,
                 "title":"",
                 "artist":"",
-                "spotifyId":""
+                "spotifyID":""
                 },
             {
                 "countryCode":availableCountries[randomCountry],
                 "countryName":randomCountry,
                 "title":"",
                 "artist":"",
-                "spotifyId":""
+                "spotifyID":""
                 },
             {
                 "countryCode":availableCountries[randomCountry],
                 "countryName":randomCountry,
                 "title":"",
                 "artist":"",
-                "spotifyId":""
+                "spotifyID":""
                 },
             {
                 "countryCode":availableCountries[randomCountry],
                 "countryName":randomCountry,
                 "title":"",
                 "artist":"",
-                "spotifyId":""
+                "spotifyID":""
                 }
             ]
 

@@ -126,3 +126,6 @@ Ran into issue with spotify database manager
 Started Machine Learning for Confidence Interval calculation
 Laid out framework for recommendations, requires outside insight to proceed
 
+anyaL -- 2017-1-19 19:54:44
+Reworked ajax code to accomodate 5 generated song results
+Wrote new ajax function to save songs
