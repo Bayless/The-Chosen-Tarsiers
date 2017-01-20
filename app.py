@@ -70,9 +70,8 @@ def logout():
 @app.route("/saveSong")
 def saveSong():
     spotifyID = request.args.get("spotifyID")
-############   WHAT IS THIS
-    #accounts_db_manager.new_access_token('username',spotifyID)
-#############
+    username = session['username']
+    accounts_db_manager.saveSong(username,spotifyID)
     isSuccess = True #HARD CODED FOR NOW
     result = { "isSuccess": isSuccess}
     return json.dumps(result)
@@ -83,7 +82,9 @@ def mySongs():
     if 'username' not in session:
         return redirect("/")
     else:
-    #fake song list for testing
+        #fake song list for testing
+        user = session['username']
+        #songs = accounts_db_manager.getMySongs(user)
         songs = [{"spotifyID":"0","title":"Ma Cherie Amour","artist":"Stevie Wonder","country":"United States"},{"spotifyID":"1","title":"Golden Boy","artist":"Nadav Guedj","country":"Israel"}]
         return render_template("mySongs.html", songList = songs)
 
