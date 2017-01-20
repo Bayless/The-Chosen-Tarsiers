@@ -66,6 +66,14 @@ def register(user,password,pwd):    #user-username, password-password, pwd-retyp
         isRegister = False
         messageNumber = 0
         registerStatus = "username taken"
+    elif (len(password) < 8 or len(pwd) < 8 ):
+        isRegister = False
+        messageNumber = 3 #two is already used below :/
+        registerStatus = "password too short"
+    elif (len(user) == 0):
+        isRegister = False
+        messageNumber = 4 #so this happened :/
+        registerStatus = "username left blank"
     elif (password != pwd):
         isRegister = False
         messageNumber = 1

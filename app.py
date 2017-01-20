@@ -20,7 +20,6 @@ def loginOrRegister():
     else:
         return render_template("notLoggedIn.html")
 
-
 @app.route("/authOrCreate", methods=["POST"])
 def authOrCreate():
     formDict = request.form
@@ -37,8 +36,8 @@ def authOrCreate():
             return redirect( url_for("findSong") )
         elif statusNum == 2:
             loginStatus = "wrong password"
-
         return render_template("notLoggedIn.html",status=loginStatus)
+
     elif formDict["logOrReg"] == "register":
         username = formDict["username"]
         password = formDict["password"]
@@ -51,7 +50,10 @@ def authOrCreate():
             registerStatus = "passwords do not match"
         elif statusNum == 2:
             registerStatus = username +" account created"
-
+        elif statusNum == 3:
+            registerStatus = "password too short"
+        elif statusNum == 4:
+            registerStatus = "username left blank"
         return render_template("notLoggedIn.html",status = registerStatus) #status is the login/creation messate
     else:
         return redirect(url_for("loginOrRegister"))
@@ -152,6 +154,15 @@ def findSong():
         return redirect("/")
     else:
         return render_template("findSong.html")
+
+# Just in case...
+@app.errorhandler(404)
+def page_not_found(e):
+        return render_template('nope.html'), 404
+
+@app.errorhandler(500)
+def page_not_found(e):
+        return render_template('nope.html'), 500
 
 if __name__ == "__main__":
     app.debug = True
