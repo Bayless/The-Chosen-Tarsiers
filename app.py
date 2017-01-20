@@ -34,7 +34,7 @@ def authOrCreate():
         elif statusNum == 1:
             session["username"]=username
             loginStatus = username + " logged in"
-            return redirect( url_for("mapTester") )
+            return redirect( url_for("findSong") )
         elif statusNum == 2:
             loginStatus = "wrong password"
 
@@ -78,9 +78,12 @@ def saveSong():
 #hard-coded for now
 @app.route("/mySongs")
 def mySongs():
+    if 'username' not in session:
+        return redirect("/")
+    else:
     #fake song list for testing
-    songs = [{"spotifyID":"0","title":"Ma Cherie Amour","artist":"Stevie Wonder","country":"United States"},{"spotifyID":"1","title":"Golden Boy","artist":"Nadav Guedj","country":"Israel"}]
-    return render_template("mySongs.html", songList = songs)
+        songs = [{"spotifyID":"0","title":"Ma Cherie Amour","artist":"Stevie Wonder","country":"United States"},{"spotifyID":"1","title":"Golden Boy","artist":"Nadav Guedj","country":"Israel"}]
+        return render_template("mySongs.html", songList = songs)
 
 @app.route("/getSongAndInfo")
 def getSongAndInfo():
@@ -144,9 +147,12 @@ def getSongAndInfo():
 
 
 @app.route("/map")
-def mapTester():
-    return render_template("findSong.html")
+def findSong():
+    if 'username' not in session:
+        return redirect("/")
+    else:
+        return render_template("findSong.html")
 
 if __name__ == "__main__":
-    app.debug = True                                                                                                        
+    app.debug = True
     app.run()
