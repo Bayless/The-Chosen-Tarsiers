@@ -130,6 +130,9 @@ anyaL -- 2017-1-19 19:54:44
 Reworked ajax code to accomodate 5 generated song results
 Wrote new ajax function to save songs
 
-anyaL -- 2017-1-19 21:51:29
+anyaL -- 2017-1-19 20:51:29
 Made play songs button (still needs spotify songplayer)
 Reformatted my songs page
+
+anyaL -- 2017-1-19 21:45:48
+Seriously cleaned up jquerey for song result generation
