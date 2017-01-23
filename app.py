@@ -1,7 +1,6 @@
 # -*- coding: latin-1 -*-
 
 from flask import Flask, render_template, request, redirect, url_for, session, flash
-from flask import Flask, render_template, request, redirect, url_for, session, flash
 import time
 import json
 import random
