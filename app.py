@@ -86,7 +86,7 @@ def mySongs():
         #songs = accounts_db_manager.getMySongs(user)
         #fake song list for testing
         songs = [{"spotifyID":"spotify:track:2TpxZ7JUBn3uw46aR7qd6V","title":"Ma Cherie Amour","artist":"Stevie Wonder","country":"United States"},{"spotifyID":"1","title":"Golden Boy","artist":"Nadav Guedj","country":"Israel"}]
-        return render_template("mySongs.html", songList = songs)
+        return render_template("mysongs.html", songList = songs)
 
 @app.route("/getSongAndInfo")
 def getSongAndInfo():
@@ -155,6 +155,14 @@ def findSong():
         return redirect("/")
     else:
         return render_template("findSong.html")
+
+#search results
+@app.route("/searchResults")
+def searchResults():
+    if 'username' not in session:
+        return redirect("/")
+    else:
+        return render_template("searchResults.html")
 
 # Just in case...
 @app.errorhandler(404)
