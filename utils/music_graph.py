@@ -11,13 +11,13 @@ music_graph_root = "http://api.musicgraph.com/api/v2/artist/"
 
 # Similar to search, it's the same, the url is different
 
-def artist_country(country=""):
+def artist_country(country="", limit = 1):
     url = music_graph_root+"search"
     api_key = open('utils/music_graph_key').read().split('\n')[0]
     query_request = {                       
                      'country' : country,
                      'api_key' : api_key, 
-                     'limit': 1,
+                     'limit': limit,
                      'format' : 'json'}
     encoded = urllib.urlencode(query_request)
 
@@ -30,24 +30,31 @@ def artist_country(country=""):
     
     return response_data
 
-def search(name = '', country = '', genre = ''):
+def search(name = '', country = '', genre = '', limit = 1):
     url = music_graph_root+"search"
 
     api_key = open('utils/music_graph_key').read().split('\n')[0]
+    if name == '':
+        query_request = { 
+            'country' : country,
+            'genre' : genre,
+            'api_key' : api_key, 
+            'limit': limit,
+            'format' : 'json'}        
     if not genre == '':
         query_request = { 
             'name' : name, 
             'country' : country,
             'genre' : genre,
             'api_key' : api_key, 
-            'limit': 5,
+            'limit': limit,
             'format' : 'json'}
     else:
         query_request = { 
             'name' : name, 
             'country' : country,
             'api_key' : api_key, 
-            'limit': 5,
+            'limit': limit,
             'format' : 'json'}
 
     
