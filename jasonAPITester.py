@@ -14,7 +14,7 @@ import urllib, urllib2
 import base64
 import json
 import time
-
+import random
 
 def match_last(artist="",track="",number = 5):
     raw =  last_fm.get_similar(artist,track)
@@ -74,7 +74,30 @@ def spotifyRecommend(id = ""):
     return retDict
 
 def artistReturn(country= ""):
-   print music_graph.artist_country(country = country)["data"][0]["id"]
+   id = music_graph.artist_country(country = country)["data"][0]["id"]
+   raw = music_graph.get_tracks(id)
+   print raw
+   length = len(raw)
+   print length
+   for n in range(0,length):
+       randTrack =  raw[n]
+       print randTrack
+       if "track_spotify_id" in randTrack:
+          spotify_id =  randTrack["track_spotify_id"]
+          print spotify_id
+   return spotify_id
+
+"""
+   while (booleanSpotifyId == False):
+       n = random.randint(0,len(music_graph.get_tracks(id)["data"]))
+       randTrack =  music_graph.get_tracks(id)["data"][n]
+       print randTrack
+       if "track_spotify_id"  in randTrack:
+          spotify_id =  music_graph.get_tracks(id)["data"][n]["track_spotify_id"]
+          booleanSpotifyId = True
+   """
+
+
 
 print artistReturn(country = "Italy")
    

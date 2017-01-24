@@ -23,16 +23,12 @@ def artist_country(country=""):
 
     url += '?' + encoded
 
-    print url
-    
     r = urllib2.Request(url)
 
     response = urllib2.urlopen(r, timeout = 30).read()
     response_data = json.loads(response)
     
     return response_data
-
-
 
 def search(name = '', country = '', genre = ''):
     url = music_graph_root+"search"
@@ -61,8 +57,6 @@ def search(name = '', country = '', genre = ''):
 
     return api_manager.issue_request(url)
 
-print search('', country = 'United States')
-
 def get_info(id = ''):
     url = music_graph_root + id
 
@@ -79,11 +73,6 @@ def get_info(id = ''):
 
     return api_manager.issue_request(url)
 
-    response = urllib2.urlopen(r, timeout = 30).read()
-    response_data = json.loads(response)
-    
-    return response_data
-
 def get_tracks(id = ''):
     url = music_graph_root + id + '/tracks'
 
@@ -93,9 +82,9 @@ def get_tracks(id = ''):
         'api_key' : api_key, 
         'format' : 'json'
     }
-
     encoded = urllib.urlencode(query_request)
 
     url += '?' + encoded
 
+    print url 
     return api_manager.issue_request(url)
