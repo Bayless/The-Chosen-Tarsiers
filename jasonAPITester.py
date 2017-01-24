@@ -75,18 +75,10 @@ def spotifyRecommend(id = ""):
 
 def artistReturn(country= ""):
    id = music_graph.artist_country(country = country)["data"][0]["id"]
-   raw = music_graph.get_tracks(id)
+   print id
+   raw = music_graph.get_tracks(id = id)["data"]
+   raw = music_graph.get_spotify_id(id)
    print raw
-   length = len(raw)
-   print length
-   for n in range(0,length):
-       randTrack =  raw[n]
-       print randTrack
-       if "track_spotify_id" in randTrack:
-          spotify_id =  randTrack["track_spotify_id"]
-          print spotify_id
-   return spotify_id
-
 """
    while (booleanSpotifyId == False):
        n = random.randint(0,len(music_graph.get_tracks(id)["data"]))
@@ -99,5 +91,5 @@ def artistReturn(country= ""):
 
 
 
-print artistReturn(country = "Italy")
+print artistReturn(country = "Israel")
    
