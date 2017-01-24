@@ -96,7 +96,6 @@ def getSongAndInfo():
     country = request.args.get("country")
     #get a song, its info, and another song and its info and put that into two dictionaries
     chosenSongInfo = {"countryCode":availableCountries[country],"countryName":country.upper(),"title":"","artist":""}
-    #ASDFKJLASDJFASLDKFAA LOOK HERE !!!---------!!!!!!!!!!!!!!!KL:FDKFASD:FLKSAD:FK!!!!!
     #currently just getting a random country....  Song getting algo people, I will change this once you get me a song and its info
     randomCountry = random.choice(availableCountries.keys())
     #a list of dictionaries representing each of the 5 songs yeah
@@ -138,8 +137,6 @@ def getSongAndInfo():
                 "spotifyID":""
                 }
             ]
-
-
 
 #put those two dictionaries together
     result = {'chosenSongInfo':chosenSongInfo,
