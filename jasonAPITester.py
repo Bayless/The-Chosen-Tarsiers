@@ -74,22 +74,20 @@ def spotifyRecommend(id = ""):
     return retDict
 
 def artistReturn(country= ""):
-   id = music_graph.artist_country(country = country)["data"][0]["id"]
-   print id
-   raw = music_graph.get_tracks(id = id)["data"]
-   raw = music_graph.get_spotify_id(id)
-   print raw
-"""
-   while (booleanSpotifyId == False):
-       n = random.randint(0,len(music_graph.get_tracks(id)["data"]))
-       randTrack =  music_graph.get_tracks(id)["data"][n]
-       print randTrack
-       if "track_spotify_id"  in randTrack:
-          spotify_id =  music_graph.get_tracks(id)["data"][n]["track_spotify_id"]
-          booleanSpotifyId = True
-   """
+   artistID = music_graph.artist_country(country = country)["data"][0]["id"]
+   trackRaw = music_graph.get_tracks(id = artistID)["data"]
+   
+   for n in range(0, len(trackRaw)):
+       if "track_spotify_id" in trackRaw[n]:
+           return trackRaw[n]["track_spotify_id"]
+   return "There is no Spotify ID"
 
+testID = artistReturn(country = "Israel")
 
+def getAttributes(id = ""):
+    print spotify.audio_features(id = id)
 
-print artistReturn(country = "Israel")
+getAttributes(id = testID)
+
+    
    
