@@ -102,9 +102,13 @@ def getNewArtists(genre = "", country = ""):
 #print getNewArtists(genre = artistGenre, country = randomCountry)
 
 def trackInfo(id = ""):
-    artist = spotify.track(id)["artists"][0]["name"]
-    track =  spotify.track(id)["name"]
-    return { track : artist }
+    raw = spotify.track(id)
+    artist = raw["artists"][0]["name"]
+    track =  raw["name"]
+    return { "spotifyID" : id,
+             "title": track,
+             "artist": artist}
+
 print trackInfo(id ="41ETKVJbZDSjATzW2wAqmc")
 
     
