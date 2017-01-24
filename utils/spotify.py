@@ -6,6 +6,7 @@ import base64
 import json
 import spotify_db_manager
 import time
+import api_manager
 
 # get_access_token()
 # Retrieves an access token from Spotify
@@ -23,13 +24,8 @@ def get_access_token():
     }
 
     data_encoded = urllib.urlencode(payload) # Encodes the data
-    
-    r = urllib2.Request(url, data_encoded, headers) # Setups the object
 
-    response = urllib2.urlopen(r, timeout = 30).read() # Executes the response
-    response_data = json.loads(response) # Saves as a json
-    
-    return response_data
+    return api_manager.issue_request(url, data_encoded, headers)
 
 # authenticate()
 # Gets the current access token from the db manager
