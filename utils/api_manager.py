@@ -1,4 +1,6 @@
 import requests
+import urllib2
+import json
 
 def issue_request(url, data_encoded = None, headers = None):
     if not data_encoded or not headers:
