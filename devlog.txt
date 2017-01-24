@@ -150,3 +150,7 @@ Worked on Spotify player
 
 jasonM -- 2017-1-24 2:02:16
 Added MusicGraph API endpoints
+
+anyaK -- 2017-1-24 12:24:59
+added jasonHelper
+added favicon

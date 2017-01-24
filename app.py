@@ -170,8 +170,13 @@ def searchResults():
     else:
         return render_template("searchResults.html")
 
-
-
+#About page
+@app.route("/about")
+def about():
+    if 'username' not in session:
+        return redirect("/")
+    else:
+        return render_template("about.html")
 
 # Just in case...
 @app.errorhandler(404)
