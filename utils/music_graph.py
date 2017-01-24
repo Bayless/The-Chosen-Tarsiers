@@ -98,6 +98,23 @@ def get_info(id = ''):
     
     return response_data
 
+def get_spotify_id(track_id = ''):
+    url = "http://api.musicgraph.com/api/v2/track/"
+    url += track_id
+
+    api_key = open('utils/music_graph_key').read().split('\n')[0]
+    query_request = { 
+        'api_key' : api_key, 
+        'format' : 'json'}
+        
+    encoded = urllib.urlencode(query_request)
+
+    url += '?' + encoded
+
+    return api_manager.issue_request(url)
+
+print get_spotify_id('f05e067b-a6c0-11e0-b446-00251188dd67')
+
 def get_tracks(id = ''):
     url = music_graph_root + id + '/tracks'
 
