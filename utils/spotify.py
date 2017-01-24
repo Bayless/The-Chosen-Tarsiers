@@ -57,10 +57,12 @@ def track(id = ''):
 # search_field should be a string of the search field
 # type should be either album, artist, playlist, or track
 def search(search_field = '', type='artist'):
-    query_request = {'q' : search_field, 'type' : type} # query result
+    query_request = {'q' : search_field, 'type' : type, 'limit' : 1} # query result
     encoded = urllib.urlencode(query_request) # Encodes the parameters
 
     url = 'https://api.spotify.com/v1/search?' + encoded # Base URL
+
+    print url
 
     headers = {"Authorization": "Bearer " + authenticate()} # Gets the current access token
     
@@ -109,6 +111,8 @@ def get_recommendations(limit = 1, market = 'US',
 
     url = 'https://api.spotify.com/v1/recommendations?' + encoded
 
+    print url
+
     headers = {"Authorization": "Bearer " + authenticate()}
     
     r = urllib2.Request(url, headers = headers)
@@ -118,4 +122,3 @@ def get_recommendations(limit = 1, market = 'US',
     
     return response_data
 
-print track('5t0E9V1RiHBflzs71pfGGG')

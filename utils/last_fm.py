@@ -56,7 +56,9 @@ def get_top_tracks(country = ''):
 
     api_key = open('utils/last_fm_key').read().split('\n')[1]
 
-    query_request = {'method' : 'geo.getTopTracks', 'country' : country, 'api_key' : api_key, 'format' : 'json'}
+    query_request = {'method' : 'geo.getTopTracks', 'country' : country, 'api_key' : api_key, 
+                     'limit' : 1,
+                     'format' : 'json'}
     encoded = urllib.urlencode(query_request)
 
     url += '?' + encoded

@@ -145,3 +145,8 @@ Fixed session holes in app.py routing and added 404/500 error page
 roddaJ -- 2017-1-20 14:06
 Added Spotify routes
 Worked on Spotify player
+
+================2017-1-24================
+
+jasonM -- 2017-1-24 2:02:16
+Added MusicGraph API endpoints
