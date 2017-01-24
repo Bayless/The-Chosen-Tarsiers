@@ -6,6 +6,7 @@ import base64
 import json
 import spotify_db_manager
 import time
+import api_manager
 
 last_fm_root = 'http://ws.audioscrobbler.com/2.0/'
 
@@ -20,14 +21,7 @@ def get_similar(artist = '', track = ''):
 
     url += '?' + encoded
 
-    print url
-    
-    r = urllib2.Request(url)
-
-    response = urllib2.urlopen(r, timeout = 30).read()
-    response_data = json.loads(response)
-    
-    return response_data
+    return api_manager.issue_request(url)
 
 # Return top artists, by country name [ISO 3166-1 country names]
 def get_top_artists(country = ''):
@@ -61,11 +55,4 @@ def get_top_tracks(country = ''):
 
     url += '?' + encoded
 
-    print url
-    
-    r = urllib2.Request(url)
-
-    response = urllib2.urlopen(r, timeout = 30).read()
-    response_data = json.loads(response)
-    
-    return response_data
+    return issue_request(url)
