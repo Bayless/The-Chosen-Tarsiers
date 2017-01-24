@@ -5,7 +5,7 @@ import time
 import json
 import random
 import utils
-from utils import accountManager, accounts_db_manager
+from utils import accountManager, accounts_db_manager, helpingJason
 
 app = Flask(__name__)
 f = open( "utils/key", 'r' )
