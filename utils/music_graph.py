@@ -22,8 +22,6 @@ def artist_country(country=""):
     encoded = urllib.urlencode(query_request)
 
     url += '?' + encoded
-
-    print url
     
     r = urllib2.Request(url)
 
@@ -61,7 +59,34 @@ def search(name = '', country = '', genre = ''):
 
     return api_manager.issue_request(url)
 
-print search('', country = 'United States')
+def get_similar_song_name(name = '', offset = 0):
+    url = "http://api.musicgraph.com/api/v2/track/"
+    url += 'suggest'
+
+    api_key = open('utils/music_graph_key').read().split('\n')[0]
+    if offset == 0:
+        query_request = { 
+            'prefix' : name, 
+            'api_key' : api_key, 
+            'limit': 10,
+            'format' : 'json'}
+    else:
+        query_request = { 
+            'prefix' : name, 
+            'api_key' : api_key, 
+            'limit': 10,
+            'offset': offset,
+            'format' : 'json'}
+        
+    encoded = urllib.urlencode(query_request)
+
+    url += '?' + encoded
+
+    print url
+
+    return api_manager.issue_request(url)
+
+print get_similar_song_name('Hello')
 
 def get_info(id = ''):
     url = music_graph_root + id
