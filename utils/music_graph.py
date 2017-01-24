@@ -9,18 +9,39 @@ import time
 music_graph_root= "http://api.musicgraph.com/api/v2/artist/"
 
 # Similar to search, it's the same, the url is different
-def suggest(name = '', country = 'Brazil'):
+def artist_country(country=""):
+    url = music_graph_root+"search"
+    api_key = open('utils/music_graph_key').read().split('\n')[0]
+    query_request = {                       
+                     'country' : country,
+                     'api_key' : api_key, 
+                     'limit': 1,
+                     'format' : 'json'}
+    encoded = urllib.urlencode(query_request)
+
+    url += '?' + encoded
+
+    print url
+    
+    r = urllib2.Request(url)
+
+    response = urllib2.urlopen(r, timeout = 30).read()
+    response_data = json.loads(response)
+    
+    return response_data
+
+
+
+def suggest(name = '', country = ''):
     url = music_graph_root+"search"
 
     api_key = open('utils/music_graph_key').read().split('\n')[0]
-
     query_request = { 
                      'similar_to' : name, 
                      'country' : country,
                      'api_key' : api_key, 
                      'limit': 5,
                      'format' : 'json'}
-
 
     encoded = urllib.urlencode(query_request)
 
@@ -33,6 +54,5 @@ def suggest(name = '', country = 'Brazil'):
     response = urllib2.urlopen(r, timeout = 30).read()
     response_data = json.loads(response)
     
-    #return response_data
+    return response_data
 
-print suggest(name = "John Lennon", country = "US")
