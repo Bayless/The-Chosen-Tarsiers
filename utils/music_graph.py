@@ -34,17 +34,18 @@ def artist_country(country=""):
 
 
 
-def search(name = '', country = ''):
+def search(name = '', country = '', genre = ''):
     url = music_graph_root+"search"
 
     api_key = open('utils/music_graph_key').read().split('\n')[0]
     query_request = { 
-                     'name' : name, 
-                     'country' : country,
-                     'api_key' : api_key, 
-                     'limit': 5,
-                     'format' : 'json'}
-
+        'name' : name, 
+        'country' : country,
+        'genre' : genre,
+        'api_key' : api_key, 
+        'limit': 5,
+        'format' : 'json'}
+    
     encoded = urllib.urlencode(query_request)
 
     url += '?' + encoded
