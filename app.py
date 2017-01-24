@@ -7,8 +7,12 @@ import random
 import utils
 from utils import accountManager, accounts_db_manager, helpingJason
 
+import config
+
 app = Flask(__name__)
+
 f = open( "utils/key", 'r' )
+
 app.secret_key = f.read();
 f.close
 
@@ -80,57 +84,62 @@ def saveSong():
 def mySongs():
     if 'username' not in session:
         return redirect("/")
-    else:
-        #fake song list for testing
-        user = session['username']
-        #songs = accounts_db_manager.getMySongs(user)
-        #fake song list for testing
-        songs = [{"spotifyID":"spotify:track:2TpxZ7JUBn3uw46aR7qd6V","title":"Ma Cherie Amour","artist":"Stevie Wonder","country":"United States"},{"spotifyID":"1","title":"Golden Boy","artist":"Nadav Guedj","country":"Israel"}]
-        return render_template("mysongs.html", songList = songs)
+
+
+    
+    #fake song list for testing
+    user = session['username']
+    #songs = accounts_db_manager.getMySongs(user)
+
+
+    #fake song list for testing
+    songs = [{"spotifyID":"spotify:track:2TpxZ7JUBn3uw46aR7qd6V","title":"Ma Cherie Amour","artist":"Stevie Wonder","country":"United States"},{"spotifyID":"1","title":"Golden Boy","artist":"Nadav Guedj","country":"Israel"}]
+
+    
+    return render_template("mysongs.html", songList = songs)
 
 @app.route("/getSongAndInfo")
 def getSongAndInfo():
     #here's a dictionary of available countries
-    availableCountries = {"Bangladesh":"BD","Belgium":"BE","Burkina Faso":"BF","Bulgaria":"BG","Bosnia and Herz.":"BA","Brunei":"BN","Bolivia":"BO","Japan":"JP","Burundi":"BI","Benin":"BJ","Bhutan":"BT","Jamaica":"JM","Botswana":"BW","Brazil":"BR","Bahamas":"BS","Belarus":"BY","Belize":"BZ","Russia":"RU","Rwanda":"RW","Serbia":"RS","Timor-Leste":"TL","Turkmenistan":"TM","Tajikistan":"TJ","Romania":"RO","Guinea-Bissau":"GW","Guatemala":"GT","Greece":"GR","Eq. Guinea":"GQ","Guyana":"GY","Georgia":"GE","United Kingdom":"GB","Gabon":"GA","Guinea":"GN","Gambia":"GM","Greenland":"GL","Ghana":"GH","Oman":"OM","Tunisia":"TN","Jordan":"JO","Croatia":"HR","Haiti":"HT","Hungary":"HU","Honduras":"HN","Puerto Rico":"PR","Palestine":"PS","Portugal":"PT","Paraguay":"PY","Panama":"PA","Papua New Guinea":"PG","Peru":"PE","Pakistan":"PK","Philippines":"PH","Poland":"PL","Zambia":"ZM","W. Sahara":"EH","Estonia":"EE","Egypt":"EG","South Africa":"ZA","Ecuador":"EC","Italy":"IT","Vietnam":"VN","Solomon Is.":"SB","Ethiopia":"ET","Somalia":"SO","Zimbabwe":"ZW","Spain":"ES","Eritrea":"ER","Montenegro":"ME","Moldova":"MD","Madagascar":"MG","Morocco":"MA","Uzbekistan":"UZ","Myanmar":"MM","Mali":"ML","Mongolia":"MN","Macedonia":"MK","Malawi":"MW","Mauritania":"MR","Uganda":"UG","Malaysia":"MY","Mexico":"MX","Israel":"IL","France":"FR","Somaliland":"XS","Finland":"FI","Fiji":"FJ","Falkland Is.":"FK","Nicaragua":"NI","Netherlands":"NL","Norway":"NO","Namibia":"NA","Vanuatu":"VU","New Caledonia":"NC","Niger":"NE","Nigeria":"NG","New Zealand":"NZ","Nepal":"NP","Kosovo":"XK","Côte d'Ivoire":"CI","Switzerland":"CH","Colombia":"CO","China":"CN","Cameroon":"CM","Chile":"CL","N. Cyprus":"XC","Canada":"CA","Congo":"CG","Central African Rep.":"CF","Dem. Rep. Congo":"CD","Czech Rep.":"CZ","Cyprus":"CY","Costa Rica":"CR","Cuba":"CU","Swaziland":"SZ","Syria":"SY","Kyrgyzstan":"KG","Kenya":"KE","S. Sudan":"SS","Suriname":"SR","Cambodia":"KH","El Salvador":"SV","Slovakia":"SK","Korea":"KR","Slovenia":"SI","Dem. Rep. Korea":"KP","Kuwait":"KW","Senegal":"SN","Sierra Leone":"SL","Kazakhstan":"KZ","Saudi Arabia":"SA","Sweden":"SE","Sudan":"SD","Dominican Rep.":"DO","Djibouti":"DJ","Denmark":"DK","Germany":"DE","Yemen":"YE","Algeria":"DZ","United States":"US","Uruguay":"UY","Lebanon":"LB","Lao PDR":"LA","Taiwan":"TW","Trinidad and Tobago":"TT","Turkey":"TR","Sri Lanka":"LK","Latvia":"LV","Lithuania":"LT","Luxembourg":"LU","Liberia":"LR","Lesotho":"LS","Thailand":"TH","Fr. S. Antarctic Lands":"TF","Togo":"TG","Chad":"TD","Libya":"LY","United Arab Emirates":"AE","Venezuela":"VE","Afghanistan":"AF","Iraq":"IQ","Iceland":"IS","Iran":"IR","Armenia":"AM","Albania":"AL","Angola":"AO","Argentina":"AR","Australia":"AU","Austria":"AT","India":"IN","Tanzania":"TZ","Azerbaijan":"AZ","Ireland":"IE","Indonesia":"ID","Ukraine":"UA","Qatar":"QA","Mozambique":"MZ"}
     #now for getting the user-chosen country
     country = request.args.get("country")
     #get a song, its info, and another song and its info and put that into two dictionaries
-    chosenSongInfo = {"countryCode":availableCountries[country],"countryName":country.upper(),"title":"","artist":""}
+    chosenSongInfo = {"countryCode":config.availableCountries[country],"countryName":country.upper(),"title":"","artist":""}
     #currently just getting a random country....  Song getting algo people, I will change this once you get me a song and its info
-    randomCountry = random.choice(availableCountries.keys())
+    randomCountry = random.choice(config.availableCountries.keys())
     #a list of dictionaries representing each of the 5 songs yeah
     #sorry the country thing is redundant
     generatedSongs = [
             {
-                "countryCode":availableCountries[randomCountry],
+                "countryCode":config.availableCountries[randomCountry],
                 "countryName":randomCountry,
                 "title":"",
                 "artist":"",
                 "spotifyID":""
                 },
             {
-                "countryCode":availableCountries[randomCountry],
+                "countryCode":config.availableCountries[randomCountry],
                 "countryName":randomCountry,
                 "title":"",
                 "artist":"",
                 "spotifyID":""
                 },
             {
-                "countryCode":availableCountries[randomCountry],
+                "countryCode":config.availableCountries[randomCountry],
                 "countryName":randomCountry,
                 "title":"",
                 "artist":"",
                 "spotifyID":""
                 },
             {
-                "countryCode":availableCountries[randomCountry],
+                "countryCode":config.availableCountries[randomCountry],
                 "countryName":randomCountry,
                 "title":"",
                 "artist":"",
                 "spotifyID":""
                 },
             {
-                "countryCode":availableCountries[randomCountry],
+                "countryCode":config.availableCountries[randomCountry],
                 "countryName":randomCountry,
                 "title":"",
                 "artist":"",
@@ -160,6 +169,9 @@ def searchResults():
         return redirect("/")
     else:
         return render_template("searchResults.html")
+
+
+
 
 # Just in case...
 @app.errorhandler(404)

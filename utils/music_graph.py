@@ -10,13 +10,13 @@ import api_manager
 music_graph_root = "http://api.musicgraph.com/api/v2/artist/"
 
 # Similar to search, it's the same, the url is different
-def suggest(name = '', country = 'Brazil'):
+def search(name = '', country = 'Brazil'):
     url = music_graph_root + 'search'
 
     api_key = open('utils/music_graph_key').read().split('\n')[0]
 
     query_request = { 
-                     'similar_to' : name, 
+                     'name' : name, 
                      'country' : country,
                      'api_key' : api_key, 
                      'limit': 5,
@@ -27,6 +27,8 @@ def suggest(name = '', country = 'Brazil'):
     url += '?' + encoded
 
     return api_manager.issue_request(url)
+
+print search('Nicki Minaj', country = 'United States')
 
 def get_info(id = ''):
     url = music_graph_root + id
