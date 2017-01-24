@@ -38,13 +38,22 @@ def search(name = '', country = '', genre = ''):
     url = music_graph_root+"search"
 
     api_key = open('utils/music_graph_key').read().split('\n')[0]
-    query_request = { 
-        'name' : name, 
-        'country' : country,
-        'genre' : genre,
-        'api_key' : api_key, 
-        'limit': 5,
-        'format' : 'json'}
+    if not genre == '':
+        query_request = { 
+            'name' : name, 
+            'country' : country,
+            'genre' : genre,
+            'api_key' : api_key, 
+            'limit': 5,
+            'format' : 'json'}
+    else:
+        query_request = { 
+            'name' : name, 
+            'country' : country,
+            'api_key' : api_key, 
+            'limit': 5,
+            'format' : 'json'}
+
     
     encoded = urllib.urlencode(query_request)
 
@@ -52,7 +61,7 @@ def search(name = '', country = '', genre = ''):
 
     return api_manager.issue_request(url)
 
-print search('Nicki Minaj', country = 'United States')
+print search('', country = 'United States')
 
 def get_info(id = ''):
     url = music_graph_root + id
