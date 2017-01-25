@@ -36,18 +36,7 @@ My Songs
                   <button id="removeSong_{{ song["spotifyID"] }}" name="{{ song["spotifyID"] }}" class="alert button radius" type="button">Remove Song</button>
                 </div>
               </div>
-              <hr>
-              {% endfor %}
-              {% endif %}
-            </div>
-            <div class= "small-3 columns">
-              <button id="playSong_{{ song["spotifyID"] }}" name="{{ song["spotifyID"] }}" class="button radius" type="button">Play Song</button>
-              <button id="removeSong_{{ song["spotifyID"] }}" name="{{ song["spotifyID"] }}" class="alert button radius" type="button">Remove Song</button>
-            </div>
-          </div>
-          <hr>
-          {% endfor %}
-          {% endif %}
+              } 
         </div>
       </div>
     </div>
