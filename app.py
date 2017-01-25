@@ -7,7 +7,7 @@ import random
 import utils
 from utils import accountManager, accounts_db_manager, helper, search
 from utils import spotify
-import jasonAPITester
+import matchingAlgo
 import config
 
 app = Flask(__name__)
@@ -107,10 +107,10 @@ def getSongAndInfo():
     #now for getting the user-chosen country
     country = request.args.get("country")
     #get a song, its info, and another song and its info and put that into two dictionaries
-    chosenSongInfo = jasonAPITester.geoAttributes(country)
+    chosenSongInfo = matchingAlgo.geoAttributes(country)
     genre = chosenSongInfo["genre"]
     #currently just getting a random country....  Song getting algo people, I will change this once you get me a song and its info
-    generatedSongs = jasonAPITester.similarTrackCompiler(genre = genre, country = country)
+    generatedSongs = matchingAlgo.similarTrackCompiler(genre = genre, country = country)
     #a list of dictionaries representing each of the 5 songs yeah
     #sorry the country thing is redundant
     #put those two dictionaries together

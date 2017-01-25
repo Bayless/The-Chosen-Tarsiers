@@ -11,7 +11,7 @@ music_graph_root = "http://api.musicgraph.com/api/v2/artist/"
 
 # Similar to search, it's the same, the url is different
 
-def search(name = '', country = '', genre = '', limit = 10):
+def search(name = '', country = '', genre = '', limit = 50):
     url = music_graph_root+"search"
 
     api_key = open('utils/music_graph_key').read().split('\n')[0]
@@ -34,6 +34,8 @@ def search(name = '', country = '', genre = '', limit = 10):
     encoded = urllib.urlencode(query_request)
 
     url += '?' + encoded
+    
+    print url
 
     return api_manager.issue_request(url)
 
@@ -73,11 +75,6 @@ def get_info(id = ''):
     return api_manager.issue_request(url)
 
 
-    response = urllib2.urlopen(r, timeout = 30).read()
-    response_data = json.loads(response)
-    
-    return response_data
-
 def get_spotify_id(track_id = ''):
     url = "http://api.musicgraph.com/api/v2/track/"
     url += track_id
@@ -98,7 +95,6 @@ def get_tracks(id = ''):
     url = music_graph_root + id + '/tracks'
 
     api_key = open('utils/music_graph_key').read().split('\n')[0]
-
     query_request = { 
         'api_key' : api_key, 
         'format' : 'json',
@@ -107,5 +103,6 @@ def get_tracks(id = ''):
     encoded = urllib.urlencode(query_request)
 
     url += '?' + encoded
+
     print url
     return api_manager.issue_request(url)

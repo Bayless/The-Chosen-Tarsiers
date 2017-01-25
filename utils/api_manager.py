@@ -11,6 +11,7 @@ def issue_request(url, data_encoded = None, headers = None):
     
     response = urllib2.urlopen(r, timeout = 30).read()
 
+
     response_data = json.loads(response)
     
     return response_data
