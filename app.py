@@ -5,7 +5,8 @@ import time
 import json
 import random
 import utils
-from utils import accountManager, accounts_db_manager, helpingJason
+from utils import accountManager, accounts_db_manager, helper, search
+from utils import spotify
 
 import config
 
@@ -74,28 +75,30 @@ def logout():
 def saveSong():
     spotifyID = request.args.get("spotifyID")
     username = session['username']
-    accounts_db_manager.saveSong(username,spotifyID)
-    isSuccess = True #HARD CODED FOR NOW
+    isSuccess = accounts_db_manager.saveSong(username,spotifyID)
     result = { "isSuccess": isSuccess}
     return json.dumps(result)
 
-#hard-coded for now
+#ajax for removing saved  songs
+@app.route("/removeSong")
+def removeSong():
+    spotifyID = request.args.get("spotifyID")
+    username = session['username']
+    isSuccess = accounts_db_manager.removeSong(username,spotifyID)
+    result = { "isSuccess": isSuccess}
+    return json.dumps(result)
+
 @app.route("/mySongs")
 def mySongs():
     if 'username' not in session:
         return redirect("/")
-
-
-    
     #fake song list for testing
     user = session['username']
     #songs = accounts_db_manager.getMySongs(user)
-
-
     #fake song list for testing
     songs = [{"spotifyID":"spotify:track:2TpxZ7JUBn3uw46aR7qd6V","title":"Ma Cherie Amour","artist":"Stevie Wonder","country":"United States"},{"spotifyID":"1","title":"Golden Boy","artist":"Nadav Guedj","country":"Israel"}]
 
-    
+    songs = accounts_db_manager.getMySongs(user)
     return render_template("mysongs.html", songList = songs)
 
 @app.route("/getSongAndInfo")
@@ -147,10 +150,10 @@ def getSongAndInfo():
                 }
             ]
 
-#put those two dictionaries together
+    #put those two dictionaries together
     result = {'chosenSongInfo':chosenSongInfo,
-              'generatedSongs':generatedSongs
-    }
+            'generatedSongs':generatedSongs
+            }
 
     return json.dumps(result)
 
@@ -163,12 +166,36 @@ def findSong():
         return render_template("findSong.html")
 
 #search results
-@app.route("/searchResults")
+@app.route('/searchResults', methods=["POST", "GET"])
 def searchResults():
     if 'username' not in session:
         return redirect("/")
     else:
-        return render_template("searchResults.html")
+        formdict = request.form
+        results = {}
+        results = search.search(formdict["query"])
+        #print "stuff: " + formdict['query']
+        return render_template("searchResults.html", songList=results)
+
+#returns basic song info
+def getBasicInfo(id):
+    raw = spotify.track(id)
+    artist = raw["artists"][0]["name"]
+    track =  raw["name"]
+    info = { "spotifyID" : id,
+                    "title": track,
+                    "artist": artist}
+    return info
+#search results
+@app.route('/searchedSong', methods=["POST", "GET"])
+def searchedSong():
+    if 'username' not in session:
+        return redirect("/")
+    spotifyID = request.args.get("spotifyID")
+    givenSong = getBasicInfo(spotifyID)
+    #title = request.args.get("title")
+    #artist = request.args.get("artist")
+    return render_template("searchedSong.html",givenSong=givenSong)
 
 #About page
 @app.route("/about")
@@ -181,11 +208,11 @@ def about():
 # Just in case...
 @app.errorhandler(404)
 def page_not_found(e):
-        return render_template('nope.html'), 404
+    return render_template('nope.html'), 404
 
 @app.errorhandler(500)
 def page_not_found(e):
-        return render_template('nope.html'), 500
+    return render_template('nope.html'), 500
 
 if __name__ == "__main__":
     app.debug = True

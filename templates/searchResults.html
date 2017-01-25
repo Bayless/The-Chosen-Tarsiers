@@ -13,45 +13,49 @@ Search Results
 
 {% block body %}
 <center>
-  <br>
-  <div class="card large-6">
-    <div class="content">
-      <span class="titl e">  Search Results </span>
-    </div>
-    <div class="action">
-      <div class="row results">
-        <div class="large-12 columns ">
-          <div class="search-results">
-            {% if songList %}
-              {% for song in songList %}
-                <div class="row">
-                  <div class=" small-9 columns">
-                    <h4> {{ song["title"] }} </h4>
-                    <b>Country: </b> {{ song["country"] }}
-                    <br>
-                    <b>Artist: </b> {{ song["artist"] }}
-		    <div id="{{ song['spotifyID'] }}">
-		    </div>
-                  </div>
-                  <div class= "small-3 columns">
-                    <button id="useSong" name="{{ song["spotifyID"] }}" class="button radius" type="button">Use Song</button>
-                  </div>
-                </div>
-                <hr>
-              {% endfor %}
-            {% endif %}
-          </div>
+    <br>
+    <div class="card large-6">
+        <div class="content">
+            <span class="titl e">  Search Results </span>
         </div>
-      </div>
+        <div class="action">
+            <div class="row results">
+                <div class="large-12 columns ">
+                    <div class="search-results">
+                        {% if songList %}
+                        {% for song in songList %}
+                        <div class="row">
+                            <div class=" small-9 columns">
+                                <h4> {{ song["title"] }} </h4>
+                                <b>Artist: </b> {{ song["artist"] }}
+                                <div id="{{ song['spotifyID'] }}">
+                                </div>
+                            </div>
+                            <div class= "small-3 columns">
+                                <button id="useSong_{{ song["spotifyID"] }}" name="{{ song["spotifyID"] }}" class="button radius" type="button">Use Song</button>
+                            </div>
+                        </div>
+                        <hr>
+                        {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
 </center>
 
 <script>
 //for using song for search
-$('#useSong').click(function () {
-        console.log('hi');
-        console.log($(this).attr('name'));
+
+{% if songList %}
+{% for song in songList %}
+$('#useSong_{{ song["spotifyID"] }}').click(function () {
+    console.log($(this).attr('name'));
+    var input = { 'spotifyID' : $(this).attr('name') };
+    window.location.href='/searchedSong?spotifyID={{ song["spotifyID"] }}';
 });
+    {% endfor %}
+    {% endif %}
 </script>
 {% endblock %}

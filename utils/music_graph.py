@@ -30,8 +30,7 @@ def artist_country(country=""):
     
     return response_data
 
-
-def search(name = '', country = '', genre = ''):
+def search(name = '', country = '', genre = '', limit = 5):
     url = music_graph_root+"search"
 
     api_key = open('utils/music_graph_key').read().split('\n')[0]
@@ -41,14 +40,14 @@ def search(name = '', country = '', genre = ''):
             'country' : country,
             'genre' : genre,
             'api_key' : api_key, 
-            'limit': 5,
+            'limit': limit,
             'format' : 'json'}
     else:
         query_request = { 
             'name' : name, 
             'country' : country,
             'api_key' : api_key, 
-            'limit': 5,
+            'limit': limit,
             'format' : 'json'}
     
     encoded = urllib.urlencode(query_request)
@@ -56,6 +55,7 @@ def search(name = '', country = '', genre = ''):
     url += '?' + encoded
 
     return api_manager.issue_request(url)
+
 
 def get_similar_song_name(name = '', offset = 1):
     url = "http://api.musicgraph.com/api/v2/track/"
@@ -91,6 +91,7 @@ def get_info(id = ''):
 
     return api_manager.issue_request(url)
 
+
     response = urllib2.urlopen(r, timeout = 30).read()
     response_data = json.loads(response)
     
@@ -111,7 +112,6 @@ def get_spotify_id(track_id = ''):
 
     return api_manager.issue_request(url)
 
-print get_spotify_id('f05e067b-a6c0-11e0-b446-00251188dd67')
 
 def get_tracks(id = ''):
     url = music_graph_root + id + '/tracks'
@@ -122,7 +122,6 @@ def get_tracks(id = ''):
         'api_key' : api_key, 
         'format' : 'json'
     }
-
     encoded = urllib.urlencode(query_request)
 
     url += '?' + encoded

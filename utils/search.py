@@ -8,11 +8,11 @@ def search(query = '', offset = 1):
     for song in response['data']:
         if 'track_spotify_id' in song:
             new_song_dict = {}
-            new_song_dict['spotifyId'] = song['track_spotify_id']
+            new_song_dict['spotifyID'] = song['track_spotify_id']
             new_song_dict['title'] = song['title']
-            new_song_dict['artistName'] = song['artist_name']            
+            new_song_dict['artist'] = song['artist_name']
             to_return.append(new_song_dict)
 
     return to_return
 
-print search('Hello Goodbye')
+#print search('Hello Goodbye')

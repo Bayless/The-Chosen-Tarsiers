@@ -58,8 +58,6 @@ def search(search_field = '', type='artist'):
 
     url = 'https://api.spotify.com/v1/search?' + encoded # Base URL
 
-    print url
-
     headers = {"Authorization": "Bearer " + authenticate()} # Gets the current access token
     
     r = urllib2.Request(url, headers = headers)
@@ -72,7 +70,6 @@ def search(search_field = '', type='artist'):
 # Similar to search, it's the same, the url is different 
 def audio_features(id = ''):
     url = 'https://api.spotify.com/v1/audio-features/' + id
-    print url
 
     headers = {"Authorization": "Bearer " + authenticate()}
     
@@ -107,7 +104,6 @@ def get_recommendations(limit = 1, market = 'US',
 
     url = 'https://api.spotify.com/v1/recommendations?' + encoded
 
-    print url
 
     headers = {"Authorization": "Bearer " + authenticate()}
     
