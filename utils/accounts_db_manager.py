@@ -6,11 +6,19 @@ def saveSong(user,spotifyID):
 
     c = db.cursor()
 
-    new_access_token = 'INSERT INTO songs VALUES ("%s", "%s");' % (user, sopitfyID)
+#check if already user already saved song
+    c.execute('SELECT * FROM songs WHERE access_token = "%s" and time = "%s";' % (user, spotifyID))
+    result = c.fetchone()
+    print result
+    if result != None:
+        return False
+
+    new_access_token = 'INSERT INTO songs VALUES ("%s", "%s");' % (user, spotifyID)
     c.execute(new_access_token)
 
     db.commit()
     db.close()
+    return True
 
 def getMySongs(user):
     f = 'database.db'

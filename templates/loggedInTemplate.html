@@ -3,14 +3,26 @@
 {% block top_bar_left %}
 <li><a href="/map">Suggest a Song</a></li>
 <li><a href="/mySongs">My Songs</a></li>
-<li><input type="search" placeholder="Search"></li>
-<li><button type="button" class="button">Search</button></li>
+<li>
+    <form action="/searchResults" method ="POST">
+    <div class="large-12 columns">
+        <div class="row collapse postfix-radius">
+            <div class="small-10 columns">
+                <input name="query" style="margin: 0px;" type="text" placeholder="search">
+            </div>
+            <div class="small-2 columns">
+                <button class="button" type="submit" value="Search">Search</button>
+            </div>
+        </div>
+    </div>
+    </form>
+</li>
 {% endblock %}
 
 
 {% block top_bar_right %}
 <li class="menu-text">
-<a href="/about">About</a>
+    <a href="/about">About</a>
 </li>
 <li class="menu-text">
     <a href="/logout"> Logout </a>

@@ -1,0 +1,258 @@
+{% extends "loggedInTemplate.html" %}
+
+{% block head %}
+<link rel="stylesheet" href="static/css/jquery-jvectormap-2.0.3.css" type="text/css" media="screen"/>
+<link rel="stylesheet" href="static/css/card.css" type="text/css">
+<script src="static/js/jquery-jvectormap-2.0.3.min.js"></script>
+<script src="static/maps/jquery-jvectormap-world-mill.js"></script>
+<script src="static/js/funMapStuff.js"></script>
+
+
+<style>
+div.unclickable
+{
+    pointer-events: none;
+
+    /* for "disabled" effect */
+    opacity: 0.8;
+    background: #CCC;
+}
+
+/* Another zurb building block  */
+.event {
+    padding: 1rem 1rem 1rem 0;
+    display: table; }
+
+.event-date {
+    width: 6rem;
+    margin: 0 auto 1rem;
+    display: table-cell;
+    width: auto; }
+.event-date .event-month {
+    margin: 0;
+    background: #eee;
+    padding: 0.5rem 2rem;
+    text-align: center; }
+.event-date .event-day {
+    margin: 0;
+    border: 1px solid #eee;
+    padding: 0 2rem;
+    text-align: center;
+    font-size: 2rem; }
+
+.event-desc {
+    padding: 0 0 0 1rem;
+    text-align: left;
+    display: table-cell;
+    vertical-align: top; }
+.event-desc .event-desc-header {
+    margin: 0 0 0.5rem 0;
+    padding: 0; }
+.event-desc .event-desc-detail {
+    margin: 0 0 0.25rem;
+    padding: 0; }
+.event-desc .event-desc-time {
+    font-weight: bold; }
+.event-desc .rsvp.button {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    margin: 0; }
+</style>
+{% endblock %}
+
+{% block body %}
+<center>
+    <br>
+    <div class="row">
+        <div class="medium-6 columns">
+            <div class="card">
+                <div class="content">
+                    <span class=title">
+                        <b><div id="chosenSongTitle">{{ givenSong["title"] }}</div> </b>
+                    </span>
+                </div>
+                <div class="action">
+                    <div class="row">
+                        <div class=" small-9 columns">
+                            <div id="chosenSongArtist"><b>Artist: </b>{{ givenSong["artist"] }} </div>
+                        </div>
+                        <div class= "small-3 columns">
+                            <div id="saveChosenSong"><button name="saveSong" value="{{ givenSong["spotifyID"] }}" type="button" class="success button">Save This Song</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="medium-6 columns">
+            <div class="card">
+                <div class="content">
+                    <span class=title">
+                        Generated Country
+                        <b><div id="generatedCountryName">Select a country on the left or search for a song to get started!</div> </b>
+                    </span>
+
+                </div>
+                <div class="action">
+                    <div id="world-map2" style="width: 520px; height: 350px"></div>
+                    <br>
+                    <div id="generatedSongs">
+                        <div id = "generatedSong0">
+                        </div>
+                        <div id = "generatedSong1">
+                        </div>
+                        <div id = "generatedSong2">
+                        </div>
+                        <div id = "generatedSong3">
+                        </div>
+                        <div id = "generatedSong4">
+                        </div>
+                    </div> 
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+
+
+// This function sets up the map and all of the responces to clicking
+// #veryProud
+$(function(){
+
+    // This function is for testing map interation
+    var modifyOther = function( e, code, otherMap ){
+        otherMap.setFocus({region: code, animate: true}); //go to that region
+        otherMap.clearSelectedRegions();
+        otherMap.setSelectedRegions(code);
+    };
+
+    //the IDs for stuff about the songs
+    var chosenSongIds = {
+        'country' : "chosenCountryName",
+        'title' : 'chosenSongTitle',
+        'artist' : 'chosenSongArtist'
+    };
+
+    var generatedSongIds = {
+        'country' : "generatedCountryName",
+        'title' : 'generatedSongTitle',
+        'artist' : 'generatedSongArtist'
+    };
+
+    //var title = chosenSongIds['title'];
+    //var artist = chosenSongIds['artist'];
+
+
+    // This function takes a country code and a dictionary of ids
+    // and gets song info using ajax
+    // and then puts that info on the page
+    var post = function( e, code, country) {
+
+        var input = { 'country' : country };
+
+        // currently recieves: dictionary with one entry --> the uppercase of country name lol
+        // should recieve: dictionary
+        $.ajax({
+            url: '/getSongAndInfo',
+            //'/saveSong'
+            type: 'GET',
+            //'POST'
+            data: input,
+            //title,artist
+            success: function( d ) {
+                d = JSON.parse(d);
+                modifyOther(e, d["generatedSongs"][0]["countryCode"], map2);
+
+                // you do not want to know how messy this was when I first wrote it...
+                for (i = 0; i < 5; i++) {
+                    $('#generatedSong' + i).html('<div class="row"> <div class="small-8 columns"> <h4> Song Title: '  +  d['generatedSongs'][i]['title'] + '</h4> Artist: ' + d['generatedSongs'][i]['artist'] + '</div>  <div class="small-4 columns">   <button name="saveSong" value="' + d['generatedSongs'][i]['spotifyID'] + '" type="button" class="success button">Save This Song</button> </div>  </div> <hr>');
+                };
+
+                // Creds to Rodda for helping me jQuerey-ifying things
+                // save song buttons
+                $('#saveChosenSong').html('<button name="saveSong" value="' + d['chosenSongInfo']['spotifyID'] + '"type="button" class="success button">Save This Song</button>');
+                // put in song info
+                $('#' + chosenSongIds['country']).html(d["chosenSongInfo"]['countryName']);
+                $('#' + generatedSongIds['country']).html(d["generatedSongs"][0]['countryName']);
+                $('#' + chosenSongIds['title']).html("Song Title: " + d["chosenSongInfo"]['title']);
+                $('#' + chosenSongIds['artist']).html("Artist: " + d["chosenSongInfo"]['artist']);
+            }
+        });
+        //console.log("did the ajax thing");
+    };
+
+    //this function saves songs
+    // var saveSong = function( spotifyID ) {
+
+    $(document).on('click', '[name="saveSong"]', function(){
+        spotifyID = $(this).val();
+        var input = { 'spotifyID': spotifyID};
+
+        $.ajax({
+            url: '/saveSong',
+            //'/saveSong'
+            type: 'GET',
+            //'POST'
+            data: input,
+            //title,artist
+            success: function( d ) {
+                d = JSON.parse(d);
+                console.log(spotifyID); //debugging
+                console.log("song saved"); //debugging
+                console.log(d["isSuccess"]); //debugging
+            }
+        });
+    });
+
+    //  $(document).on('click', '[name="saveSong"]', function(){
+    //     saveSong(this.value());
+    // });
+
+
+    // non interactive map
+    var map2;
+
+
+    //oooh so this is how you get the country name...
+    /*
+       var regionDictionary = "{"; //really just a string
+       for (key in map.regions){
+       console.log(key);
+       console.log(map.regions[key]["config"]["name"]);
+       regionDictionary += '"' + map.regions[key]["config"]["name"] + '":"' + key + '",';
+       };
+       console.log(regionDictionary);
+     */
+
+    // map2
+    map2 = new jvm.Map({
+        map: 'world_mill', //set the map file
+        container: $('#world-map2'), //how to tag the map div
+        regionsSelectable: true, // but only I can haha
+        regionsSelectableOne: true, // and only one of course
+
+        //set selectd region styling
+        regionStyle: {
+            selected: {
+                fill: 'red'
+            }
+        },
+        onRegionClick: function(e, code){
+            map2.setFocus({region: code, animate: true});
+        }
+    });
+
+});
+
+//    map.container.click(function(e){
+//        console.log("yolo");
+//window.location.href = "http://google.com";
+//    });
+//});
+
+    </script>
+</center>
+{% endblock %}
