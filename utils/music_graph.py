@@ -31,7 +31,6 @@ def artist_country(country=""):
     return response_data
 
 
-
 def search(name = '', country = '', genre = ''):
     url = music_graph_root+"search"
 
@@ -51,7 +50,6 @@ def search(name = '', country = '', genre = ''):
             'api_key' : api_key, 
             'limit': 5,
             'format' : 'json'}
-
     
     encoded = urllib.urlencode(query_request)
 
