@@ -11,7 +11,6 @@ music_graph_root = "http://api.musicgraph.com/api/v2/artist/"
 
 # Similar to search, it's the same, the url is different
 
-<<<<<<< HEAD
 def search(name = '', country = '', genre = '', limit = 10):
     url = music_graph_root+"search"
 

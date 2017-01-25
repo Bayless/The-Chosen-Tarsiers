@@ -50,6 +50,8 @@ def get_top_tracks(id = ''):
     
     return response_data # Issues response and receives it
 
+print get_top_tracks("1CdMxozoRr9f9kew8DMjKg")
+
 def track(id = ''):
     url = 'https://api.spotify.com/v1/tracks/' + id
 

@@ -87,20 +87,18 @@ def getNewArtists(genre = "", country = ""):
         returnDict[artistName] = artistSpotifyID
     return returnDict
 
-print getNewArtists(genre = test1["genre"], country = test1["country"])
+#similarArtist1 =  getNewArtists(genre = test1["genre"], country = test1["country"])
 
+#similarArtist1ID = similarArtist1[random.choice(similarArtist1.keys())]
 
-def getArtistMeta(country = ""):
-    return "TBD"
-# When given a dictionary of artist IDs, it will return a list of spotify IDs in the following format
-# { artist: "[]", track: "[]", acoustiness: "[]".... }
-# After given this list of spotifyIDs 
-def getUberTracks(artist = []):
-    return "TBD"
-#return top 5 ids
-def compareTracks(origID = "", comparableIDs = [], comparableAttributes = []):
-    return "TBD"
+#print similarArtist1ID
 
+foo = "1CdMxozoRr9f9kew8DMjKg"
+
+def getTopTracks(spotifyArtistID = ""):
+    return spotify.get_top_tracks(spotifyArtistID)
+
+print getTopTracks(foo)
 
 #print trackInfo(id ="41ETKVJbZDSjATzW2wAqmc")
    
