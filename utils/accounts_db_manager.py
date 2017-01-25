@@ -51,4 +51,18 @@ def getMySongs(user):
 
     return songList
 
+def removeSong(user,spotifyID):
+    f = 'database.db'
+    db = sqlite3.connect(f)
+
+    c = db.cursor()
+
+    delete = 'DELETE FROM songs WHERE access_token == "%s" AND time == "%s";' % (user,spotifyID)
+    c.execute(delete)
+    db.commit()
+    db.close()
+
+    return True
+
+
 

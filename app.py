@@ -79,7 +79,15 @@ def saveSong():
     result = { "isSuccess": isSuccess}
     return json.dumps(result)
 
-#hard-coded for now
+#ajax for removing saved  songs
+@app.route("/removeSong")
+def removeSong():
+    spotifyID = request.args.get("spotifyID")
+    username = session['username']
+    isSuccess = accounts_db_manager.removeSong(username,spotifyID)
+    result = { "isSuccess": isSuccess}
+    return json.dumps(result)
+
 @app.route("/mySongs")
 def mySongs():
     if 'username' not in session:
