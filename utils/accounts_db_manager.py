@@ -11,7 +11,6 @@ def saveSong(user,spotifyID):
 #check if already user already saved song
     c.execute('SELECT * FROM songs WHERE username = "%s" and songID = "%s";' % (user, spotifyID))
     result = c.fetchone()
-    print result
     if result != None:
         return False
 
@@ -136,7 +135,16 @@ def get_user_info(user):
 
     db.commit()
     db.close()
-    
+
+
+saveSong('bayle',"0WZ5wa2cgoE2n2ZMIs3DoX")
+saveSong('bayle',"7IV1NZ1wjxl6pEsvuUrTFi")
+saveSong('bayle',"4hs8J2E7xTyRlMKvd5zWfD")
+saveSong('bayle',"5tizKH7CzFsgvWmo8E5sI4")
+saveSong('bayle',"6pAv45hg4fSAQ2uFbFZKN7")
+saveSong('bayle',"5MXkCbqQC1AEPub3XBiE7k")
+
+
 
 
 
