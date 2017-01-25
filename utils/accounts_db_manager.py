@@ -130,7 +130,7 @@ def get_user_info(user):
     numSongs = c.execute(p)
 
     return {"username":user,
-            "number_of_songs":numSongs}
+            "number_saved_songs":numSongs}
 
     db.commit()
     db.close()
