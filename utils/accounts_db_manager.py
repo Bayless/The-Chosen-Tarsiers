@@ -64,5 +64,79 @@ def removeSong(user,spotifyID):
 
     return True
 
+def updateFullName(username, name):
+    f = "database.db"
+    db = sqlite3.connect(f) #open if f exists, otherwise create
+    c = db.cursor()    #facilitate db ops
+
+    p = 'SELECT EXISTS(SELECT fullName FROM users WHERE username = "%s" LIMIT 1)'%(username)
+    c.execute(p)
+    if (c.fetchone()[0] == 0):
+        oldName = "you had no previous name!"
+    else:
+        p = 'SELECT fullName FROM users WHERE username == "%s" '%(username)
+        c.execute(p)
+        oldName = c.fetchone()[0]
+
+    p = 'UPDATE users SET fullName = "%s" WHERE username == "%s"'%(name, username)
+    c.execute(p)
+
+    db.commit()
+    db.close()
+    return oldName
+
+def updateDob(username,birth):
+    f = "database.db"
+    db = sqlite3.connect(f) #open if f exists, otherwise create
+    c = db.cursor()    #facilitate db ops
+    
+    p = 'SELECT EXISTS(SELECT dob FROM users WHERE username = "%s" LIMIT 1)'%(username)
+    c.execute(p)
+    if (c.fetchone()[0] == 0):
+        oldDob = "you had no previous birthdate!"
+    else:
+        p = 'SELECT dob FROM users WHERE username == "%s" '%(username)
+        c.execute(p)
+        oldDob = c.fetchone()[0]
+
+    p = 'UPDATE users SET dob = "%s" WHERE username == "%s"'%(birth, username)
+    c.execute(p)
+
+    db.commit()
+    db.close()
+    return oldDob
+
+def updatePwd(username,pwd):
+    f = "database.db"
+    db = sqlite3.connect(f) #open if f exists, otherwise create
+    c = db.cursor()    #facilitate db ops
+    
+    passHash = sha1(pwd).hexdigest()#hash it
+    p = 'UPDATE users SET password = "%s" WHERE username == "%s"'%(passHash, username)
+
+    c.execute(p)
+
+    db.commit()
+    db.close()
+
+#gonna return just username and number_saved_songs
+def get_user_info(user):
+    f = "database.db"
+    db = sqlite3.connect(f) #open if f exists, otherwise create
+    c = db.cursor()    #facilitate db ops
+    
+    p = 'SELECT COUNT(username) FROM songs WHERE username == "%s"'%(user)
+
+    c.execute(p)
+
+    numSongs = c.fetchone()[0]
+
+    return {"username":user,
+            "number_saved_songs":numSongs}
+
+    db.commit()
+    db.close()
+    
+
 
 

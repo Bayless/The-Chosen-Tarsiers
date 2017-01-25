@@ -26,7 +26,7 @@ def loginOrRegister():
 
 @app.route("/authOrCreate", methods=["POST"])
 def authOrCreate():
-    formdict = request.form
+    formDict = request.form
     if formDict["logOrReg"] == "login":
         username = formDict["username"]
         password = formDict["password"]
@@ -204,6 +204,21 @@ def about():
         return redirect("/")
     else:
         return render_template("about.html")
+    
+@app.route("/profTest")
+def profTest():
+    return render_template("profile.html")
+
+#view profile: username, number of saved songs
+@app.route("/profile", methods=["POST","GET"])
+def profile():
+    if 'username' in session:
+        u = session["username"]
+        profileStuff = accounts_db_manager.get_user_info(u)
+        return render_template('profile.html',stuff=profileStuff)
+    else:
+        return redirect("/")
+    
 
 # Just in case...
 @app.errorhandler(404)

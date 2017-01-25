@@ -36,7 +36,7 @@ def getTrackRaw(artistID = ""):
 #When given a spotify track ID, return spotify audio features
 def getTrackAudio(trackID = ""):
     return spotify.audio_features(id = trackID)
-        
+
 # When given a country, return a song from country with spotify attributes
 def geoAttributes(country = ""):
     raw = getArtistRaw(country)
@@ -69,7 +69,6 @@ def geoAttributes(country = ""):
              "danceability" : danceability,
              "instrumentalness" : instrumentalness,
              "acousticness" : acousticness}
-    
 def parsedGeoAttributes(country=""):
     retDict = geoAttributes(country)
 
@@ -82,10 +81,9 @@ def getNewArtists(genre = "", country = ""):
     generatedCountry = randCountry
     print generatedCountry
     raw = music_graph.search(country = randCountry, limit = 10, genre = genre)    
-
     while (not raw["data"]):
         randCountry = helper.getCountryNot(country)
-        raw = music_graph.search(country = randCountry, limit = 10, genre = genre)    
+        raw = music_graph.search(country = randCountry, limit = 10, genre = genre)
 
     returnDict = {}
     for artist in raw["data"]:
@@ -129,6 +127,7 @@ def similarTrackCompiler(genre = "", country = ""):
     return "Not enough songs"
 
 print similarTrackCompiler(genre= "Reggae/Ska", country = "Jamaica")
+
 
 #When given a spotify song ID, return title and artist
 def trackInfo(id = ""):
