@@ -10,34 +10,38 @@ import json
 import time
 import random
 
+# When given a country, return a random artist
 def getArtistRaw(country=""):
     raw = music_graph.search(country = country)["data"]
     return random.choice(raw)
 
+#When given JSON of random artist, return name
 def getArtistName(artistRaw):
     return artistRaw["name"]
 
+#When given JSON of random artist, return name
 def getArtistGenre(artistRaw):
     return artistRaw["main_genre"]
 
+#When givne JSON of random artist, return ID
 def getArtistID(artistRaw):
     return artistRaw["id"]
 
+#When given an artist ID, return a random track
 def getTrackRaw(artistID = ""):
     raw = music_graph.get_tracks(id = artistID)["data"]
     return raw
 
+#When given a spotify track ID, return spotify audio features
 def getTrackAudio(trackID = ""):
     return spotify.audio_features(id = trackID)
         
-
-# Function takes in a country, returns dictionary with artist name, artist ID, track, track ID, and spotify attributes
+# When given a country, return a song from country with spotify attributes
 def geoAttributes(country = ""):
     raw = getArtistRaw(country)
-    genre = getArtistGenre(raw) #store the genre somehow? 
+    genre = getArtistGenre(raw)
     artistName = getArtistName(raw)
     artistID = getArtistID(raw)
-    #potential issue is when there is no spotifyID
     raw = getTrackRaw(artistID)
     track = raw[0]
     i = 0
@@ -52,7 +56,6 @@ def geoAttributes(country = ""):
     danceability = attributes["danceability"]
     instrumentalness = attributes["instrumentalness"]
     acousticness = attributes["acousticness"]
-    #get the spotify ID / some tracks will not have the spotify ID / do a bypass of this until the end of the project
 
     return { "country" : country,
              "artist" : artistName,
@@ -66,10 +69,7 @@ def geoAttributes(country = ""):
              "instrumentalness" : instrumentalness,
              "acousticness" : acousticness}
     
-test1 =  geoAttributes("France")
-
-# Need to store get
-
+# When given a genre and country, return a dictionary of artists in genre with spotify id
 def getNewArtists(genre = "", country = ""):
     randCountry = helper.getCountryNot(country)
     raw = music_graph.search(country = randCountry, limit = 10, genre = genre)    
@@ -87,28 +87,27 @@ def getNewArtists(genre = "", country = ""):
         returnDict[artistName] = artistSpotifyID
     return returnDict
 
-print getNewArtists(genre = test1["genre"], country = test1["country"])
-
-
-def getArtistMeta(country = ""):
-    return "TBD"
-# When given a dictionary of artist IDs, it will return a list of spotify IDs in the following format
-# { artist: "[]", track: "[]", acoustiness: "[]".... }
-# After given this list of spotifyIDs 
-def getUberTracks(artist = []):
-    return "TBD"
-#return top 5 ids
-def compareTracks(origID = "", comparableIDs = [], comparableAttributes = []):
-    return "TBD"
-
-
-#print trackInfo(id ="41ETKVJbZDSjATzW2wAqmc")
-   
+#When given spotify Artist ID, return list of dictionaries of top tracks from artist
+def getTopTracks(spotifyArtistID = ""):
+    list = []
+    for track in spotify.get_top_tracks(id = spotifyArtistID, country = "US")["tracks"]:
+        title = track["name"]
+        id = track["id"]
+        artist = track["artists"][0]["name"]
+        retDict =  { "title": title,
+                     "spotifyID" : id,
+                     "artist" : artist
+                     }
+        list += retDict
+    return list
+    
+#When given a spotify song ID, return title and artist
 def trackInfo(id = ""):
     raw = spotify.track(id)
     artist = raw["artists"][0]["name"]
     track =  raw["name"]
     return { "spotifyID" : id,
              "title": track,
-             "artist": artist}
+             "artist": artist
+             }
 
