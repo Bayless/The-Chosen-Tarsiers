@@ -84,18 +84,13 @@ def saveSong():
 def mySongs():
     if 'username' not in session:
         return redirect("/")
-
-
-
     #fake song list for testing
     user = session['username']
     #songs = accounts_db_manager.getMySongs(user)
-
-
     #fake song list for testing
     songs = [{"spotifyID":"spotify:track:2TpxZ7JUBn3uw46aR7qd6V","title":"Ma Cherie Amour","artist":"Stevie Wonder","country":"United States"},{"spotifyID":"1","title":"Golden Boy","artist":"Nadav Guedj","country":"Israel"}]
 
-
+    songs = accounts_db_manager.getMySongs(user)
     return render_template("mysongs.html", songList = songs)
 
 @app.route("/getSongAndInfo")

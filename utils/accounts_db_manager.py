@@ -1,4 +1,6 @@
 import sqlite3
+from utils import spotify
+import json
 
 def saveSong(user,spotifyID):
     f = 'database.db'
@@ -20,20 +22,34 @@ def saveSong(user,spotifyID):
     db.close()
     return True
 
+#helper function
+def getBasicInfo(id):
+    raw = spotify.track(id)
+    artist = raw["artists"][0]["name"]
+    track =  raw["name"]
+    info = { "spotifyID" : id,
+        "title": track,
+        "artist": artist}
+    return info
+
 def getMySongs(user):
     f = 'database.db'
     db = sqlite3.connect(f)
 
     c = db.cursor()
 
-    tupleSongs = 'SELECT * FROM songs WHERE user == "%s";' % (user)
+    tupleSongs = 'SELECT * FROM songs WHERE access_token == "%s";' % (user)
     p = c.execute(tupleSongs)
-    for ID in p:
-            info = spotify.tracks(ID)
-            #go thru json file and get artist and track name
-            #get lastfm stuff to get country
 
+    songList = [] #dis gon be your songs!
+    out = dict(c.fetchall())
+    for ID in out:
+        print ID
+        songList.append(getBasicInfo(out[ID]))
+    print songList
     db.commit()
     db.close()
 
-    
+    return songList
+
+
