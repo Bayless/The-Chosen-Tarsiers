@@ -61,7 +61,7 @@ def geoAttributes(country = ""):
     return { "country" : country,
              "artist" : artistName,
              "artistID" : artistID,
-             "track": trackName,
+             "title": trackName,
              "trackID": trackID,
              "spotifyID": spotifyTrackID,
              "genre" : genre,
@@ -69,6 +69,7 @@ def geoAttributes(country = ""):
              "danceability" : danceability,
              "instrumentalness" : instrumentalness,
              "acousticness" : acousticness}
+
 def parsedGeoAttributes(country=""):
     retDict = geoAttributes(country)
 
@@ -125,9 +126,6 @@ def similarTrackCompiler(genre = "", country = ""):
                 print len(retDict)
                 return retDict
     return "Not enough songs"
-
-print similarTrackCompiler(genre= "Reggae/Ska", country = "Jamaica")
-
 
 #When given a spotify song ID, return title and artist
 def trackInfo(id = ""):

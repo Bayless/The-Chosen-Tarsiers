@@ -7,7 +7,7 @@ import random
 import utils
 from utils import accountManager, accounts_db_manager, helper, search
 from utils import spotify
-
+import jasonAPITester
 import config
 
 app = Flask(__name__)
@@ -107,49 +107,12 @@ def getSongAndInfo():
     #now for getting the user-chosen country
     country = request.args.get("country")
     #get a song, its info, and another song and its info and put that into two dictionaries
-    chosenSongInfo = {"countryCode":config.availableCountries[country],"countryName":country.upper(),"title":"","artist":""}
+    chosenSongInfo = jasonAPITester.geoAttributes(country)
+    genre = chosenSongInfo["genre"]
     #currently just getting a random country....  Song getting algo people, I will change this once you get me a song and its info
-    randomCountry = random.choice(config.availableCountries.keys())
+    generatedSongs = jasonAPITester.similarTrackCompiler(genre = genre, country = country)
     #a list of dictionaries representing each of the 5 songs yeah
     #sorry the country thing is redundant
-    generatedSongs = [
-            {
-                "countryCode":config.availableCountries[randomCountry],
-                "countryName":randomCountry,
-                "title":"",
-                "artist":"",
-                "spotifyID":""
-                },
-            {
-                "countryCode":config.availableCountries[randomCountry],
-                "countryName":randomCountry,
-                "title":"",
-                "artist":"",
-                "spotifyID":""
-                },
-            {
-                "countryCode":config.availableCountries[randomCountry],
-                "countryName":randomCountry,
-                "title":"",
-                "artist":"",
-                "spotifyID":""
-                },
-            {
-                "countryCode":config.availableCountries[randomCountry],
-                "countryName":randomCountry,
-                "title":"",
-                "artist":"",
-                "spotifyID":""
-                },
-            {
-                "countryCode":config.availableCountries[randomCountry],
-                "countryName":randomCountry,
-                "title":"",
-                "artist":"",
-                "spotifyID":""
-                }
-            ]
-
     #put those two dictionaries together
     result = {'chosenSongInfo':chosenSongInfo,
             'generatedSongs':generatedSongs
@@ -204,21 +167,6 @@ def about():
         return redirect("/")
     else:
         return render_template("about.html")
-    
-@app.route("/profTest")
-def profTest():
-    return render_template("profile.html")
-
-#view profile: username, number of saved songs
-@app.route("/profile", methods=["POST","GET"])
-def profile():
-    if 'username' in session:
-        u = session["username"]
-        profileStuff = accounts_db_manager.get_user_info(u)
-        return render_template('profile.html',stuff=profileStuff)
-    else:
-        return redirect("/")
-    
 
 # Just in case...
 @app.errorhandler(404)
