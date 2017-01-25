@@ -125,10 +125,10 @@ div.unclickable
 $(function(){
 
     // This function is for testing map interation
-    var modifyOther = function( e, code, otherMap ){
-        otherMap.setFocus({region: code, animate: true}); //go to that region
-        otherMap.clearSelectedRegions();
-        otherMap.setSelectedRegions(code);
+    var modifyThis = function( e, code, thisMap){
+        thisMap.setFocus({region: code, animate: true}); //go to that region
+        thisMap.clearSelectedRegions();
+        thisMap.setSelectedRegions(code);
     };
 
     //the IDs for stuff about the songs
@@ -151,14 +151,14 @@ $(function(){
     // This function takes a country code and a dictionary of ids
     // and gets song info using ajax
     // and then puts that info on the page
-    var post = function( e, code, country) {
+    var post = function( e, code, country, id) {
 
-        var input = { 'country' : country };
+        var input = { 'country' : country , 'spotifyID': id };
 
         // currently recieves: dictionary with one entry --> the uppercase of country name lol
         // should recieve: dictionary
         $.ajax({
-            url: '/getSongAndInfo',
+            url: '/getSearchedSongInfo',
             //'/saveSong'
             type: 'GET',
             //'POST'
@@ -166,21 +166,17 @@ $(function(){
             //title,artist
             success: function( d ) {
                 d = JSON.parse(d);
-                modifyOther(e, d["generatedSongs"][0]["countryCode"], map2);
+                modifyThis(e, d[0]["countryCode"], map2);
 
                 // you do not want to know how messy this was when I first wrote it...
                 for (i = 0; i < 5; i++) {
-                    $('#generatedSong' + i).html('<div class="row"> <div class="small-8 columns"> <h4> Song Title: '  +  d['generatedSongs'][i]['title'] + '</h4> Artist: ' + d['generatedSongs'][i]['artist'] + '</div>  <div class="small-4 columns">   <button name="saveSong" value="' + d['generatedSongs'][i]['spotifyID'] + '" type="button" class="success button">Save This Song</button> </div>  </div> <hr>');
+                    $('#generatedSong' + i).html('<div class="row"> <div class="small-8 columns"> <h4> Song Title: '  +  d[i]['title'] + '</h4> Artist: ' + d[i]['artist'] + '</div>  <div class="small-4 columns">   <button name="saveSong" value="' + d[i]['spotifyID'] + '" type="button" class="success button">Save This Song</button> </div>  </div> <hr>');
                 };
 
                 // Creds to Rodda for helping me jQuerey-ifying things
                 // save song buttons
-                $('#saveChosenSong').html('<button name="saveSong" value="' + d['chosenSongInfo']['spotifyID'] + '"type="button" class="success button">Save This Song</button>');
                 // put in song info
-                $('#' + chosenSongIds['country']).html(d["chosenSongInfo"]['countryName']);
-                $('#' + generatedSongIds['country']).html(d["generatedSongs"][0]['countryName']);
-                $('#' + chosenSongIds['title']).html("Song Title: " + d["chosenSongInfo"]['title']);
-                $('#' + chosenSongIds['artist']).html("Artist: " + d["chosenSongInfo"]['artist']);
+                $('#' + generatedSongIds['country']).html(d[0]['countryName']);
             }
         });
         //console.log("did the ajax thing");
@@ -240,6 +236,7 @@ $(function(){
         container: $('#world-map2'), //how to tag the map div
         regionsSelectable: true, // but only I can haha
         regionsSelectableOne: true, // and only one of course
+        id = {{ givenSong["spotifyID"]  }}
 
         //set selectd region styling
         regionStyle: {
@@ -249,6 +246,7 @@ $(function(){
         },
         onRegionClick: function(e, code){
             map2.setFocus({region: code, animate: true});
+            post(e,code,map.regions[code]["config"]["name"],id);
         }
     });
 
