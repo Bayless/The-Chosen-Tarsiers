@@ -168,6 +168,17 @@ def about():
     else:
         return render_template("about.html")
 
+
+#view profile: username, number of saved songs
+@app.route("/profile", methods=["POST","GET"])
+def profile():
+    if 'username' in session:
+        u = session["username"]
+        profileStuff = accounts_db_manager.get_user_info(u)
+        return render_template('profile.html',stuff=profileStuff)
+    else:
+        return redirect("/")
+
 # Just in case...
 @app.errorhandler(404)
 def page_not_found(e):
