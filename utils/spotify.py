@@ -38,6 +38,18 @@ def authenticate():
 
     return spotify_db_manager.get_current_access_token() # Returns the current, which is guaranteed to be valid
 
+def get_top_tracks(id = ''):
+    url = 'https://api.spotify.com/v1/artists/' + id + '/top-tracks'
+
+    headers = {"Authorization": "Bearer " + authenticate()} # Gets the current access token
+    
+    r = urllib2.Request(url, headers = headers)
+
+    response = urllib2.urlopen(r, timeout = 30).read()
+    response_data = json.loads(response)
+    
+    return response_data # Issues response and receives it
+
 def track(id = ''):
     url = 'https://api.spotify.com/v1/tracks/' + id
 
