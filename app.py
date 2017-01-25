@@ -26,7 +26,7 @@ def loginOrRegister():
 
 @app.route("/authOrCreate", methods=["POST"])
 def authOrCreate():
-    formDict = request.form
+    formdict = request.form
     if formDict["logOrReg"] == "login":
         username = formDict["username"]
         password = formDict["password"]
@@ -183,8 +183,8 @@ def getBasicInfo(id):
     artist = raw["artists"][0]["name"]
     track =  raw["name"]
     info = { "spotifyID" : id,
-                    "title": track,
-                    "artist": artist}
+             "title": track,
+             "artist": artist}
     return info
 #search results
 @app.route('/searchedSong', methods=["POST", "GET"])
