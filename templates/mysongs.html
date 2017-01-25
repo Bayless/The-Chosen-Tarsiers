@@ -23,37 +23,30 @@ My Songs
           <div class="large-12 columns ">
             <div class="search-results">
               {% if songList %}
-              {% for song in songList %}
-              <div class="row">
-                <div class=" small-9 columns">
-                  <h4> {{ song["title"] }} </h4>
-                  <b>Artist: </b> {{ song["artist"] }}
-                  <div id="{{ song['spotifyID'] }}">
-                  </div>
-                </div>
-                <div class= "small-3 columns">
-                  <button id="playSong_{{ song["spotifyID"] }}" name="{{ song["spotifyID"] }}" class="button radius" type="button">Play Song</button>
-                  <button id="removeSong_{{ song["spotifyID"] }}" name="{{ song["spotifyID"] }}" class="alert button radius" type="button">Remove Song</button>
-                </div>
-              </div>
-              <hr>
-              {% endfor %}
-              {% endif %}
+		{% for song in songList %}
+		  <div class="row">
+                    <div class=" small-9 columns">
+                      <h4> {{ song["title"] }} </h4>
+                      <b>Artist: </b> {{ song["artist"] }}
+                      <div id="{{ song['spotifyID'] }}">
+                      </div>
+		      <div id="{{ song['spotifyID'] }}">
+                      </div>
+                    </div>
+                    <div class= "small-3 columns">
+                      <button id="playSong_{{ song["spotifyID"] }}" name="{{ song["spotifyID"] }}" class="button radius" type="button">Play Song</button>
+                      <button id="removeSong_{{ song["spotifyID"] }}" name="{{ song["spotifyID"] }}" class="alert button radius" type="button">Remove Song</button>
+                    </div>
+		  </div>
+		  <hr>
+		{% endfor %}
+	      {% endif %}
             </div>
-            <div class= "small-3 columns">
-              <button id="playSong_{{ song["spotifyID"] }}" name="{{ song["spotifyID"] }}" class="button radius" type="button">Play Song</button>
-              <button id="removeSong_{{ song["spotifyID"] }}" name="{{ song["spotifyID"] }}" class="alert button radius" type="button">Remove Song</button>
-            </div>
-          </div>
-          <hr>
-          {% endfor %}
-          {% endif %}
-        </div>
+	  </div>
+	</div>
       </div>
     </div>
-</div>
-</div>
-</center>
+  </center>
   
   <script>
     {% if songList %}
