@@ -34,7 +34,7 @@ My Songs
                                 </div>
                             </div>
                             <div class= "small-3 columns">
-                                <button id="playSong" name="{{ song["spotifyID"] }}" class="button radius" type="button">Play Song</button>
+                                <button id="playSong_{{ song["spotifyID"] }}" name="{{ song["spotifyID"] }}" class="button radius" type="button">Play Song</button>
                             </div>
                         </div>
                         <hr>
@@ -48,10 +48,14 @@ My Songs
 </center>
 
 <script>
-$('#playSong').click(function () {
+{% if songList %}
+{% for song in songList %}
+$('#playSong_{{ song["spotifyID"] }}').click(function () {
     console.log('hi');
     console.log($(this).attr('name'))
         $('#' + $(this).attr('name')).html('<iframe src="https://embed.spotify.com/?uri=' + $(this).attr('name') + '" width="100%" height="380" frameborder="0" allowtransparency="true"></iframe>')});
+{% endfor %}
+{% endif %}
 </script>
 <!-- <script src="{{ url_for('static', filename='js/mysongs.js') }}"></script> -->
 {% endblock %}

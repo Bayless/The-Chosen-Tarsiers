@@ -39,13 +39,12 @@ def getMySongs(user):
     c = db.cursor()
 
     tupleSongs = 'SELECT * FROM songs WHERE access_token == "%s";' % (user)
-    p = c.execute(tupleSongs)
+    c.execute(tupleSongs)
 
     songList = [] #dis gon be your songs!
-    out = dict(c.fetchall())
-    for ID in out:
-        print ID
-        songList.append(getBasicInfo(out[ID]))
+    out = c.fetchall()
+    for song in out:
+        songList.append(getBasicInfo(song[1]))
     print songList
     db.commit()
     db.close()
