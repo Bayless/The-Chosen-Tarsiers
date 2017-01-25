@@ -21,11 +21,7 @@ def getCountryNot(countryName):
         randomCountry = random.choice(countries.keys())
     return randomCountry
 
-
-
-
 def trackInfo(id = ""):
     return spotify.track(id)
 
 
-print trackInfo(id = "41ETKVJbZDSjATzW2wAqmc")
