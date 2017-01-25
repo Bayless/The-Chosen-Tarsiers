@@ -63,7 +63,7 @@ div.unclickable
 {% block body %}
 <center>
     <br>
-    <div id="satatus"></div>
+    <div id="status"></div>
     <br>
     <div class="row">
         <div class="medium-6 columns">
@@ -205,7 +205,11 @@ $(function(){
                 console.log(spotifyID); //debugging
                 console.log("song saved"); //debugging
                 console.log(d["isSuccess"]); //debugging
-                console.log(d["isSuccess"] == "True");
+                if (d["isSuccess"] == true){
+                    $("#status").html( '<div class="callout success"><strong>Yay!</strong> Song saved.</div>');
+                } else {
+                    $("#status").html( '<div class="callout alert"><strong>We gotchu!</strong> Song already saved.</div>');
+                };
             }
         });
     });
