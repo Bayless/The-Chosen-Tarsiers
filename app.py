@@ -208,31 +208,13 @@ def about():
 def profTest():
     return render_template("profile.html")
 
-#edit profile: fullname, password, number of saved songs
-@app.route("/edit_profile")
-def edit_profile():
-    if 'username' in session:
-        u = session["username"]
-        if (request.method == "POST"):
-            fullName = formDict["fullName"]
-            accounts_db_manager.updateFullName(u,fullName)        
-            profileStuff = accounts_db_manager.get_user_info(u)
-            return redirect(url_for('profile',facts=profileStuff))
-        else:
-            return render_template("profile.html")
-    else:
-        return redirect("/")
-
+#view profile: username, number of saved songs
 @app.route("/profile", methods=["POST","GET"])
 def profile():
     if 'username' in session:
         u = session["username"]
         profileStuff = accounts_db_manager.get_user_info(u)
-        funds = info.getFunds( u )
-        if (request.method == "POST"):
-            return render_template('profile.html')
-        if (request.method == "GET"):
-            return render_template("profile.html", facts = profileStuff)
+        return render_template('profile.html',stuff=profileStuff)
     else:
         return redirect("/")
     

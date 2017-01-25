@@ -119,5 +119,22 @@ def updatePwd(username,pwd):
     db.commit()
     db.close()
 
+#gonna return just username and number_saved_songs
+def get_user_info(user):
+    f = "database.db"
+    db = sqlite3.connect(f) #open if f exists, otherwise create
+    c = db.cursor()    #facilitate db ops
+    
+    p = 'SELECT COUNT(username) FROM songs WHERE username == "%s"'%(user)
+
+    numSongs = c.execute(p)
+
+    return {"username":user,
+            "number_of_songs":numSongs}
+
+    db.commit()
+    db.close()
+    
+
 
 
