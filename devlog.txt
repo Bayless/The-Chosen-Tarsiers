@@ -149,7 +149,7 @@ Worked on Spotify player
 ================2017-1-24================
 
 jasonM -- 2017-1-24 2:02:16
-Added MusicGraph API endpoints
+Added MusicGraph API endpoints, and did matching things
 
 anyaK -- 2017-1-24 12:24:59
 added jasonHelper
@@ -165,3 +165,6 @@ Mysongs works!
 
 anyaK -- 2017-1-24 20:50:02
 Wrote delete song
+
+roddaJ -- 2017-1-24 14:00
+made music graph API work
