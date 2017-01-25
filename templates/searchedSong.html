@@ -63,6 +63,8 @@ div.unclickable
 {% block body %}
 <center>
     <br>
+    <div id="satatus"></div>
+    <br>
     <div class="row">
         <div class="medium-6 columns">
             <div class="card">
@@ -203,6 +205,7 @@ $(function(){
                 console.log(spotifyID); //debugging
                 console.log("song saved"); //debugging
                 console.log(d["isSuccess"]); //debugging
+                console.log(d["isSuccess"] == "True");
             }
         });
     });
