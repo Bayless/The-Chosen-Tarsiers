@@ -9,6 +9,7 @@ import base64
 import json
 import time
 import random
+import config
 
 # When given a country, return a random artist
 def getArtistRaw(country=""):
@@ -69,9 +70,17 @@ def geoAttributes(country = ""):
              "instrumentalness" : instrumentalness,
              "acousticness" : acousticness}
     
+def parsedGeoAttributes(country=""):
+    retDict = geoAttributes(country)
+
+global generatedCountry
+generatedCountry = ""
 # When given a genre and country, return a dictionary of artists in genre with spotify id
 def getNewArtists(genre = "", country = ""):
     randCountry = helper.getCountryNot(country)
+    global generatedCountry
+    generatedCountry = randCountry
+    print generatedCountry
     raw = music_graph.search(country = randCountry, limit = 10, genre = genre)    
 
     while (not raw["data"]):
@@ -89,6 +98,8 @@ def getNewArtists(genre = "", country = ""):
 
 #When given spotify Artist ID, return list of dictionaries of top tracks from artist
 def getTopTracks(spotifyArtistID = ""):
+    if spotifyArtistID == "-1":
+        return "SPOTIFY NOT AVAILABLE"
     list = []
     for track in spotify.get_top_tracks(id = spotifyArtistID, country = "US")["tracks"]:
         title = track["name"]
@@ -96,11 +107,29 @@ def getTopTracks(spotifyArtistID = ""):
         artist = track["artists"][0]["name"]
         retDict =  { "title": title,
                      "spotifyID" : id,
-                     "artist" : artist
+                     "artist" : artist,
+                     "countryName" : generatedCountry,
+                     "countryCode":  config.availableCountries[generatedCountry]
                      }
-        list += retDict
+        list += [retDict]
     return list
     
+# return list of dictionary of 5 songs
+def similarTrackCompiler(genre = "", country = ""):
+    newArtists = getNewArtists(genre = genre, country = country)
+    i = 0 
+    retDict = []
+    for artist in newArtists:
+        for track in getTopTracks(newArtists[artist]):
+            i += 1
+            retDict += [track]
+            if i >= 5:
+                print len(retDict)
+                return retDict
+    return "Not enough songs"
+
+print similarTrackCompiler(genre= "Reggae/Ska", country = "Jamaica")
+
 #When given a spotify song ID, return title and artist
 def trackInfo(id = ""):
     raw = spotify.track(id)
