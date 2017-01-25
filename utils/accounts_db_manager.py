@@ -9,7 +9,7 @@ def saveSong(user,spotifyID):
     c = db.cursor()
 
 #check if already user already saved song
-    c.execute('SELECT * FROM songs WHERE access_token = "%s" and time = "%s";' % (user, spotifyID))
+    c.execute('SELECT * FROM songs WHERE username = "%s" and songID = "%s";' % (user, spotifyID))
     result = c.fetchone()
     print result
     if result != None:
@@ -38,7 +38,7 @@ def getMySongs(user):
 
     c = db.cursor()
 
-    tupleSongs = 'SELECT * FROM songs WHERE access_token == "%s";' % (user)
+    tupleSongs = 'SELECT * FROM songs WHERE username == "%s";' % (user)
     c.execute(tupleSongs)
 
     songList = [] #dis gon be your songs!
@@ -57,7 +57,7 @@ def removeSong(user,spotifyID):
 
     c = db.cursor()
 
-    delete = 'DELETE FROM songs WHERE access_token == "%s" AND time == "%s";' % (user,spotifyID)
+    delete = 'DELETE FROM songs WHERE username == "%s" AND songID == "%s";' % (user,spotifyID)
     c.execute(delete)
     db.commit()
     db.close()

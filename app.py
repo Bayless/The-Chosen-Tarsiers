@@ -26,7 +26,7 @@ def loginOrRegister():
 
 @app.route("/authOrCreate", methods=["POST"])
 def authOrCreate():
-    formdict = request.form
+    formDict = request.form
     if formDict["logOrReg"] == "login":
         username = formDict["username"]
         password = formDict["password"]
