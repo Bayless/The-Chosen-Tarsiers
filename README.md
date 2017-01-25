@@ -12,11 +12,16 @@ watch our demo here: [demo of awesome](https://youtube.com/blah)
 
 Do some things to run this properly:
 
-secure your own keys and store them:
+secure your own keys and store them in files called: music_graph_key (for the music graph API key) and spotify_key (for the spotify API key) in the utils folder.
 
 Run:
+
 `$ pip install Flask`
+
+`$ pip install requests`
+
 `$ python utils/initialize.py`
+
 `$ python app.py`
 
 Make some magic!
