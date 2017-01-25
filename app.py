@@ -204,6 +204,7 @@ def about():
         return redirect("/")
     else:
         return render_template("about.html")
+    
 @app.route("/profTest")
 def profTest():
     return render_template("profile.html")

@@ -127,10 +127,12 @@ def get_user_info(user):
     
     p = 'SELECT COUNT(username) FROM songs WHERE username == "%s"'%(user)
 
-    numSongs = c.execute(p)
+    c.execute(p)
+
+    numSongs = c.fetchone()[0]
 
     return {"username":user,
-            "number_of_songs":numSongs}
+            "number_saved_songs":numSongs}
 
     db.commit()
     db.close()
