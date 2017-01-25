@@ -5,64 +5,64 @@ My Songs
 {% endblock %}
 
 {% block head %}
-<link rel="stylesheet" href="static/css/card.css" type="text/css">
-
-<style>
-</style>
+  <link rel="stylesheet" href="static/css/card.css" type="text/css">
+  
+  <style>
+  </style>
 {% endblock %}
 
 {% block body %}
-<center>
+  <center>
     <br>
     <div class="card large-6">
-        <div class="content">
-            <span class="title">  My Songs </span>
-        </div>
-        <div class="action">
-            <div class="row results">
-                <div class="large-12 columns ">
-                    <div class="search-results">
-                        {% if songList %}
-                        {% for song in songList %}
-                        <div class="row">
-                            <div class=" small-9 columns">
-                                <h4> {{ song["title"] }} </h4>
-                                <b>Country: </b> {{ song["country"] }}
-                                <br>
-                                <b>Artist: </b> {{ song["artist"] }}
-                                <div id="{{ song['spotifyID'] }}">
-                                </div>
-                            </div>
-                            <div class= "small-3 columns">
-                                <button id="playSong_{{ song["spotifyID"] }}" name="{{ song["spotifyID"] }}" class="button radius" type="button">Play Song</button>
-                                <button id="removeSong_{{ song["spotifyID"] }}" name="{{ song["spotifyID"] }}" class="alert button radius" type="button">Remove Song</button>
-                            </div>
-                        </div>
-                        <hr>
-                        {% endfor %}
-                        {% endif %}
+      <div class="content">
+        <span class="title">  My Songs </span>
+      </div>
+      <div class="action">
+        <div class="row results">
+          <div class="large-12 columns ">
+            <div class="search-results">
+              {% if songList %}
+                {% for song in songList %}
+                  <div class="row">
+                    <div class=" small-9 columns">
+                      <h4> {{ song["title"] }} </h4>
+                      <b>Country: </b> {{ song["country"] }}
+                      <br>
+                      <b>Artist: </b> {{ song["artist"] }}
+                      <div id="{{ song['spotifyID'] }}">
+                      </div>
                     </div>
-                </div>
+                    <div class= "small-3 columns">
+                      <button id="playSong_{{ song["spotifyID"] }}" name="{{ song["spotifyID"] }}" class="button radius" type="button">Play Song</button>
+                      <button id="removeSong_{{ song["spotifyID"] }}" name="{{ song["spotifyID"] }}" class="alert button radius" type="button">Remove Song</button>
+                    </div>
+                  </div>
+                  <hr>
+                {% endfor %}
+              {% endif %}
             </div>
+          </div>
         </div>
+      </div>
     </div>
-</center>
-
-<script>
-{% if songList %}
-{% for song in songList %}
-$('#playSong_{{ song["spotifyID"] }}').click(function () {
-    console.log($(this).attr('name'))
-        $('#' + $(this).attr('name')).html('<iframe src="https://embed.spotify.com/?uri=' + $(this).attr('name') + '" width="100%" height="380" frameborder="0" allowtransparency="true"></iframe>')});
-
-
-$('#removeSong_{{ song["spotifyID"] }}').click(function () {
-    console.log('removeSong');
-    spotifyID = $(this).attr('name');
-    console.log(spotifyID);
-    var input = { 'spotifyID': spotifyID};
-
-    $.ajax({
+  </center>
+  
+  <script>
+    {% if songList %}
+      {% for song in songList %}
+	$('#playSong_{{ song["spotifyID"] }}').click(function () {
+	console.log($(this).attr('name'))
+        $('#' + $(this).attr('name')).html('<iframe src="https://embed.spotify.com/?uri=spotify:track:{{ song['spotifyID'] }}" width="100%" height="380" frameborder="0" allowtransparency="true"></iframe>')});
+	
+	
+	$('#removeSong_{{ song["spotifyID"] }}').click(function () {
+	console.log('removeSong');
+	spotifyID = $(this).attr('name');
+	console.log(spotifyID);
+	var input = { 'spotifyID': spotifyID};
+	
+	$.ajax({
         url: '/removeSong',
         //'/saveSong'
         type: 'GET',
@@ -70,16 +70,16 @@ $('#removeSong_{{ song["spotifyID"] }}').click(function () {
         data: input,
         //title,artist
         success: function( d ) {
-            d = JSON.parse(d);
-            console.log(spotifyID); //debugging
-            console.log("song removed"); //debugging
-            console.log(d["isSuccess"]); //debugging
-            window.location.href='/mySongs';
+        d = JSON.parse(d);
+        console.log(spotifyID); //debugging
+        console.log("song removed"); //debugging
+        console.log(d["isSuccess"]); //debugging
+        window.location.href='/mySongs';
         }
-    });
+	});
 });
 {% endfor %}
 {% endif %}
-</script>
-<!-- <script src="{{ url_for('static', filename='js/mysongs.js') }}"></script> -->
+  </script>
+  <script src="{{ url_for('static', filename='js/mysongs.js') }}"></script>
 {% endblock %}
