@@ -25,27 +25,11 @@ def getArtistID(artistRaw):
 
 def getTrackRaw(artistID = ""):
     raw = music_graph.get_tracks(id = artistID)["data"]
-    return random.choice(raw)
+    return raw
 
 def getTrackAudio(trackID = ""):
-    print spotify.audio_features(id = trackID)
+    return spotify.audio_features(id = trackID)
         
-# Need to store get
-def getNewArtists(genre = "", country = ""):
-    similarArtists = music_graph.search(country = country,limit = 10,genre = genre)
-    
-    return similarArtists
-
-def getArtistMeta(country = ""):
-
-# When given a dictionary of artist IDs, it will return a list of spotify IDs in the following format
-# { artist: "[]", track: "[]", acoustiness: "[]".... }
-# After given this list of spotifyIDs 
-def getUberTracks(artist = []):
-
-#return top 5 ids
-def compareTracks(origID = "", comparableIDs = [], comparableAttributes)
-    
 
 # Function takes in a country, returns dictionary with artist name, artist ID, track, track ID, and spotify attributes
 def geoAttributes(country = ""):
@@ -55,26 +39,71 @@ def geoAttributes(country = ""):
     artistID = getArtistID(raw)
     #potential issue is when there is no spotifyID
     raw = getTrackRaw(artistID)
-    while (raw.isNull("spotify_track_id")):
-        raw = getTrackRaw(artistID)
-    trackName = raw["title"]
-    trackID = raw["id"]
-    spotifyTrackID = raw["spotify_track_id"]
-    attributes = getTrackAudio(spotify_track_id)
-    
+    track = raw[0]
+    i = 0
+    while (not("track_spotify_id" in track)):
+        i += 1
+        track = raw[i]
+    trackName = track["title"]
+    trackID = track["id"]
+    spotifyTrackID = track["track_spotify_id"]
+    attributes = getTrackAudio(spotifyTrackID)
+    energy = attributes["energy"]
+    danceability = attributes["danceability"]
+    instrumentalness = attributes["instrumentalness"]
+    acousticness = attributes["acousticness"]
     #get the spotify ID / some tracks will not have the spotify ID / do a bypass of this until the end of the project
 
-    print trackName
-    country = { "artist" : artistName,
+    return { "country" : country,
+             "artist" : artistName,
              "artistID" : artistID,
              "track": trackName,
              "trackID": trackID,
-             "spotifyID": " ",
-             "genre" : genre}
+             "spotifyID": spotifyTrackID,
+             "genre" : genre,
+             "energy" : energy,
+             "danceability" : danceability,
+             "instrumentalness" : instrumentalness,
+             "acousticness" : acousticness}
     
+test1 =  geoAttributes("France")
 
-print geoAttributes("France")
+# Need to store get
 
+def getNewArtists(genre = "", country = ""):
+    randCountry = helper.getCountryNot(country)
+    raw = music_graph.search(country = randCountry, limit = 10, genre = genre)    
+
+    while (not raw["data"]):
+        randCountry = helper.getCountryNot(country)
+        raw = music_graph.search(country = randCountry, limit = 10, genre = genre)    
+
+    returnDict = {}
+    for artist in raw["data"]:
+        artistSpotifyID = "-1"
+        artistName = artist["name"]
+        if ("spotify_id" in artist):
+            artistSpotifyID = artist["spotify_id"]
+        returnDict[artistName] = artistSpotifyID
+    return returnDict
+
+print getNewArtists(genre = test1["genre"], country = test1["country"])
+
+
+def getArtistMeta(country = ""):
+    return "TBD"
+# When given a dictionary of artist IDs, it will return a list of spotify IDs in the following format
+# { artist: "[]", track: "[]", acoustiness: "[]".... }
+# After given this list of spotifyIDs 
+def getUberTracks(artist = []):
+    return "TBD"
+#return top 5 ids
+def compareTracks(origID = "", comparableIDs = [], comparableAttributes = []):
+    return "TBD"
+
+
+#print trackInfo(id ="41ETKVJbZDSjATzW2wAqmc")
+   
 def trackInfo(id = ""):
     raw = spotify.track(id)
     artist = raw["artists"][0]["name"]
@@ -83,7 +112,3 @@ def trackInfo(id = ""):
              "title": track,
              "artist": artist}
 
-#print trackInfo(id ="41ETKVJbZDSjATzW2wAqmc")
-
-    
-   

@@ -11,7 +11,7 @@ music_graph_root = "http://api.musicgraph.com/api/v2/artist/"
 
 # Similar to search, it's the same, the url is different
 
-def search(name = '', country = '', genre = '', limit = 5):
+def search(name = '', country = '', genre = '', limit = 10):
     url = music_graph_root+"search"
 
     api_key = open('utils/music_graph_key').read().split('\n')[0]
@@ -102,10 +102,11 @@ def get_tracks(id = ''):
 
     query_request = { 
         'api_key' : api_key, 
-        'format' : 'json'
-    }
+        'format' : 'json',
+        'limit': 100
+        }
     encoded = urllib.urlencode(query_request)
 
     url += '?' + encoded
-
+    print url
     return api_manager.issue_request(url)
