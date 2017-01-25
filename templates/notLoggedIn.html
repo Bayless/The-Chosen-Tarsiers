@@ -98,15 +98,17 @@ text-align: center;
 
             <p><h3 class="text-center">Welcome to the Magic Music Matcher!</h3></p>
             <p><h5 class="text-center">Please create an account to enter site.</h5></p>
-            <p> The Magic Music Matcher allows you to find similar popular songs from around the world. You will be able to diversify your playlist by getting unique songs from different areas of the world. Our unique algorithm takes into consideration aspects of songs, such as timbre, tempo, and pitch to suggest musically similar, but geographically different songs for you to listen to. You will have the ability to choose from many countries and browse through their popular songs. On top of having access to modern popular songs, you can search for your personal favorite tunes and look for similar songs using the same matching algorithms. Music is a major key to success, and The Music Thing will find you all the keys. </p>
+            <p>
+The Magic Music Matcher allows you to diversify your playlist. You may click on any country and will be given a popular song from that country. You can then click on the compare button and you will be given 5 more similar songs from a different country. Our unique algorithm for comparing the songs takes into consideration aspects of songs, such as timbre, tempo, and pitch to suggest musically similar, but geographically different songs for you to listen to. On top of having access to modern popular songs, you can search for your personal favorite tunes and look for similar songs using the same matching algorithms. Music is a major key to success, and The Music Thing will find you all the keys.
+</p>
         </div>
     </div>
 
 
-    <!-- Create an Account  ---> 
+    <!-- Create an Account  --->
     <div class="large-6 columns">
         <div class="profile-card">
-            <p><h3 class="text-center">Create an Account</h3></p> 
+            <p><h3 class="text-center">Create an Account</h3></p>
             <form data-abide novalidate method="POST" action="{{ url_for('authOrCreate') }}">
                 <div data-abide-error class="alert callout" style="display: none;">
                     <p><i class="fi-alert"></i> Please check form for errors.</p>
