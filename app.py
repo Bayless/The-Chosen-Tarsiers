@@ -108,7 +108,6 @@ def getSongAndInfo():
     country = request.args.get("country")
     #get a song, its info, and another song and its info and put that into two dictionaries
     chosenSongInfo = matchingAlgo.geoAttributes(country)
-    print chosenSongInfo
     if chosenSongInfo == 'NO SONGS FOUNDS':
         return 'error'
     
@@ -178,7 +177,6 @@ def getSearchedSongInfo():
         return 'error'
     if songResults[0] == 'S':
         return 'error'
-    print songResults
     return json.dumps(songResults)
 
 #About page
@@ -210,5 +208,5 @@ def page_not_found(e):
     return render_template('nope.html'), 500
 
 if __name__ == "__main__":
-    app.debug = True
+    app.debug = False
     app.run()

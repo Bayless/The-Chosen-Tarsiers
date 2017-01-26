@@ -24,8 +24,6 @@ def getArtist(name = ''):
     encoded = urllib.urlencode(query_request)
 
     url += '?' + encoded
-    
-    print url
 
     return api_manager.issue_request(url)
 
@@ -54,8 +52,6 @@ def search(name = '', country = '', genre = '', limit = 100):
     encoded = urllib.urlencode(query_request)
 
     url += '?' + encoded
-    
-    print url
 
     return api_manager.issue_request(url)
 
@@ -75,7 +71,6 @@ def get_similar_song_name(name = '', offset = 1):
     encoded = urllib.urlencode(query_request)
 
     url += '?' + encoded
-    print url
 
     return api_manager.issue_request(url)
 
@@ -92,7 +87,6 @@ def get_info(id = ''):
     encoded = urllib.urlencode(query_request)
 
     url += '?' + encoded
-    print url
     return api_manager.issue_request(url)
 
 
@@ -108,7 +102,6 @@ def get_spotify_id(track_id = ''):
     encoded = urllib.urlencode(query_request)
 
     url += '?' + encoded
-    print url
     return api_manager.issue_request(url)
 
 
@@ -125,5 +118,4 @@ def get_tracks(id = ''):
 
     url += '?' + encoded
 
-    print url
     return api_manager.issue_request(url)

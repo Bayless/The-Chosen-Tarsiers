@@ -35,7 +35,6 @@ def get_top_artists(country = ''):
 
     url += '?' + encoded
 
-    print url
     
     r = urllib2.Request(url)
 

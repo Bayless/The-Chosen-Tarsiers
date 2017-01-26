@@ -41,8 +41,6 @@ def authenticate():
 def get_top_tracks(id = '', country = ''):
     url = 'https://api.spotify.com/v1/artists/' + id + '/top-tracks?country=' + country
 
-    print url
-
     r = urllib2.Request(url)
 
     response = urllib2.urlopen(r, timeout = 30).read()

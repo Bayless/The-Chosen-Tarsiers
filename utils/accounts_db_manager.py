@@ -44,7 +44,6 @@ def getMySongs(user):
     out = c.fetchall()
     for song in out:
         songList.append(getBasicInfo(song[1]))
-    print songList
     db.commit()
     db.close()
 
