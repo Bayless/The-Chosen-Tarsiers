@@ -69,6 +69,7 @@ div.unclickable
     <div class="unclickable" id="loading">
       <p><img src="static/ripple.svg" /> Please Wait</p>
     </div>
+    <div id="status"></div>
     <div class="row">
         <div class="medium-6 columns">
             <div class="card">
@@ -218,11 +219,17 @@ $(function(){
             //'POST'
             data: input,
             //title,artist
-            success: function( d ) {
-                d = JSON.parse(d);
-                console.log(spotifyID); //debugging
-                console.log("song saved"); //debugging
-                console.log(d["isSuccess"]); //debugging
+				success: function( d ) {
+				d = JSON.parse(d);
+				console.log(spotifyID); //debugging
+				console.log("song saved"); //debugging
+				console.log(d["isSuccess"]); //debugging
+				if (d["isSuccess"] == true){
+      $("#status").html( '<div class="callout success"><strong>Yay!</strong> Song saved.</div>');
+      } else {
+      $("#status").html( '<div class="callout alert"><strong>We gotchu!</strong> Song already saved.</div>');
+      };
+
             }
         });
     });
