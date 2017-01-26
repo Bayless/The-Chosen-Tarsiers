@@ -68,7 +68,7 @@ div.unclickable
   <div class="unclickable" id="loading">
     <p><img src="static/ripple.svg" /> Please Wait</p>
   </div>
-  
+  <div id="status"></div>
     <div id="status"></div>
     <br>
     <div class="row">
@@ -170,7 +170,15 @@ div.unclickable
       //'POST'
       data: input,
       //title,artist
-      success: function( d ) {
+							 success: function( d ) {
+							 console.log(d)
+							 if (d == 'error') {
+							 $("#status").html( '<div class="callout alert"><strong>Snap!</strong> Spotify is giving us grief, please try again</div>');
+							 console.log('hello')
+							 $('#status').show()
+							 }
+							 else {
+							 $('#status').hide();
       d = JSON.parse(d);
       modifyThis(e, d[0]["countryCode"], map2);
       
@@ -182,7 +190,8 @@ div.unclickable
       // Creds to Rodda for helping me jQuerey-ifying things
       // save song buttons
       // put in song info
-      $('#' + generatedSongIds['country']).html(d[0]['countryName']);
+		      $('#' + generatedSongIds['country']).html(d[0]['countryName']);
+		      }
       hideLoading(); // hide loader
       }
       });

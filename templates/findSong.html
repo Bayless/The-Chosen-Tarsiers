@@ -179,9 +179,11 @@ $(function(){
 							   console.log(d);
 							   if (d == 'error') {
 							   $("#status").html( '<div class="callout alert"><strong>Snap!</strong> Spotify is giving us grief, please try again</div>');
+							   $('#status').show()
 							   }
 							   else {
-		d = JSON.parse(d);
+							   d = JSON.parse(d);
+							   $('#status').hide();
 
 		
                 modifyOther(e, d["generatedSongs"][0]["countryCode"], map2);

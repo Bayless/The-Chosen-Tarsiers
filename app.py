@@ -118,6 +118,9 @@ def getSongAndInfo():
     #a list of dictionaries representing each of the 5 songs yeah
     #sorry the country thing is redundant
     #put those two dictionaries together
+    if generatedSongs == 'Not enough songs':
+        return 'error'
+    
     result = {'chosenSongInfo':chosenSongInfo,
             'generatedSongs':generatedSongs
             }
@@ -171,6 +174,11 @@ def getSearchedSongInfo():
     spotifyID = request.args.get("spotifyID")
     country = request.args.get("country")
     songResults = matchingAlgo.trackCompilerFixedCountry(id = spotifyID, country = country)
+    if songResults == 'Not enough songs':
+        return 'error'
+    if songResults[0] == 'S':
+        return 'error'
+    print songResults
     return json.dumps(songResults)
 
 #About page
