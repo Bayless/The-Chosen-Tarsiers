@@ -168,3 +168,11 @@ Wrote delete song
 
 roddaJ -- 2017-1-24 14:00
 made music graph API work
+
+anyaK -- 2017-1-24 00:28:43
+Fixed buttons
+Fixed error messages
+Added ajax loading
+Worked on bug fixes
+Made about page and stuck jQuerey on that
+Wrote jquerey and python for searched song version of the site
