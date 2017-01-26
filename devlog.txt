@@ -220,7 +220,16 @@ More jinga issued fixed with Anya's help
 Updated dictionaries using global variables
 Tested limits for API calls to optimize calls
 
+roddaJ -- 2017-1-25 ALL DAY
+Debugged problems as they arose
+Added many API endpoints in coordinating with Jason
+Added front end alerts and loading things
+
 ================2017-1-26================
+
+roddaJ -- 2017-1-26 ALL MORNING
+Fixed final bugs
+Made sure nothing crashes site, displays error messages
 
 jasonM -- 2017-1-26 00:11
 Updated songs to provide various artists
