@@ -178,9 +178,9 @@ $(function(){
 							   success: function( d ) {
 							   console.log(d);
 							   if (d == 'error') {
-							   console.log(document.location.protocol);
-							   window.location = document.location.protocol + '/map'
+							   $("#status").html( '<div class="callout alert"><strong>Snap!</strong> Spotify is giving us grief, please try again</div>');
 							   }
+							   else {
 		d = JSON.parse(d);
 
 		
@@ -198,7 +198,7 @@ $(function(){
                 $('#' + chosenSongIds['country']).html(country);
                 $('#' + generatedSongIds['country']).html(d["generatedSongs"][0]['countryName']);
                 $('#' + chosenSongIds['title']).html("Song Title: " + d["chosenSongInfo"]['title']);
-                $('#' + chosenSongIds['artist']).html("Artist: " + d["chosenSongInfo"]['artist']);
+                $('#' + chosenSongIds['artist']).html("Artist: " + d["chosenSongInfo"]['artist']);}
                 hideLoading(); // hide loader
             }
         });
