@@ -160,7 +160,7 @@ def searchedSong():
     #artist = request.args.get("artist")
     return render_template("searchedSong.html",givenSong=givenSong)
 
-#get searched song info 
+#get searched song info
 @app.route('/getSearchedSongInfo')
 def getSearchedSongInfo():
     if 'username' not in session:
