@@ -56,208 +56,227 @@ div.unclickable
 .event-desc .rsvp.button {
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
-    margin: 0; }
+  margin: 0; }
+
+  #loading { display:none; position:fixed; left:0; top:0; width:100%; height:100%;}
 </style>
 {% endblock %}
 
 {% block body %}
 <center>
-    <br>
+  <br>
+  <div class="unclickable" id="loading">
+    <p><img src="static/ripple.svg" /> Please Wait</p>
+  </div>
+  
     <div id="status"></div>
     <br>
     <div class="row">
-        <div class="medium-6 columns">
-            <div class="card">
-                <div class="content">
-                    <span class=title">
-                        <b><div id="chosenSongTitle">{{ givenSong["title"] }}</div> </b>
-                    </span>
+      <div class="medium-6 columns">
+        <div class="card">
+          <div class="content">
+            <span class="title">
+              <b><div id="chosenSongTitle">{{ givenSong["title"] }}</div> </b>
+            </span>
+          </div>
+          <div class="action">
+            <div class="row">
+              <div class=" small-9 columns">
+                <div id="chosenSongArtist"><b>Artist: </b>{{ givenSong["artist"] }} </div>
+              </div>
+              <div class= "small-3 columns">
+                <div id="saveChosenSong"><button name="saveSong" value="{{ givenSong["spotifyID"] }}" type="button" class="success button">Save This Song</button>
                 </div>
-                <div class="action">
-                    <div class="row">
-                        <div class=" small-9 columns">
-                            <div id="chosenSongArtist"><b>Artist: </b>{{ givenSong["artist"] }} </div>
-                        </div>
-                        <div class= "small-3 columns">
-                            <div id="saveChosenSong"><button name="saveSong" value="{{ givenSong["spotifyID"] }}" type="button" class="success button">Save This Song</button>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
+              </div>
             </div>
+	    
+          </div>
         </div>
-        <div class="medium-6 columns">
-            <div class="card">
-                <div class="content">
-                    <span class=title">
-                        Generated Country
-                        <b><div id="generatedCountryName">Select a country on the left or search for a song to get started!</div> </b>
-                    </span>
+      </div>
+      <div class="medium-6 columns">
+        <div class="card">
+          <div class="content">
+            <span class="title">
+              Generated Country
+              <b><div id="generatedCountryName">Select a country on the left or search for a song to get started!</div> </b>
+	    </span>
 
-                </div>
-                <div class="action">
-                    <div id="world-map2" style="width: 520px; height: 350px"></div>
-                    <br>
-                    <div id="generatedSongs">
-                        <div id = "generatedSong0">
-                        </div>
-                        <div id = "generatedSong1">
-                        </div>
-                        <div id = "generatedSong2">
-                        </div>
-                        <div id = "generatedSong3">
-                        </div>
-                        <div id = "generatedSong4">
-                        </div>
-                    </div> 
-                </div>
-            </div>
+	  </div>
+	  <div class="action">
+            <div id="world-map2" style="width: 520px; height: 350px"></div>
+            <br>
+            <div id="generatedSongs">
+              <div id = "generatedSong0">
+              </div>
+              <div id = "generatedSong1">
+              </div>
+              <div id = "generatedSong2">
+              </div>
+              <div id = "generatedSong3">
+              </div>
+              <div id = "generatedSong4">
+              </div>
+            </div> 
+          </div>
         </div>
+      </div>
     </div>
-
+    
     <script>
+      
+      
+      
+      // This function sets up the map and all of the responces to clicking
+      // #veryProud
+      $(function(){
+      
+      // This function is for testing map interation
+      var modifyThis = function( e, code, thisMap){
+      thisMap.setFocus({region: code, animate: true}); //go to that region
+      thisMap.clearSelectedRegions();
+      thisMap.setSelectedRegions(code);
+      };
+      
+      //the IDs for stuff about the songs
+      var chosenSongIds = {
+      'country' : "chosenCountryName",
+      'title' : 'chosenSongTitle',
+      'artist' : 'chosenSongArtist'
+      };
+      
+      var generatedSongIds = {
+      'country' : "generatedCountryName",
+      'title' : 'generatedSongTitle',
+      'artist' : 'generatedSongArtist'
+      };
+      
+      //var title = chosenSongIds['title'];
+      //var artist = chosenSongIds['artist'];
+      
+      
+      // This function takes a country code and a dictionary of ids
+      // and gets song info using ajax
+      // and then puts that info on the page
+      var post = function( e, code, country, id) {
+      showLoading(); // loading symbol
+      var input = { 'country' : country , 'spotifyID': id };
+      
+      // currently recieves: dictionary with one entry --> the uppercase of country name lol
+      // should recieve: dictionary
+      $.ajax({
+      url: '/getSearchedSongInfo',
+      //'/saveSong'
+      type: 'GET',
+      //'POST'
+      data: input,
+      //title,artist
+      success: function( d ) {
+      d = JSON.parse(d);
+      modifyThis(e, d[0]["countryCode"], map2);
+      
+      // you do not want to know how messy this was when I first wrote it...
+      for (i = 0; i < 5; i++) {
+      $('#generatedSong' + i).html('<div class="row"> <div class="small-8 columns"> <h4> Song Title: '  +  d[i]['title'] + '</h4> Artist: ' + d[i]['artist'] + '</div>  <div class="small-4 columns">   <button name="saveSong" value="' + d[i]['spotifyID'] + '" type="button" class="success button">Save This Song</button> </div>  </div> <hr>');
+      };
+      
+      // Creds to Rodda for helping me jQuerey-ifying things
+      // save song buttons
+      // put in song info
+      $('#' + generatedSongIds['country']).html(d[0]['countryName']);
+      hideLoading(); // hide loader
+      }
+      });
+      //console.log("did the ajax thing");
+      };
+      
+      //this function saves songs
+      // var saveSong = function( spotifyID ) {
+      
+      $(document).on('click', '[name="saveSong"]', function(){
+      spotifyID = $(this).val();
+      var input = { 'spotifyID': spotifyID};
+      
+      $.ajax({
+      url: '/saveSong',
+      //'/saveSong'
+      type: 'GET',
+      //'POST'
+      data: input,
+      //title,artist
+      success: function( d ) {
+      d = JSON.parse(d);
+      console.log(spotifyID); //debugging
+      console.log("song saved"); //debugging
+      console.log(d["isSuccess"]); //debugging
+      if (d["isSuccess"] == true){
+      $("#status").html( '<div class="callout success"><strong>Yay!</strong> Song saved.</div>');
+      } else {
+      $("#status").html( '<div class="callout alert"><strong>We gotchu!</strong> Song already saved.</div>');
+      };
+      }
+      });
+      });
+      
+      //  $(document).on('click', '[name="saveSong"]', function(){
+      //     saveSong(this.value());
+      // });
+      
+      
+      // non interactive map
+      var map2;
+      
+      
+      //oooh so this is how you get the country name...
+      /*
+      var regionDictionary = "{"; //really just a string
+      for (key in map.regions){
+      console.log(key);
+      console.log(map.regions[key]["config"]["name"]);
+      regionDictionary += '"' + map.regions[key]["config"]["name"] + '":"' + key + '",';
+      };
+      console.log(regionDictionary);
+      */
+      
+      // map2
+      map2 = new jvm.Map({
+      map: 'world_mill', //set the map file
+      container: $('#world-map2'), //how to tag the map div
+      regionsSelectable: true, // but only I can haha
+      regionsSelectableOne: true, // and only one of course
+      
+      
+      //set selectd region styling
+      regionStyle: {
+      selected: {
+      fill: 'red'
+      }
+      },
+      onRegionClick: function(e, code){
+      map2.setFocus({region: code, animate: true});
+      post(e,code,map2.regions[code]["config"]["name"],"{{ givenSong["spotifyID"]  }}");
+      }
+      });
+      
+      });
+      
+      //    map.container.click(function(e){
+      //        console.log("yolo");
+      //window.location.href = "http://google.com";
+      //    });
+      //});
+      
+
+function showLoading() {
+    $("#world-map").addClass("unclickable");
+    $("#loading").show();
+}
+
+function hideLoading() {
+    $("#world-map").removeClass("unclickable");
+    $("#loading").hide();
+}
 
 
-
-// This function sets up the map and all of the responces to clicking
-// #veryProud
-$(function(){
-
-    // This function is for testing map interation
-    var modifyThis = function( e, code, thisMap){
-        thisMap.setFocus({region: code, animate: true}); //go to that region
-        thisMap.clearSelectedRegions();
-        thisMap.setSelectedRegions(code);
-    };
-
-    //the IDs for stuff about the songs
-    var chosenSongIds = {
-        'country' : "chosenCountryName",
-        'title' : 'chosenSongTitle',
-        'artist' : 'chosenSongArtist'
-    };
-
-    var generatedSongIds = {
-        'country' : "generatedCountryName",
-        'title' : 'generatedSongTitle',
-        'artist' : 'generatedSongArtist'
-    };
-
-    //var title = chosenSongIds['title'];
-    //var artist = chosenSongIds['artist'];
-
-
-    // This function takes a country code and a dictionary of ids
-    // and gets song info using ajax
-    // and then puts that info on the page
-    var post = function( e, code, country, id) {
-
-        var input = { 'country' : country , 'spotifyID': id };
-
-        // currently recieves: dictionary with one entry --> the uppercase of country name lol
-        // should recieve: dictionary
-        $.ajax({
-            url: '/getSearchedSongInfo',
-            //'/saveSong'
-            type: 'GET',
-            //'POST'
-            data: input,
-            //title,artist
-            success: function( d ) {
-                d = JSON.parse(d);
-                modifyThis(e, d[0]["countryCode"], map2);
-
-                // you do not want to know how messy this was when I first wrote it...
-                for (i = 0; i < 5; i++) {
-                    $('#generatedSong' + i).html('<div class="row"> <div class="small-8 columns"> <h4> Song Title: '  +  d[i]['title'] + '</h4> Artist: ' + d[i]['artist'] + '</div>  <div class="small-4 columns">   <button name="saveSong" value="' + d[i]['spotifyID'] + '" type="button" class="success button">Save This Song</button> </div>  </div> <hr>');
-                };
-
-                // Creds to Rodda for helping me jQuerey-ifying things
-                // save song buttons
-                // put in song info
-                $('#' + generatedSongIds['country']).html(d[0]['countryName']);
-            }
-        });
-        //console.log("did the ajax thing");
-    };
-
-    //this function saves songs
-    // var saveSong = function( spotifyID ) {
-
-    $(document).on('click', '[name="saveSong"]', function(){
-        spotifyID = $(this).val();
-        var input = { 'spotifyID': spotifyID};
-
-        $.ajax({
-            url: '/saveSong',
-            //'/saveSong'
-            type: 'GET',
-            //'POST'
-            data: input,
-            //title,artist
-            success: function( d ) {
-                d = JSON.parse(d);
-                console.log(spotifyID); //debugging
-                console.log("song saved"); //debugging
-                console.log(d["isSuccess"]); //debugging
-                if (d["isSuccess"] == true){
-                    $("#status").html( '<div class="callout success"><strong>Yay!</strong> Song saved.</div>');
-                } else {
-                    $("#status").html( '<div class="callout alert"><strong>We gotchu!</strong> Song already saved.</div>');
-                };
-            }
-        });
-    });
-
-    //  $(document).on('click', '[name="saveSong"]', function(){
-    //     saveSong(this.value());
-    // });
-
-
-    // non interactive map
-    var map2;
-
-
-    //oooh so this is how you get the country name...
-    /*
-       var regionDictionary = "{"; //really just a string
-       for (key in map.regions){
-       console.log(key);
-       console.log(map.regions[key]["config"]["name"]);
-       regionDictionary += '"' + map.regions[key]["config"]["name"] + '":"' + key + '",';
-       };
-       console.log(regionDictionary);
-     */
-
-    // map2
-    map2 = new jvm.Map({
-        map: 'world_mill', //set the map file
-        container: $('#world-map2'), //how to tag the map div
-        regionsSelectable: true, // but only I can haha
-        regionsSelectableOne: true, // and only one of course
-
-
-        //set selectd region styling
-        regionStyle: {
-            selected: {
-                fill: 'red'
-            }
-        },
-        onRegionClick: function(e, code){
-            map2.setFocus({region: code, animate: true});
-            post(e,code,map2.regions[code]["config"]["name"],"{{ givenSong["spotifyID"]  }}");
-        }
-    });
-
-});
-
-//    map.container.click(function(e){
-//        console.log("yolo");
-//window.location.href = "http://google.com";
-//    });
-//});
-
-    </script>
-</center>
+		      </script>
+							 </center>
 {% endblock %}
