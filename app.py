@@ -138,7 +138,6 @@ def searchResults():
         formdict = request.form
         results = {}
         results = search.search(formdict["query"])
-        #print "stuff: " + formdict['query']
         return render_template("searchResults.html", songList=results)
 
 #returns basic song info
@@ -169,7 +168,6 @@ def getSearchedSongInfo():
     spotifyID = request.args.get("spotifyID")
     country = request.args.get("country")
     songResults = matchingAlgo.trackCompilerFixedCountry(id = spotifyID, country = country)
-    print songResults
     return json.dumps(songResults)
 
 #About page
