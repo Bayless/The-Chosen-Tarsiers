@@ -108,6 +108,7 @@ def getSongAndInfo():
     country = request.args.get("country")
     #get a song, its info, and another song and its info and put that into two dictionaries
     chosenSongInfo = matchingAlgo.geoAttributes(country)
+    print chosenSongInfo
     genre = chosenSongInfo["genre"]
     #currently just getting a random country....  Song getting algo people, I will change this once you get me a song and its info
     generatedSongs = matchingAlgo.similarTrackCompiler(genre = genre, country = country)

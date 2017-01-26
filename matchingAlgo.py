@@ -14,7 +14,7 @@ import config
 # When given a country, return a random artist
 def getArtistRaw(country=""):
     raw = music_graph.search(country = country)["data"]
-    return random.choice(raw)
+    return raw
 
 #When given JSON of random artist, return name
 def getArtistName(artistRaw):
@@ -40,11 +40,12 @@ def getTrackAudio(trackID = ""):
 # When given a country, return a song from country with spotify attributes
 def geoAttributes(country = ""):
     raw = getArtistRaw(country)
-    print raw
-    genre = getArtistGenre(raw)
-    print genre
-    artistName = getArtistName(raw)
-    artistID = getArtistID(raw)
+    artist = random.choice(raw)
+    while "main_genre" not in artist:
+        artist = random.choice(raw)
+    genre = artist["main_genre"]
+    artistName = getArtistName(artist)
+    artistID = getArtistID(artist)
     raw = getTrackRaw(artistID)
     track = raw[0]
     i = 0
@@ -73,6 +74,7 @@ def geoAttributes(country = ""):
              "danceability" : danceability,
              "instrumentalness" : instrumentalness,
              "acousticness" : acousticness}
+
 
 global generatedCountry
 generatedCountry = ""
@@ -122,7 +124,6 @@ def similarTrackCompiler(genre = "", country = ""):
             i += 1
             retDict += [track]
             if i >= 5:
-                print len(retDict)
                 return retDict
     return "Not enough songs"
 
@@ -161,7 +162,7 @@ def trackCompilerFixedCountry(id = "", country = ""):
             i += 1
             retDict += [track]
             if i >= 5:
-                print len(retDict)
+
                 return retDict
     return "Not enough songs"
 
