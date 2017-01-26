@@ -194,7 +194,7 @@ $(function(){
                 // save song buttons
                 $('#saveChosenSong').html('<button name="saveSong" value="' + d['chosenSongInfo']['spotifyID'] + '"type="button" class="success button">Save This Song</button>');
                 // put in song info
-                $('#' + chosenSongIds['country']).html(d["chosenSongInfo"]['countryName']);
+                $('#' + chosenSongIds['country']).html(country);
                 $('#' + generatedSongIds['country']).html(d["generatedSongs"][0]['countryName']);
                 $('#' + chosenSongIds['title']).html("Song Title: " + d["chosenSongInfo"]['title']);
                 $('#' + chosenSongIds['artist']).html("Artist: " + d["chosenSongInfo"]['artist']);
