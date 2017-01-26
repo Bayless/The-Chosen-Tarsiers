@@ -236,7 +236,7 @@ $(function(){
         container: $('#world-map2'), //how to tag the map div
         regionsSelectable: true, // but only I can haha
         regionsSelectableOne: true, // and only one of course
-        id = {{ givenSong["spotifyID"]  }}
+
 
         //set selectd region styling
         regionStyle: {
@@ -246,7 +246,7 @@ $(function(){
         },
         onRegionClick: function(e, code){
             map2.setFocus({region: code, animate: true});
-            post(e,code,map.regions[code]["config"]["name"],id);
+            post(e,code,map2.regions[code]["config"]["name"],"{{ givenSong["spotifyID"]  }}");
         }
     });
 

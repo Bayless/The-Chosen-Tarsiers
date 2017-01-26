@@ -74,7 +74,6 @@ def geoAttributes(country = ""):
              "instrumentalness" : instrumentalness,
              "acousticness" : acousticness}
 
-#print geoAttributes("Russia")
 global generatedCountry
 generatedCountry = ""
 # When given a genre and country, return a dictionary of artists in genre with spotify id
@@ -137,3 +136,38 @@ def trackInfo(id = ""):
              "artist": artist
              }
 
+def getNewArtistsFixedCountry(genre = "", country = ""):
+    raw = music_graph.search(country = country, limit = 100, genre = genre)    
+    global generatedCountry
+    generatedCountry = country
+    returnDict = {}
+    for artist in raw["data"]:
+        artistSpotifyID = "-1"
+        artistName = artist["name"]
+        if ("spotify_id" in artist):
+            artistSpotifyID = artist["spotify_id"]
+        returnDict[artistName] = artistSpotifyID
+    return returnDict
+
+# return list of dictionary of 5 songs
+def trackCompilerFixedCountry(id = "", country = ""):
+    track = trackInfo(id)["artist"]                                                                                                                     
+    genre = music_graph.getArtist(track)["data"][0]["main_genre"]  
+    newArtists = getNewArtistsFixedCountry(genre = genre, country = country)
+    i = 0 
+    retDict = []
+    for artist in newArtists:
+        for track in getTopTracks(newArtists[artist]):
+            i += 1
+            retDict += [track]
+            if i >= 5:
+                print len(retDict)
+                return retDict
+    return "Not enough songs"
+
+def fixedCountrySimilar(id = "", country = ""):
+    spotifyInfo = trackInfo(id)["artist"]
+    genre =  music_graph.getArtist(test)["data"][0]["main_genre"]
+
+
+#When given SpotifyID and country, return 5 similar songs from new country
