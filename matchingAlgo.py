@@ -122,8 +122,8 @@ def similarTrackCompiler(genre = '', country = ''):
         for track in getTopTracks(newArtists[artist]):
             i += 1
             retDict += [track]
-            if i >= 5:
-                return retDict
+    if len(retDict) >= 5:    
+        return retDict
     return 'Not enough songs'
 
 #When given a spotify song ID, return title and artist
@@ -156,14 +156,21 @@ def trackCompilerFixedCountry(id = '', country = ''):
     newArtists = getNewArtistsFixedCountry(genre = genre, country = country)
     i = 0 
     retDict = []
+
+    j = 0 
+
     for artist in newArtists:
         for track in getTopTracks(newArtists[artist]):
             i += 1
             retDict += [track]
-            if i >= 5:
+    
+    if len(retDict) >= 5:    
+        return retDict
 
-                return retDict
     return 'Not enough songs'
+
+
+#print trackCompilerFixedCountry(id = "3AhXZa8sUQht0UEdBJgpGc", country = "Canada")
 
 def fixedCountrySimilar(id = '', country = ''):
     spotifyInfo = trackInfo(id)['artist']
