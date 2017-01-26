@@ -151,6 +151,10 @@ Worked on Spotify player
 jasonM -- 2017-1-24 2:02:16
 Added MusicGraph API endpoints, and did matching things
 
+jasonM -- 2017-1-24 11:48
+Started writing out the algorithm with MusicGraph
+Started integrating end points, parsed through JSON files to get relevant information
+
 anyaK -- 2017-1-24 12:24:59
 added jasonHelper
 added favicon
@@ -169,6 +173,15 @@ Wrote delete song
 roddaJ -- 2017-1-24 14:00
 made music graph API work
 
+jasonM -- 2017-1-24 14:22
+Attempted at using spotify ID to get more relevant tracks from APIs
+
+jasonM -- 2017-1-24 18:48
+Finished integrating routes and started getting attributes from Spotify API
+More track info obtained
+Refactored Anya's helper function
+Added in edge case values for API functions
+
 anyaK -- 2017-1-24 00:28:43
 Fixed buttons
 Fixed error messages
@@ -176,3 +189,40 @@ Added ajax loading
 Worked on bug fixes
 Made about page and stuck jQuerey on that
 Wrote jquerey and python for searched song version of the site
+
+================2017-1-25================
+
+jasonM -- 2017-1-25 10:35
+Cleaned up functions to be more readable
+Updated helper functions
+
+jasonM -- 2017-1-25 12:38
+Created dictionaries to pass to frontend
+Fixed jinga issues with Anya's help
+
+jasonM -- 2017-1-25 13:34
+Added some comments to API functions
+Started tracking some more features
+
+jasonM -- 2017-1-25 15:09
+Used helper functions to configure randomizer functions
+Completed function that takes country name and returns random artist with song
+Completed function that takes country and genre and returns similar songs
+
+jasonM -- 2017-1-25 17:55
+Connected front end to back end
+Rewrote API tester to more readable
+
+jasonM -- 2017-1-25 20:27
+Debugged while other member's head to SING! practice
+Wandered around Stuyvesant searching for food carts
+More jinga issued fixed with Anya's help
+Updated dictionaries using global variables
+Tested limits for API calls to optimize calls
+
+================2017-1-26================
+
+jasonM -- 2017-1-26 00:11
+Updated songs to provide various artists
+Listened to some folk music and song along with Bayle, Rodda, and Anya 
+
