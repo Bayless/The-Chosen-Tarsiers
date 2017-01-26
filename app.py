@@ -113,7 +113,7 @@ def getSongAndInfo():
     
     genre = chosenSongInfo["genre"]
     #currently just getting a random country....  Song getting algo people, I will change this once you get me a song and its info
-    generatedSongs = matchingAlgo.similarTrackCompiler(genre = genre, country = country)
+    generatedSongs = random.sample(matchingAlgo.similarTrackCompiler(genre = genre, country = country),5)
     #a list of dictionaries representing each of the 5 songs yeah
     #sorry the country thing is redundant
     #put those two dictionaries together
@@ -172,7 +172,7 @@ def getSearchedSongInfo():
         return redirect("/")
     spotifyID = request.args.get("spotifyID")
     country = request.args.get("country")
-    songResults = matchingAlgo.trackCompilerFixedCountry(id = spotifyID, country = country)
+    songResults = random.sample(matchingAlgo.trackCompilerFixedCountry(id = spotifyID, country = country), 5)
     if songResults == 'Not enough songs':
         return 'error'
     if songResults[0] == 'S':
