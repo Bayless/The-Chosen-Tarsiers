@@ -81,25 +81,24 @@ generatedCountry = ''
 # When given a genre and country, return a dictionary of artists in genre with spotify id
 def getNewArtists(genre = '', country = ''):
     randCountry = helper.getCountryNot(country)
-    raw = music_graph.search(country = randCountry, limit = 10, genre = genre)    
+    raw = music_graph.search(country = randCountry, limit = 65, genre = genre)    
     while (not raw['data']):
         randCountry = helper.getCountryNot(country)
-        raw = music_graph.search(country = randCountry, limit = 10, genre = genre)
+        raw = music_graph.search(country = randCountry, limit = 65, genre = genre)
     global generatedCountry
     generatedCountry = randCountry
     returnDict = {}
     for artist in raw['data']:
-        artistSpotifyID = '-1'
         artistName = artist['name']
         if ('spotify_id' in artist):
             artistSpotifyID = artist['spotify_id']
-        returnDict[artistName] = artistSpotifyID
+            returnDict[artistName] = artistSpotifyID
+        else:
+            continue
     return returnDict
 
 #When given spotify Artist ID, return list of dictionaries of top tracks from artist
 def getTopTracks(spotifyArtistID = ''):
-    if spotifyArtistID == '-1':
-        return 'SPOTIFY NOT AVAILABLE'
     list = []
     for track in spotify.get_top_tracks(id = spotifyArtistID, country = 'US')['tracks']:
         title = track['name']
@@ -152,7 +151,7 @@ def getNewArtistsFixedCountry(genre = '', country = ''):
 
 # return list of dictionary of 5 songs
 def trackCompilerFixedCountry(id = '', country = ''):
-    track = trackInfo(id)['artist']                                                                                                                     
+    track = trackInfo(id)['artist']                                                                                                         
     genre = music_graph.getArtist(track)['data'][0]['main_genre']  
     newArtists = getNewArtistsFixedCountry(genre = genre, country = country)
     i = 0 
