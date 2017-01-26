@@ -174,8 +174,15 @@ $(function(){
             //'POST'
             data: input,
             //title,artist
-            success: function( d ) {
-                d = JSON.parse(d);
+							   success: function( d ) {
+							   console.log(d);
+							   if (d == 'error') {
+							   console.log(document.location.protocol);
+							   window.location = document.location.protocol + '/map'
+							   }
+		d = JSON.parse(d);
+
+		
                 modifyOther(e, d["generatedSongs"][0]["countryCode"], map2);
 
                 // you do not want to know how messy this was when I first wrote it...
