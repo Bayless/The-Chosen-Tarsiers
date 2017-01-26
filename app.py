@@ -167,12 +167,8 @@ def getSearchedSongInfo():
         return redirect("/")
     spotifyID = request.args.get("spotifyID")
     country = request.args.get("country")
-    songResults = [
-            {},
-            {},
-            {},
-            {},
-            {}]
+    songResults = matchingAlgo.trackCompilerFixedCountry(id = spotifyID, country = country)
+    print songResults
     return json.dumps(songResults)
 
 #About page
